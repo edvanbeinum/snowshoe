@@ -18,12 +18,56 @@ class FileSystem
 {
 
     /**
-     * Returns  array of all paths to sub folders in a given path
+     * Writes a given string to a file.
+     * will try to create the file if it doesn't exist
+     *
+     * @static
+     * @param string $filePath
+     * @param string $content
+     * @return void
+     */
+    public static function writeFile($filePath, $content)
+    {
+        $directoryPath = pathinfo($filePath, PATHINFO_DIRNAME);
+
+        if (self::createDirectory($directoryPath)) {
+            file_put_contents($filePath, $content);
+        }
+
+    }
+
+    /**
+     * Creates a given directory if it doesn't already exist
+     *
+     * @static
+     * @throws \Exception
+     * @param string $directoryPath
+     * @return bool
+     */
+    public static function createDirectory($directoryPath)
+    {
+        if (is_writeable($directoryPath)) {
+            return TRUE;
+        }
+        else {
+            if (mkdir($directoryPath, 0666)) {
+                return TRUE;
+            }
+            $processUser = posix_getpwuid(posix_geteuid());
+            throw new \Exception(
+                "$directoryPath is not writable and couldn't be created. \nMake sure the user " .
+                "{$processUser['name']} has write permissions on the directory: $directoryPath"
+            );
+        }
+        return FALSE;
+    }
+
+    /**
+     * Returns  array of all paths to sub directories in a given path
      *
      * @static
      * @param string $path path the directory to scan
-     * @param string $fileExtension file extension of files to return. exclude the . in the extension
-     * @return \RecursiveIteratorIterator
+     * @return array
      */
     public static function getDirectoryTree($path)
     {
@@ -35,7 +79,7 @@ class FileSystem
 
             if (substr($fileInfo->getFileName(), 0, 1) !== '.') {
 
-                if($fileInfo->isDir()) {
+                if ($fileInfo->isDir()) {
                     $parsedContents[] = $filePath;
                 }
             }
@@ -45,29 +89,32 @@ class FileSystem
     }
 
     /**
-     * Returns array of paths to all folders and files of given extension in a give folder
+     * Returns array of paths to all directories and files of given extension in a given directory
      *
      * @static
-     * @param $path
-     * @param string $fileExtension
-     * @return void
+     * @param string $directoryPath
+     * @param string $fileExtension (without preceeding period))
+     * @return array of splFileInfo objects
      */
-    public static function getFileTree($path, $fileExtension = 'html')
+    public static function getFileTree($directoryPath, $fileExtension = 'html')
     {
-        $contents = self::_getRecursiveIteratorIterator($path);
+        // This is a recoverable error so we should strip off a filename if given rather than throwing an exception
+        if (!is_dir($directoryPath)) {
+            throw new Exception("$directoryPath is not a directory");
+        }
+        $contents = self::_getRecursiveIteratorIterator($directoryPath);
         $parsedContents = array();
 
         /* @var $fileInfo SplFileInfo */
         foreach ($contents as $filePath => $fileInfo) {
 
+            // Skip over 'hidden' files and directories. That is, any with a name that begins with a  period.
             if (substr($fileInfo->getFileName(), 0, 1) !== '.') {
 
-                if($fileInfo->isDir()) {
-                    $parsedContents[] = $filePath;
-                }
-                // as of 5.3.6 we should use $fileInfo->getExtension()
-                else if ($fileExtension && pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == $fileExtension) {
-                    $parsedContents[] = $filePath;
+                // If current file is not a directory and has the expected file extension, add it to the returned array
+                // as of 5.3.6 we should use $fileInfo->getExtension() instead of pathinfo()
+                if ( ! $fileInfo->isDir() && pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == $fileExtension) {
+                    $parsedContents[] = $fileInfo;
                 }
             }
         }
@@ -75,16 +122,14 @@ class FileSystem
     }
 
     /**
+     * Helper method that instantiates and returns a RecursiveIteratorIterator for the given directory path
+     *
      * @static
      * @param $path
      * @return \RecursiveIteratorIterator
      */
-    protected static function _getRecursiveIteratorIterator($path) {
-                // make sure the directoryPath given has a trailing slash
-        $path = rtrim($path, '/') . '/';
-
-        $path = realpath($path);
-
+    protected static function _getRecursiveIteratorIterator($path)
+    {
         return new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator($path),
             \RecursiveIteratorIterator::SELF_FIRST

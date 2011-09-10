@@ -21,10 +21,10 @@ class Husky
      * Name of the Templating Engine
      * @var string
      */
-    protected $_template;
+    protected $_templatingEngineName;
 
     /**
-     * Name of the parser
+     * Name of the Content Parser
      * @var string
      */
     protected $_parser;
@@ -35,7 +35,7 @@ class Husky
     public function __construct()
     {
         $this->_parser = Config::PARSER;
-        $this->_template = Config::TEMPLATINGENGINE;
+        $this->_templatingEngineName = Config::TEMPLATINGENGINE;
     }
 
     /**
@@ -44,8 +44,16 @@ class Husky
      */
     public function execute()
     {
-        $this->parseContent();
-        $this->parseTemplate();
+        $content = $this->parseContent(APPLICATION_PATH . 'assets/content/index.md');
+        $finalPage = $this->parseTemplate(
+            APPLICATION_PATH . 'assets/templates/layout.html',
+            array(
+                 'content' => $content,
+                 'links' => $this->_buildLinks()
+            )
+        );
+
+        Helper\FileSystem::writeFile(APPLICATION_PATH . 'public/index.html', $finalPage);
     }
 
     /**
@@ -54,55 +62,65 @@ class Husky
      *
      * @static
      * @param $parser
-     * @return Husky\TemplateEngine\Adapter\IAdapter
+     * @return \Husky\TemplateEngine\Adapter\IAdapter
      */
     public static function getTemplateEngine($parser)
     {
-            $className = 'Husky\TemplateEngine\Adapter\\' . $parser . 'Adapter';
-            return new $className;
+        $className = 'Husky\TemplateEngine\Adapter\\' . $parser . 'Adapter';
+        return new $className;
     }
 
     /**
      * @static
      * @param $parser
-     * @return Husky\Parser\Adapter\IAdapter
+     * @return \Husky\Parser\Adapter\IAdapter
      */
     public static function getParserEngine($parser)
     {
         $className = 'Husky\Parser\Adapter\\' . $parser . 'Adapter';
-            return new $className;
+        return new $className;
     }
 
-    public function parseTemplate()
+    /**
+     * Run the given content through the template file at the given template file path
+     *
+     * @param string $templateFilePath
+     * @param string $content
+     * @return String
+     */
+    public function parseTemplate($templateFilePath, $content)
     {
-        $templateEngine = self::getTemplateEngine($this->_template);
-        $template = file_get_contents(APPLICATION_PATH . 'assets/templates/layout.html');
+        $template = file_get_contents($templateFilePath);
+        return self::getTemplateEngine($this->_templatingEngineName)->render($template, $content);
+    }
 
-        $parserEngine = self::getParserEngine($this->_parser);
-        $rawContent = file_get_contents(APPLICATION_PATH . 'assets/content/index.md');
-        $content = $parserEngine->execute($rawContent);
-        
+    /**
+     * Run the content at the given file path through the parser
+     *
+     * @param $contentFilePath
+     * @return String
+     */
+    public function parseContent($contentFilePath)
+    {
 
-        $finalPage = $templateEngine->render($template, array('content' => $content));
-        file_put_contents(APPLICATION_PATH . 'public/index.html', $finalPage);
-        
-        return $content;
+        $rawContent = file_get_contents($contentFilePath);
+        return self::getParserEngine($this->_parser)->execute($rawContent);
     }
 
     /**
      * @param string $template
      */
-    public function setTemplate($template)
+    public function setTemplatingEngineName($template)
     {
-        $this->_template = $template;
+        $this->_templatingEngineName = $template;
     }
 
     /**
      * @return string
      */
-    public function getTemplate()
+    public function getTemplatingEngineName()
     {
-        return $this->_template;
+        return $this->_templatingEngineName;
     }
 
     /**
@@ -120,4 +138,27 @@ class Husky
     {
         return $this->_parser;
     }
+
+    /**
+     * Builds an associative array of links based on the contents for the Content folder.
+     * This is used to generate the links sidebar
+     *
+     * @return array
+     */
+    protected function _buildLinks()
+    {
+        $links = array();
+        $contentArray = \Husky\Helper\FileSystem::getFileTree(APPLICATION_PATH . Config::CONTENT_PATH);
+        var_dump(APPLICATION_PATH . Config::CONTENT_PATH);
+        /* @var $contentFileInfo splFileInfo */
+        foreach ($contentArray as $contentFileInfo) {
+            $links[] = array(
+                'href' => $contentFileInfo->getFilename(),
+                'title' => 'TEST'
+            );
+        }
+        var_dump($links);
+        return $links;
+    }
+
 }

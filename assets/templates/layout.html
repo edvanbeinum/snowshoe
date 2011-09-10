@@ -3,3 +3,10 @@
         {{ "I like %s and %s."|format("that", "bar") }}
 
         {{ content }}
+
+        <ul>
+
+            {% for link in links %}
+                <li><a href="{{ link.href }}">{{ link.title }}</a></li>
+            {% endfor %}
+        </ul>

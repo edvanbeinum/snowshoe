@@ -34,7 +34,7 @@ class HuskyTest extends PHPUnit_Framework_TestCase {
     public function construct_sets_member_vars_from_config()
     {
         $this->assertSame($this->_husky->getParser(), \Husky\Config::PARSER, 'Parser values do not match');
-        $this->assertSame($this->_husky->getTemplate(), \Husky\Config::TEMPLATINGENGINE, 'Templating Engines values do not match');
+        $this->assertSame($this->_husky->getTemplatingEngineName(), \Husky\Config::TEMPLATINGENGINE, 'Templating Engines values do not match');
     }
 
     /**
@@ -50,8 +50,8 @@ class HuskyTest extends PHPUnit_Framework_TestCase {
     /**
      * @test
      */
-    public function parseTemplate()
+    public function execute()
     {
-         var_dump($this->_husky->parseTemplate());
+         //var_dump($this->_husky->execute());
     }
 }

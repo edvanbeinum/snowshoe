@@ -27,7 +27,9 @@ The basic execution flow is:
 todo:
 [ ] Add exception handling
 [*] Setup unit testing
-[ ] Setup vfsSrteam
+[*] Setup vfsSrteam
+[ ] Add support for multiple files and dirs in content
+[ ] Add parsing for getting the title of each blog entry
 [ ] Add Pygment code parsing
 [ ] Add default stylesheet
 
