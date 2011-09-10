@@ -53,29 +53,25 @@ class Husky
      */
     public function execute()
     {
-        $content = $this->getParser()->parseContent(APPLICATION_PATH . 'assets/content/index.md');
-
-        $primaryNav = $this->_getPrimaryNav();
-
-        $finalPage = $this->getTemplateEngine()->parseTemplate(
-            APPLICATION_PATH . 'assets/templates/layout.html',
-            array(
-                 'content' => $content,
-                 'primaryNav' => $primaryNav
-            )
-        );
-
-        Helper\FileSystem::writeFile(APPLICATION_PATH . 'public/index.html', $finalPage);
-    }
-
-    /**
-     * @return array
-     */
-    protected function _getPrimaryNav()
-    {
         $fileInfoArray = Helper\FileSystem::getFileTree(APPLICATION_PATH . Config::CONTENT_PATH, Config::PARSER_FILE_EXTENSION);
-        return $this->_navigation->buildPrimaryNavigation($fileInfoArray);
+        $primaryNav = $this->_navigation->getPrimaryNavigation($fileInfoArray);
+
+        foreach ($fileInfoArray as $contentFile) {
+
+            $content = $this->getParser()->parseContent($contentFile);
+            
+            $finalPage = $this->getTemplateEngine()->parseTemplate(
+                APPLICATION_PATH . 'assets/templates/layout.html',
+                array(
+                     'content' => $content,
+                     'primaryNav' => $primaryNav
+                )
+            );
+            $finalFileName = str_replace(Config::PARSER_FILE_EXTENSION, 'html', $contentFile->getFileName());
+            Helper\FileSystem::writeFile(APPLICATION_PATH . 'public/' . $finalFileName, $finalPage);
+        }
     }
+
 
     /**
      * @param string $template

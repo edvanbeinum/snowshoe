@@ -34,14 +34,14 @@ class Navigation
      * @param array $fileInfoArray
      * @return array
      */
-    public function buildPrimaryNavigation(array $fileInfoArray)
+    public function getPrimaryNavigation(array $fileInfoArray)
     {
         $links = array();
 
         /* @var $contentFileInfo splFileInfo */
         foreach ($fileInfoArray as $contentFileInfo) {
             $links[] = array(
-                'href' => $contentFileInfo->getFilename(),
+                'href' => str_replace(\Husky\Config::PARSER_FILE_EXTENSION, 'html', $contentFileInfo->getFilename()),
                 'title' => $this->getPageTitle($contentFileInfo)
             );
         }

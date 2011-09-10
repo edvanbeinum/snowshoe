@@ -29,9 +29,11 @@ todo:
 [*] Setup unit testing
 [*] Setup vfsSrteam
 [ ] Add support for multiple files and dirs in content
-[ ] Add parsing for getting the title of each blog entry
+[*] Add parsing for getting the title of each blog entry
 [ ] Add Pygment code parsing
 [ ] Add default stylesheet
+[ ] Add navigation ordered by date created - SplFileInfo::getCTime - make available to templates?
+
 
 
 Upcoming features

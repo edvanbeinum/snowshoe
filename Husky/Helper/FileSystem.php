@@ -113,7 +113,7 @@ class FileSystem
 
                 // If current file is not a directory and has the expected file extension, add it to the returned array
                 // as of 5.3.6 we should use $fileInfo->getExtension() instead of pathinfo()
-                if ( ! $fileInfo->isDir() && pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == $fileExtension) {
+                if (!$fileInfo->isDir() && pathinfo($fileInfo->getFilename(), PATHINFO_EXTENSION) == $fileExtension) {
                     $parsedContents[] = $fileInfo;
                 }
             }
