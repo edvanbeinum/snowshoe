@@ -73,7 +73,7 @@ class Husky
      */
     protected function _getPrimaryNav()
     {
-        $fileInfoArray = FileSystem::getFileTree(APPLICATION_PATH . Config::CONTENT_PATH, Config::PARSER_FILE_EXTENSION);
+        $fileInfoArray = Helper\FileSystem::getFileTree(APPLICATION_PATH . Config::CONTENT_PATH, Config::PARSER_FILE_EXTENSION);
         return $this->_navigation->buildPrimaryNavigation($fileInfoArray);
     }
 

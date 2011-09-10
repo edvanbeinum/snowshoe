@@ -21,9 +21,9 @@ class Navigation
     protected $_parser;
 
     /**
-     * @param \Husky\Parser\Adapter\IAdapter $parser
+     * @param \Husky\Parser\Parser $parser
      */
-    public function __construct(\Husky\Parser\Adapter\IAdapter $parser)
+    public function __construct(\Husky\Parser\Parser $parser)
     {
         $this->_parser = $parser;
     }
@@ -42,7 +42,7 @@ class Navigation
         foreach ($fileInfoArray as $contentFileInfo) {
             $links[] = array(
                 'href' => $contentFileInfo->getFilename(),
-                'title' => self::getPageTitle($contentFileInfo->getPathname())
+                'title' => $this->getPageTitle($contentFileInfo)
             );
         }
         return $links;
@@ -53,22 +53,30 @@ class Navigation
      * 'de-slugify' the filename and return that instead
      *
      * @static
-     * @param string $filePath
+     * @param splFileInfo $fileInfo
      * @return string
      */
-    public static function getPageTitle($filePath)
+    public function getPageTitle($fileInfo)
     {
-        $contents = file($filePath, FILE_SKIP_EMPTY_LINES);
-//
-//        foreach ($contents as $contentLine) {
-//            // does the line have an h1 tag
-//        }
+        $htmlContent = $this->_parser->parseContent($fileInfo->getPathname());
+        $domDoc = new \DOMDocument();
+        $domDoc->loadHTML($htmlContent);
 
-        return 'TEST';
+        // suppress errors if h1 element is not found
+        $title = @$domDoc->getElementsByTagName('h1')->item(0)->textContent;
+        if(is_null($title)) {
+
+            // remove the file extension and just have the filename
+            list($fileName) = explode('.', $fileInfo->getFilename());
+            $title = $this->_getDeslugifiedString($fileName);
+        }
+        return $title;
+
     }
 
-    protected function _getDeslugifiedString()
+    protected function _getDeslugifiedString($sluggedString)
     {
-
+        $desluggedString = str_replace(array('-', '_'), ' ', $sluggedString);
+        return ucwords($desluggedString);
     }
 }
