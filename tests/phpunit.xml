@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+        colors="true">
+    <testsuites>
+        <testsuite name="Husky TestSuite">
+            <directory sufix="Test.php">Husky/</directory>
+        </testsuite>
+    </testsuites>
+
+</phpunit>
