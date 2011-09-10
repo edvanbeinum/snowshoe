@@ -13,7 +13,7 @@
  * @package MarkdownAdapter
  * @author Ed van Beinum <edwin@sessiondigital.com>
  */
-class MarkdownAdapter implements IAdapter {
+class Markdown implements IAdapter {
 
     /**
      * @var Markdown_Parser

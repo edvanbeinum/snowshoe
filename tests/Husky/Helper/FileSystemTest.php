@@ -1,6 +1,13 @@
 <?php
+/**
+ *
+ * @author Ed van Beinum <edwin@sessiondigital.com>
+ * @version $Id$
+ * @copyright Ibuildings 07/08/2011
+ * @package HuskyTest
+ */
 
-require_once '../Husky/bootstrap.php';
+require_once '../../Husky/bootstrap.php';
 require_once 'vfsStream/vfsStream.php';
 
 /**

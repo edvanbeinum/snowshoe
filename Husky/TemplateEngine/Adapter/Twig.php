@@ -13,7 +13,7 @@ namespace Husky\TemplateEngine\Adapter;
  * @package Husky
  * @author Ed van Beinum <edwin@sessiondigital.com>
  */
-class TwigAdapter implements IAdapter
+class Twig implements IAdapter
 {
 
     protected $_engine;

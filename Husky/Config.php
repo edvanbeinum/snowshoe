@@ -23,7 +23,9 @@ final class Config
      *
      * @var string
      */
-    const TEMPLATINGENGINE = 'Twig';
+    const TEMPLATING_ENGINE = 'Twig';
+
+    const TEMPLATING_ENGINE_FILE_EXTENSION = 'html';
 
     /**
      * Which text parser are we using. Husky ships with Markdown only
@@ -31,6 +33,8 @@ final class Config
      * @var string
      */
     const PARSER = 'Markdown';
+
+    const PARSER_FILE_EXTENSION = 'md';
 
     /**
      * Path, relative to APPLICATION_PATH, to the content files

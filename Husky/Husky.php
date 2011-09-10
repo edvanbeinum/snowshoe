@@ -18,24 +18,33 @@ require_once('bootstrap.php');
 class Husky
 {
     /**
-     * Name of the Templating Engine
-     * @var string
+     * Templating Engine
+     * @var \Husky\TemplateEngine
      */
-    protected $_templatingEngineName;
+    protected $_templateEngine;
 
     /**
      * Name of the Content Parser
-     * @var string
+     * @var \Husky\Parser
      */
     protected $_parser;
 
     /**
+     * @var \Husky\Helper\Navigation
+     */
+    protected $_navigation;
+
+    /**
+     * Construct this sucker
      *
+     * @todo Use DI for managing dependencies
+     * @void
      */
     public function __construct()
     {
-        $this->_parser = Config::PARSER;
-        $this->_templatingEngineName = Config::TEMPLATINGENGINE;
+        $this->_parser = new Parser\Parser(Config::PARSER);
+        $this->_templateEngine = new TemplateEngine\TemplateEngine(Config::TEMPLATING_ENGINE);
+        $this->_navigation = new Helper\Navigation($this->_parser);
     }
 
     /**
@@ -44,12 +53,15 @@ class Husky
      */
     public function execute()
     {
-        $content = $this->parseContent(APPLICATION_PATH . 'assets/content/index.md');
-        $finalPage = $this->parseTemplate(
+        $content = $this->getParser()->parseContent(APPLICATION_PATH . 'assets/content/index.md');
+
+        $primaryNav = $this->_getPrimaryNav();
+
+        $finalPage = $this->getTemplateEngine()->parseTemplate(
             APPLICATION_PATH . 'assets/templates/layout.html',
             array(
                  'content' => $content,
-                 'links' => $this->_buildLinks()
+                 'primaryNav' => $primaryNav
             )
         );
 
@@ -57,70 +69,31 @@ class Husky
     }
 
     /**
-     * A simple Parameterized Factory method
-     * Instantiates and returns an adapter object of the desired type.
-     *
-     * @static
-     * @param $parser
-     * @return \Husky\TemplateEngine\Adapter\IAdapter
+     * @return array
      */
-    public static function getTemplateEngine($parser)
+    protected function _getPrimaryNav()
     {
-        $className = 'Husky\TemplateEngine\Adapter\\' . $parser . 'Adapter';
-        return new $className;
-    }
-
-    /**
-     * @static
-     * @param $parser
-     * @return \Husky\Parser\Adapter\IAdapter
-     */
-    public static function getParserEngine($parser)
-    {
-        $className = 'Husky\Parser\Adapter\\' . $parser . 'Adapter';
-        return new $className;
-    }
-
-    /**
-     * Run the given content through the template file at the given template file path
-     *
-     * @param string $templateFilePath
-     * @param string $content
-     * @return String
-     */
-    public function parseTemplate($templateFilePath, $content)
-    {
-        $template = file_get_contents($templateFilePath);
-        return self::getTemplateEngine($this->_templatingEngineName)->render($template, $content);
-    }
-
-    /**
-     * Run the content at the given file path through the parser
-     *
-     * @param $contentFilePath
-     * @return String
-     */
-    public function parseContent($contentFilePath)
-    {
-
-        $rawContent = file_get_contents($contentFilePath);
-        return self::getParserEngine($this->_parser)->execute($rawContent);
+        $fileInfoArray = FileSystem::getFileTree(APPLICATION_PATH . Config::CONTENT_PATH, Config::PARSER_FILE_EXTENSION);
+        return $this->_navigation->buildPrimaryNavigation($fileInfoArray);
     }
 
     /**
      * @param string $template
      */
-    public function setTemplatingEngineName($template)
+    public function setTemplateEngine($template)
     {
-        $this->_templatingEngineName = $template;
+        $this->_templateEngine = $template;
     }
 
     /**
+     *
      * @return string
+     *
+     * @todo implement getter injection
      */
-    public function getTemplatingEngineName()
+    public function getTemplateEngine()
     {
-        return $this->_templatingEngineName;
+        return $this->_templateEngine;
     }
 
     /**
@@ -132,33 +105,15 @@ class Husky
     }
 
     /**
+     *
      * @return string
+     *
+     * @todo implement getter injection
      */
     public function getParser()
     {
         return $this->_parser;
     }
 
-    /**
-     * Builds an associative array of links based on the contents for the Content folder.
-     * This is used to generate the links sidebar
-     *
-     * @return array
-     */
-    protected function _buildLinks()
-    {
-        $links = array();
-        $contentArray = \Husky\Helper\FileSystem::getFileTree(APPLICATION_PATH . Config::CONTENT_PATH);
-        var_dump(APPLICATION_PATH . Config::CONTENT_PATH);
-        /* @var $contentFileInfo splFileInfo */
-        foreach ($contentArray as $contentFileInfo) {
-            $links[] = array(
-                'href' => $contentFileInfo->getFilename(),
-                'title' => 'TEST'
-            );
-        }
-        var_dump($links);
-        return $links;
-    }
 
 }
