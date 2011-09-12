@@ -43,36 +43,74 @@ class FileSystemTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * writeFile() creates new file
+     *
+     * @test
+     */
+    public function writeFile_creates_new_file()
+    {
+        $this->_fileSystem->writeFile(vfsStream::url('testDir/one.html'), 'some content');
+        $this->assertTrue(vfsStreamWrapper::getRoot()->hasChild('one.html'));
+    }
+
+
+    /**
+     * writeFile() overwrites existing file
+     *
+     * @test
+     */
+    public function writeFile_overwrites_existing_file()
+    {
+        vfsStream::newFile('one.html')->at(vfsStreamWrapper::getRoot());
+        $this->_fileSystem->writeFile(vfsStream::url('testDir/one.html'), 'some content');
+        $this->assertTrue(vfsStreamWrapper::getRoot()->hasChild('one.html'));
+    }
+
+    /**
+     * writeFile() creates new file in subdir
+     *
+     * @test
+     */
+    public function writeFile_creates_new_file_in_subdir()
+    {
+        $this->_fileSystem->writeFile(vfsStream::url('testDir/subDir/one.html'), 'some content');
+        $this->assertTrue(vfsStreamWrapper::getroot()->getChild('subDir')->hasChild('one.html'));
+    }
+
+    /**
+     * CreateDirectory() creates a new directory
+     *
      * @test
      */
     public function createDirectory_creates_new_directory()
     {
         $this->assertFalse(vfsStreamWrapper::getRoot()->hasChild('newDir'));
 
-        $this->_fileSystem->createDirectory(vfsStream::url('testDir/newDir'));
+        $this->assertTrue($this->_fileSystem->createDirectory(vfsStream::url('testDir/newDir')));
         $this->assertTrue(vfsStreamWrapper::getRoot()->hasChild('newDir'));
     }
 
     /**
+     * createDirectory returns true with existing directory
+     *
      * @test
      */
-    public function createDirectory_returns_true_with_existing_directory()
+    public function createDirectoryreturns_true_with_existing_directory()
     {
-        vfsStream::newDirectory('testDir/newDir', 0755);
-        $this->_fileSystem->createDirectory(vfsStream::url('testDir/newDir'));
-        $this->assertTrue(vfsStreamWrapper::getRoot()->hasChild('newDir'));
+        vfsStream::newDirectory('newDir', 0755)->at(vfsStreamWrapper::getRoot());
+        $this->assertTrue($this->_fileSystem->createDirectory(vfsStream::url('testDir/newDir')));
     }
 
     /**
-     * @return void
+     * createDirectory throws exception if directory is unwritable
+     *
      * @expectedException Exception
      * @test
      */
     public function createDirectory_throws_exception_if_directory_is_unwritable()
     {
-        $newDir = new vfsStreamDirectory('testDir/newDir', 0400);
+        vfsStreamWrapper::getRoot()->chmod(0400);
         $this->_fileSystem->createDirectory(vfsStream::url('testDir/newDir'));
-
     }
 
     /**

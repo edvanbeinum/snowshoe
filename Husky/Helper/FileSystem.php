@@ -50,12 +50,15 @@ class FileSystem
             return TRUE;
         }
         else {
-            if (mkdir($directoryPath, 0666)) {
+
+            // suppress errors on mkdir: we'll throw our own exception if it fails
+            if (@mkdir($directoryPath, 0777)) {
                 return TRUE;
             }
+            
             $processUser = posix_getpwuid(posix_geteuid());
             throw new \Exception(
-                "$directoryPath is not writable and couldn't be created. \nMake sure the user " .
+                $directoryPath . " is not writable and couldn't be created. \nMake sure the user " .
                 "{$processUser['name']} has write permissions on the directory: $directoryPath"
             );
         }

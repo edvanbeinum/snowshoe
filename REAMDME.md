@@ -39,3 +39,8 @@ todo:
 Upcoming features
 * HTML5BP build script integration
 * S3 auto update
+
+Resolve issue with creating absolute vs relative URLs for nav links
+- maybe have a project URL - can be either a URL or absolute path
+
+Add yaml or Zend config for config rather than a loader of class constants

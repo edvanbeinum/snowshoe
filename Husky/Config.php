@@ -41,12 +41,14 @@ final class Config
      *
      * @var string
      */
-    const CONTENT_PATH = 'assets/content';
+    const CONTENT_PATH = 'assets/content/';
 
     /**
      * Path, relative to APPLICATION_PATH, to the template files
      */
-    const TEMPLATE_PATH = 'assets/templates';
+    const TEMPLATE_PATH = 'assets/templates/';
+
+    const PRODUCTION_MODE = FALSE;
 
 
 }

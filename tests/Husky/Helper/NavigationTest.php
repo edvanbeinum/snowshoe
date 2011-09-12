@@ -27,7 +27,8 @@ class NavigationTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->_navigation = new \Husky\Helper\Navigation;
+        $mockParser = $this->getMock('\Husky\Parser\Parser');
+        $this->_navigation = new \Husky\Helper\Navigation($mockParser);
     }
 
     /**
@@ -46,7 +47,7 @@ class NavigationTest extends \PHPUnit_Framework_TestCase
     {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
-          'This test has not been implemented yet.'
+            'This test has not been implemented yet.'
         );
     }
 
@@ -57,5 +58,50 @@ class NavigationTest extends \PHPUnit_Framework_TestCase
     {
 
     }
+
+    /**
+     * @test
+     */
+    public function getUrlFromFilePath_returns_expected_string_in_dev_mode()
+    {
+        $path = APPLICATION_PATH . \Husky\Config::CONTENT_PATH . 'test.md';
+        $expected = APPLICATION_PATH . \Husky\Config::CONTENT_PATH . 'test.html';
+
+        $this->assertSame($expected, $this->_navigation->getUrlFromFilePath($path, FALSE));
+    }
+
+        /**
+     * @test
+     */
+    public function getUrlFromFilePath_with_subdirsreturns_expected_string_in_dev_mode()
+    {
+        $path = APPLICATION_PATH . \Husky\Config::CONTENT_PATH . 'testDir/test.md';
+        $expected = APPLICATION_PATH . \Husky\Config::CONTENT_PATH . 'testDir/test.html';
+
+        $this->assertSame($expected, $this->_navigation->getUrlFromFilePath($path, FALSE));
+    }
+
+    /**
+     * @test
+     */
+    public function getUrlFromFilePath_returns_expected_string_in_production_mode()
+    {
+        $path = APPLICATION_PATH . \Husky\Config::CONTENT_PATH . 'test.md';
+        $expected = '/test.html';
+
+        $this->assertSame($expected, $this->_navigation->getUrlFromFilePath($path, TRUE));
+    }
+
+        /**
+     * @test
+     */
+    public function getUrlFromFilePath_with_subdirs_returns_expected_string_in_production_mode()
+    {
+        $path = APPLICATION_PATH . \Husky\Config::CONTENT_PATH . 'testDir/test.md';
+        $expected = '/testDir/test.html';
+
+        $this->assertSame($expected, $this->_navigation->getUrlFromFilePath($path, TRUE));
+    }
 }
+
 ?>

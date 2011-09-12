@@ -20,7 +20,13 @@ class Parser
 
     protected static $_parser;
 
-    public function __construct($parserName)
+    /**
+     * Pass in the name of the Parser to be used.
+     * Defaults ot 'Markdown'
+     *
+     * @param string $parserName
+     */
+    public function __construct($parserName = 'Markdown')
     {
         $this->_parserName = $parserName;
     }

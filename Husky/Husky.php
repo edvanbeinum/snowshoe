@@ -49,26 +49,29 @@ class Husky
 
     /**
      * Executes the build process
+     * 
      * @return void
      */
     public function execute()
     {
         $fileInfoArray = Helper\FileSystem::getFileTree(APPLICATION_PATH . Config::CONTENT_PATH, Config::PARSER_FILE_EXTENSION);
+        var_dump($fileInfoArray);
         $primaryNav = $this->_navigation->getPrimaryNavigation($fileInfoArray);
 
         foreach ($fileInfoArray as $contentFile) {
 
             $content = $this->getParser()->parseContent($contentFile);
-            
+
             $finalPage = $this->getTemplateEngine()->parseTemplate(
-                APPLICATION_PATH . 'assets/templates/layout.html',
+                APPLICATION_PATH . Config::TEMPLATE_PATH . 'layout.html',
                 array(
                      'content' => $content,
                      'primaryNav' => $primaryNav
                 )
             );
-            $finalFileName = str_replace(Config::PARSER_FILE_EXTENSION, 'html', $contentFile->getFileName());
-            Helper\FileSystem::writeFile(APPLICATION_PATH . 'public/' . $finalFileName, $finalPage);
+            $publicFilePath = \Husky\Helper\Navigation::getPublicFilePath($contentFile->getPathname());
+            var_dump($publicFilePath);
+            Helper\FileSystem::writeFile($publicFilePath, $finalPage);
         }
     }
 
