@@ -71,7 +71,6 @@ class Husky
                 )
             );
             $publicFilePath = \Husky\Helper\Navigation::getPublicFilePath($contentFile->getPathname());
-            var_dump($publicFilePath);
             Helper\FileSystem::writeFile($publicFilePath, $finalPage);
         }
     }
