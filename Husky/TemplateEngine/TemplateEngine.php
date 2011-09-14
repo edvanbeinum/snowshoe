@@ -27,9 +27,9 @@ class TemplateEngine
      */
     protected static $_templateEngine;
 
-    public function __construct($templatingEngineName)
+    public function __construct($templateEngineName = 'Twig')
     {
-        $this->_templateEngineName = $templatingEngineName;
+        $this->_templateEngineName = $templateEngineName;
     }
 
     /**
@@ -50,20 +50,21 @@ class TemplateEngine
     }
 
 
-    public function setTemplatingEngine($templateEngine)
+    public function setTemplateEngine($templateEngine)
     {
         self::$_templateEngine = $templateEngine;
     }
 
 
     /**
-     * Run the given content through the template file at the given template file path
+     * Run template file at the given path through the Template Engine
+     * The second parameter is an array of variables to be injected into the template
      *
      * @param string $templateFilePath
-     * @param string $content
+     * @param array $content
      * @return String
      */
-    public function parseTemplate($templateFilePath, $content)
+    public function parseTemplate($templateFilePath, $content = array())
     {
         $template = file_get_contents($templateFilePath);
         return $this->getTemplateEngine($this->_templateEngineName)->render($template, $content);

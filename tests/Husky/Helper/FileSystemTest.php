@@ -7,7 +7,7 @@
  * @package HuskyTest
  */
 
-require_once '../../Husky/bootstrap.php';
+require_once dirname(__FILE__) .  '/../../../Husky/bootstrap.php';
 require_once 'vfsStream/vfsStream.php';
 
 /**

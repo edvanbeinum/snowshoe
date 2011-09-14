@@ -7,7 +7,7 @@
  * @package HuskyTest 
  */
  
-require_once '../../Husky/bootstrap.php';
+require_once dirname(__FILE__) . '/../../Husky/bootstrap.php';
 
  /**
  * 
@@ -52,7 +52,7 @@ class HuskyTest extends PHPUnit_Framework_TestCase {
      */
     public function execute()
     {
-         var_dump($this->_husky->execute());
+         //var_dump($this->_husky->execute());
     }
 
     /**

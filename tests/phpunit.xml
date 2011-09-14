@@ -2,7 +2,7 @@
 <phpunit convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
-         bootstrap="../Husky/bootstrap.php"
+        
          colors="true">
     <testsuites>
         <testsuite name="Husky TestSuite">
