@@ -8,7 +8,7 @@
  */
 
 
-require_once dirname(__FILE__) .  '/../../../Husky/bootstrap.php';
+require_once dirname(__FILE__) . '/../../../Husky/bootstrap.php';
 
 /**
  * Test class for Navigation.
@@ -62,7 +62,7 @@ class NavigationTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, $this->_navigation->getUrlFromFilePath($path));
     }
 
-        /**
+    /**
      * @test
      */
     public function getUrlFromFilePath_with_subdirsreturns_expected_string()
@@ -71,6 +71,17 @@ class NavigationTest extends \PHPUnit_Framework_TestCase
         $expected = \Husky\Config::ROOT_URL . 'testDir/test.html';
 
         $this->assertSame($expected, $this->_navigation->getUrlFromFilePath($path, \Husky\Config::ROOT_URL));
+    }
+
+    /**
+     * @test
+     */
+    public function getUrlFromFilePath_returns_relative_path_with_no_root_url()
+    {
+        $path = APPLICATION_PATH . \Husky\Config::CONTENT_PATH . 'testDir/test.md';
+        $expected = '/testDir/test.html';
+
+        $this->assertSame($expected, $this->_navigation->getUrlFromFilePath($path, ''));
     }
 }
 
