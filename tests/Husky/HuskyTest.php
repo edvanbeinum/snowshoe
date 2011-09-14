@@ -52,16 +52,8 @@ class HuskyTest extends PHPUnit_Framework_TestCase {
      */
     public function execute()
     {
-         //var_dump($this->_husky->execute());
+         var_dump($this->_husky->execute());
     }
 
-    /**
-     * @return void
-     * @test
-     */
-    public function buildLinks_returns_expected_array()
-    {
-        //var_dump($this->_husky->_buildLinks(APPLICATION_PATH . \Husky\Config::CONTENT_PATH));
-    }
 
 }

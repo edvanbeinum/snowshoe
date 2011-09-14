@@ -1,4 +1,5 @@
-# Husky
+# Husky / Snowshoe
+
 ## A static site generator written in PHP
 
 OK so PHP isn't really the most appropriate language for this. In fact it should probably be Ruby. And if it were in Ruby
@@ -36,7 +37,7 @@ todo:
 [ ] Add default stylesheet
 [ ] Add navigation ordered by date created - SplFileInfo::getCTime - make available to templates?
 [ ] Fix naming conventions on methods for invoking the Parser and Temaplate Engine
-
+[ ] Put Twig, Mustache, Bootstrap, Markdown as Git Submodules
 
 Upcoming features
 * HTML5BP build script integration

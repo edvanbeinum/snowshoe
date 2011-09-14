@@ -1,4 +1,10 @@
-<h1>Wel this is nice</h1>
+<!doctype html>
+<head>
+    <link rel="stylesheet" href="css/bootstrap-1.2.0.min.css">
+</head>
+<body>
+<div class="container">
+<h1>Well this is nice</h1>
 
         {{ "I like %s and %s."|format("that", "bar") }}
 
@@ -7,6 +13,9 @@
         <ul>
 
             {% for link in primaryNav %}
-                <li><a href="{{ link.href }}">{{ link.title }}</a></li>
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
             {% endfor %}
         </ul>
+</div>
+</body>
+
