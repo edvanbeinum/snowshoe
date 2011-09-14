@@ -54,53 +54,23 @@ class NavigationTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function getPageTitle_returns_expected_string()
-    {
-
-    }
-
-    /**
-     * @test
-     */
-    public function getUrlFromFilePath_returns_expected_string_in_dev_mode()
+    public function getUrlFromFilePath_returns_expected_string()
     {
         $path = APPLICATION_PATH . \Husky\Config::CONTENT_PATH . 'test.md';
-        $expected = APPLICATION_PATH . \Husky\Config::CONTENT_PATH . 'test.html';
+        $expected = \Husky\Config::ROOT_URL . 'test.html';
 
-        $this->assertSame($expected, $this->_navigation->getUrlFromFilePath($path, FALSE));
+        $this->assertSame($expected, $this->_navigation->getUrlFromFilePath($path));
     }
 
         /**
      * @test
      */
-    public function getUrlFromFilePath_with_subdirsreturns_expected_string_in_dev_mode()
+    public function getUrlFromFilePath_with_subdirsreturns_expected_string()
     {
         $path = APPLICATION_PATH . \Husky\Config::CONTENT_PATH . 'testDir/test.md';
-        $expected = APPLICATION_PATH . \Husky\Config::CONTENT_PATH . 'testDir/test.html';
+        $expected = \Husky\Config::ROOT_URL . 'testDir/test.html';
 
-        $this->assertSame($expected, $this->_navigation->getUrlFromFilePath($path, FALSE));
-    }
-
-    /**
-     * @test
-     */
-    public function getUrlFromFilePath_returns_expected_string_in_production_mode()
-    {
-        $path = APPLICATION_PATH . \Husky\Config::CONTENT_PATH . 'test.md';
-        $expected = '/test.html';
-
-        $this->assertSame($expected, $this->_navigation->getUrlFromFilePath($path, TRUE));
-    }
-
-        /**
-     * @test
-     */
-    public function getUrlFromFilePath_with_subdirs_returns_expected_string_in_production_mode()
-    {
-        $path = APPLICATION_PATH . \Husky\Config::CONTENT_PATH . 'testDir/test.md';
-        $expected = '/testDir/test.html';
-
-        $this->assertSame($expected, $this->_navigation->getUrlFromFilePath($path, TRUE));
+        $this->assertSame($expected, $this->_navigation->getUrlFromFilePath($path, \Husky\Config::ROOT_URL));
     }
 }
 

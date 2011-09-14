@@ -60,4 +60,45 @@ class Parser
         $rawContent = file_get_contents($contentFilePath);
         return $this->getParserEngine()->execute($rawContent);
     }
+
+     /**
+     * Returns the first <h1> tag of a given filename. If there are no matching tags then it will attempt to
+     * 'de-slugify' the filename and return that instead
+     *
+     * @static
+     * @param \splFileInfo $fileInfo
+     * @return string
+     */
+    public function getPageTitle($fileInfo)
+    {
+        $htmlContent = $this->parseContent($fileInfo->getPathname());
+        $domDoc = new \DOMDocument();
+        $domDoc->loadHTML($htmlContent);
+
+        // suppress errors if h1 element is not found becuase then we will use the deslugged filename instead
+        $title = @$domDoc->getElementsByTagName('h1')->item(0)->textContent;
+        if (is_null($title)) {
+
+            // remove the file extension and just have the filename
+            list($fileName) = explode('.', $fileInfo->getFilename());
+            $title = $this->_getDeslugifiedString($fileName);
+        }
+        return $title;
+    }
+
+
+    /**
+     * converts a slugged string (we guess something like: dashes or underscores used instead of spaces and all lowercase)
+     * to a title case string
+     * e.g. this-is-a-slug become This Is A Slug
+     *
+     * @param $sluggedString
+     * @return string
+     */
+    protected function _getDeslugifiedString($sluggedString)
+    {
+        $desluggedString = str_replace(array('-', '_'), ' ', $sluggedString);
+        return ucwords($desluggedString);
+    }
 }
+

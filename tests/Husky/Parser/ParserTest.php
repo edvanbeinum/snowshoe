@@ -1,20 +1,21 @@
 <?php
 /**
- * 
+ *
  * @author Ed van Beinum <edwin@sessiondigital.com>
  * @version $Id$
  * @copyright Ibuildings 12/09/2011
- * @package ParserTest 
+ * @package ParserTest
  */
- 
+
 require_once dirname(__FILE__) . '/../../../Husky/bootstrap.php';
 require_once 'vfsStream/vfsStream.php';
- /**
- * 
+/**
+ *
  * @package ParserTest
  * @author Ed van Beinum <edwin@sessiondigital.com>
  */
-class ParserTest extends PHPUnit_Framework_TestCase{
+class ParserTest extends PHPUnit_Framework_TestCase
+{
 
     protected $_parser;
 
@@ -45,5 +46,13 @@ class ParserTest extends PHPUnit_Framework_TestCase{
 
         vfsStream::newFile('file.md')->at(vfsStreamWrapper::getRoot());
         $this->_parser->parseContent(vfsStream::url('rootDir/file.md'));
+    }
+
+    /**
+     * @test
+     */
+    public function getPageTitle_returns_expected_string()
+    {
+
     }
 }
