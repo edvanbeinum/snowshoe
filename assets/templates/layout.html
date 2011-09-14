@@ -1,21 +1,24 @@
 <!doctype html>
 <head>
-    <link rel="stylesheet" href="css/bootstrap-1.2.0.min.css">
+    <link rel="stylesheet" href="{{ rootUrl }}css/bootstrap-1.2.0.min.css">
 </head>
 <body>
-<div class="container">
-<h1>Well this is nice</h1>
-
-        {{ "I like %s and %s."|format("that", "bar") }}
-
-        {{ content }}
-
+<div class="container-fluid">
+    <div class="sidebar">
         <ul>
-
             {% for link in primaryNav %}
-                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
             {% endfor %}
         </ul>
+    </div>
+    <div class="content">
+        <h1>Well this is nice</h1>
+
+        {{ "I like %s and %s."|format("that", "bar") }}
+        {{ content }}
+    </div>
+
+
 </div>
 </body>
 

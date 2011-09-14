@@ -66,7 +66,8 @@ class Husky
                 APPLICATION_PATH . Config::TEMPLATE_PATH . 'layout.html',
                 array(
                      'content' => $content,
-                     'primaryNav' => $primaryNav
+                     'primaryNav' => $primaryNav,
+                    'rootUrl' => Config::ROOT_URL
                 )
             );
             $publicFilePath = \Husky\Helper\Navigation::getPublicFilePath($contentFile->getPathname());
