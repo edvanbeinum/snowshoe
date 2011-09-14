@@ -63,6 +63,14 @@ class Navigation
     }
 
 
+    /**
+     * Replaces occurences of the PArser file extension with the Public file extension and repaces the asset/content
+     * directory with the public directory
+     *
+     * @static
+     * @param $filePath
+     * @return mixed
+     */
     public static function getPublicFilePath($filePath)
     {
         $publicFilePath = self::getPublicFilename($filePath);
@@ -75,66 +83,28 @@ class Navigation
      *
      * @static
      * @param string $filePath
-     * @param null|bool $isProductionMode an optional arg, uses the Config value if not set
+     * @param null|string $rootUrl an optional arg, uses the Config value if not set
      * @return string
      */
-    public static function getUrlFromFilePath($filePath, $isProductionMode = NULL)
+    public static function getUrlFromFilePath($filePath, $rootUrl = NULL)
     {
-        if (is_null($isProductionMode)) {
-            $isProductionMode = \Husky\Config::PRODUCTION_MODE;
+        if (is_null($rootUrl)) {
+            $rootUrl = \Husky\Config::ROOT_URL;
         }
 
         $url = self::getPublicFilename($filePath);
 
-        if ($isProductionMode) {
+        if ($rootUrl) {
+            $needle = APPLICATION_PATH . \Husky\Config::CONTENT_PATH;
+            $replacement = $rootUrl;
+            return str_replace($needle, $replacement, $url);
+        }
+        else {
 
-            // remove the absolute path from the URL. Also the rtrim will leave the preceeding backslash on the final URL
-            // so it will always be relative to the root domain
+            // return relative URL
             $needle = APPLICATION_PATH . rtrim(\Husky\Config::CONTENT_PATH, '/');
             $replacement = '';
             return str_replace($needle, $replacement, $url);
         }
-
-        return $url;
-    }
-
-    /**
-     * Returns the first <h1> tag of a given filename. If there are no matching tags then it will attempt to
-     * 'de-slugify' the filename and return that instead
-     *
-     * @static
-     * @param splFileInfo $fileInfo
-     * @return string
-     */
-    public function getPageTitle($fileInfo)
-    {
-        $htmlContent = $this->_parser->parseContent($fileInfo->getPathname());
-        $domDoc = new \DOMDocument();
-        $domDoc->loadHTML($htmlContent);
-
-        // suppress errors if h1 element is not found becuase then we will use the deslugged filename instead
-        $title = @$domDoc->getElementsByTagName('h1')->item(0)->textContent;
-        if (is_null($title)) {
-
-            // remove the file extension and just have the filename
-            list($fileName) = explode('.', $fileInfo->getFilename());
-            $title = $this->_getDeslugifiedString($fileName);
-        }
-        return $title;
-    }
-
-
-    /**
-     * converts a slugged string (we guess something like: dashes or underscores used instead of spaces and all lowercase)
-     * to a title case string
-     * e.g. this-is-a-slug become This Is A Slug
-     *
-     * @param $sluggedString
-     * @return string
-     */
-    protected function _getDeslugifiedString($sluggedString)
-    {
-        $desluggedString = str_replace(array('-', '_'), ' ', $sluggedString);
-        return ucwords($desluggedString);
     }
 }

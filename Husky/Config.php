@@ -50,5 +50,11 @@ final class Config
 
     const PRODUCTION_MODE = FALSE;
 
+    /**
+     * The path to the pubic directory as seen by the published site. This can be an absolute path for local dev
+     * or a URL or left empty and the links on the site wll be created relative
+     */
+    const ROOT_URL = '/Users/evanbeinum/Dropbox/sites/personal/ubuntuhost/husky/public/';
+
 
 }

@@ -38,6 +38,7 @@ todo:
 [ ] Add navigation ordered by date created - SplFileInfo::getCTime - make available to templates?
 [ ] Fix naming conventions on methods for invoking the Parser and Temaplate Engine
 [ ] Put Twig, Mustache, Bootstrap, Markdown as Git Submodules
+[ ] Add 'base url' or similar var for template so we can link up CSS /JS
 
 Upcoming features
 * HTML5BP build script integration
@@ -51,3 +52,5 @@ Resolve issue with creating absolute vs relative URLs for nav links
 Add yaml or Zend config for config rather than a loader of class constants
 
 Move getPageTitle out of Nav class and into Parser
+
+Distinguish between internal path (e.g. for writing the site) and exterrnal (e.g. for accessing the site)
