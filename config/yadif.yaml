@@ -1,0 +1,3 @@
+Husky:
+  class: 'Husky'
+  arguments: 'Formatter', 'TemplateEngine'

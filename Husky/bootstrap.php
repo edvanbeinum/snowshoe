@@ -5,6 +5,20 @@ defined('APPLICATION_PATH')
 || define('APPLICATION_PATH', realpath(dirname(__FILE__)) . '/../');
 
 
+
+// Add Zend library to include path. We are using the Zend_Config component from ZF 1.11 here.
+set_include_path(
+    APPLICATION_PATH . 'Husky/Vendor/Zend' . PATH_SEPARATOR .
+    get_include_path()
+);
+require_once APPLICATION_PATH . 'Husky/Vendor/Zend/Config/Yaml.php';
+require_once APPLICATION_PATH . 'Husky/Vendor/yadif/src/Yadif/Container.php';
+
+// Create global config object. Yes GLOBAL! Becuase it is needed from the global context.
+$GLOBALS['huskyConfig'] = new Zend_Config_Yaml(APPLICATION_PATH . '/config/husky.yaml', 'production');
+
+
+
 /**
  * Dead simple autoloader that transforms a namespaced class name into a path and then loads it
  *
@@ -25,7 +39,7 @@ function huskyAutoloader($className)
     } catch (Exception $e) {
 
         // since we're in an autoloader, it's more helpful to print a stacktrace since knowing that a class can't be found
-        // in this method isn't very helpful - we'd much rather know where to call was coming from.
+        // in this method isn't very useful - we'd much rather know where to call was coming from.
         $errorMsg = $e->getMessage() . "\n\n" .
                     str_pad('', 30, "*") . " STRACKTRACE " . str_pad('', 30, "*") . "\n\n" .
                     $e->getTraceAsString();
@@ -35,14 +49,3 @@ function huskyAutoloader($className)
 }
 
 spl_autoload_register('huskyAutoloader');
-
-
-// Add Zend library to include path. We are using the Zend_Config component from ZF 1.11 here.
-set_include_path(
-    APPLICATION_PATH . 'Husky/Vendot/Zend' . PATH_SEPARATOR .
-    get_include_path()
-);
-require_once APPLICATION_PATH . 'Husky/Vendor/Zend/Config/Yaml.php';
-
-// Create global config object. Yes GLOBAL! Becuase it is needed from the global context.
-$GLOBALS['huskyConfig'] = new Zend_Config_Yaml(APPLICATION_PATH . '/Husky/config.yaml', 'production');

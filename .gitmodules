@@ -7,3 +7,6 @@
 [submodule "Husky/Vendor/Formatters/textile"]
 	path = Husky/Vendor/Formatters/textile
 	url = https://github.com/netcarver/textile.git
+[submodule "Husky/Vendor/yadif"]
+	path = Husky/Vendor/yadif
+	url = https://github.com/beberlei/yadif.git

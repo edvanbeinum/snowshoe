@@ -2,3 +2,7 @@
 <?php
 
 // Run the Husky static site generator from cmd line
+require_once('..//bootstrap.php');
+
+$yadif = new Yadif_Container(Dss_Config::getYadifConfig());
+$dssProcessor = $yadif->getComponent('Dss_Processor');
