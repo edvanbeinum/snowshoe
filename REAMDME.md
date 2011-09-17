@@ -18,39 +18,6 @@ Folders
 
 /assets - raw MD/Textile files where folder structure will be recreated on te site
 /public where to final site is saved to
-/intermediate - where Husky puts files as the site is being made
 
-The basic execution flow is:
-* set Template Engine (Twig, mustache, etc)
-* set Parser (MD, Textile, etc)
-* recreate folder structure of assets
-* convert each content file (that is blog entries) into HMTL using the correct parser (MD, Textile, etc)
-* Then each content file is run through the Template Engine to create the final pages
-
-todo:
-[ ] Add exception handling
-[*] Setup unit testing
-[*] Setup vfsStream
-[*] Add support for multiple files and dirs in content
-[*] Add parsing for getting the title of each blog entry
-[ ] Add Pygment code parsing
-[ ] Add default stylesheet
-[ ] Add navigation ordered by date created - SplFileInfo::getCTime - make available to templates?
-[ ] Fix naming conventions on methods for invoking the Parser and Temaplate Engine
-[ ] Put Twig, Mustache, Bootstrap, Markdown as Git Submodules
-[ ] Add 'base url' or similar var for template so we can link up CSS /JS
-
-Upcoming features
-* HTML5BP build script integration
-* S3 auto update
-
-Issues
-
-Resolve issue with creating absolute vs relative URLs for nav links
-- maybe have a project URL - can be either a URL or absolute path
-
-Add yaml or Zend config for config rather than a loader of class constants
-
-Move getPageTitle out of Nav class and into Parser
-
-Distinguish between internal path (e.g. for writing the site) and exterrnal (e.g. for accessing the site)
+TODO
+[ ] Check that Textile is working and nit just returning strings formatted with <pre>

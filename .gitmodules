@@ -1,3 +1,9 @@
 [submodule "Husky/Vendor/Formatters/php-markdown"]
 	path = Husky/Vendor/Formatters/php-markdown
 	url = https://github.com/wolfie/php-markdown.git
+[submodule "Husky/Vendor/TemplateEngines/twig"]
+	path = Husky/Vendor/TemplateEngines/twig
+	url = https://github.com/fabpot/Twig.git
+[submodule "Husky/Vendor/Formatters/textile"]
+	path = Husky/Vendor/Formatters/textile
+	url = https://github.com/netcarver/textile.git

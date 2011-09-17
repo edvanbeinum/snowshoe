@@ -9,23 +9,24 @@
 namespace Husky\Formatter\Adapter;
 
 /**
- * Markdown Formatter Adapter. This class knows how to interact with the MArkdown library
+ * Textile Formatter Adapter. This class knows how to interact with the MArkdown library
  *
  * @package MarkdownAdapter
  * @author Ed van Beinum <edwin@sessiondigital.com>
  */
-class Markdown extends \Husky\Formatter\AAdapter
+class Textile extends \Husky\Formatter\AAdapter
 {
 
     /**
-     * converts a Markdown formatted string into an HTML formatted string
+     * converts a Textile formatted string into an HTML formatted string
      *
      * @param $formattedString
      * @return string
      */
     public function execute($formattedString)
     {
-        require_once APPLICATION_PATH . 'Husky/Vendor/Formatters/php-markdown/markdown.php';
-        return Markdown($formattedString);
+        require_once APPLICATION_PATH . 'Husky/Vendor/Formatters/textile/classTextile.php';
+        $t = new \Textile();
+        return Markdown($t->TextileThis($formattedString));
     }
 }
