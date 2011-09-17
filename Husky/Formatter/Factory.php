@@ -21,7 +21,7 @@ class Factory
     protected static $_formatterEngine;
 
 
-    public static function getFormatter($formatterEngineName = NULL)
+    public function getFormatter($formatterEngineName = NULL)
     {
         if (is_null(self::$_formatterEngine)) {
 

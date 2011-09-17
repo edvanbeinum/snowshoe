@@ -26,11 +26,10 @@ class Factory
      *
      * Exceptions are handled by the autoloader
      *
-     * @static
      * @param string $templateEngineName
      * @return AAdapter
      */
-    public static function getTemplateEngine($templateEngineName = NULL)
+    public function getTemplateEngine($templateEngineName = NULL)
     {
         if (is_null(self::$_templateEngine)) {
             $newClassName = '\Husky\TemplateEngine\Adapter\\' . ucwords(strtolower($templateEngineName));

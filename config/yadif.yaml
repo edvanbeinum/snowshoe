@@ -1,3 +1,3 @@
 Husky:
-  class: 'Husky'
-  arguments: 'Formatter', 'TemplateEngine'
+  class: 'Husky\Builder'
+  arguments: ['Husky\Formatter\Factory', 'Husky\TemplateEngine\Factory', 'Husky\Helper\FileSystem' , 'Husky\Builder\Navigation']

@@ -1,0 +1,36 @@
+<?php
+/**
+ * 
+ * @author Ed van Beinum <edwin@sessiondigital.com>
+ * @version $Id$
+ * @copyright Ibuildings 07/08/2011
+ * @package HuskyTest 
+ */
+ 
+require_once dirname(__FILE__) . '/../../Husky/bootstrap.php';
+
+ /**
+ * 
+ * @package HuskyTest
+ * @author Ed van Beinum <edwin@sessiondigital.com>
+ */
+class BuilderTest extends PHPUnit_Framework_TestCase {
+
+    /**
+     * @var \Husky\Bulder
+     */
+    protected $_builder;
+
+    public function setUp(){
+        $mockFormatter = $this->getMockForAbstractClass('Husky\Formatter\AAdapter');
+        $mockTemplateEngine = $this->getMockForAbstractClass('Husky\TemplateEngine\AAdapter');
+        $mockFileSystem = $this->getMock('Husky\Helper\FileSystem');
+        $mockNavigaton = $this->getMock('Husky\Builder\Navigation');
+
+        $this->_builder = new \Husky\Builder($mockFormatter, $mockTemplateEngine, $mockFileSystem, $mockNavigaton);
+    }
+
+    
+
+
+}

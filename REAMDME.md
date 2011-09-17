@@ -21,3 +21,6 @@ Folders
 
 TODO
 [ ] Check that Textile is working and nit just returning strings formatted with <pre>
+[ ] Use a proper config thing for Yadif
+[ ] What are we goingto do about config?
+[ ] Add event observer pattern so we can hook into parts of the system: things like run LESS compiler, or publish to S3
