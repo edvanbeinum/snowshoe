@@ -113,6 +113,8 @@ class Builder
             die("\n Husky has stopped");
         }
 
+        $primaryNavigation = $this->_navigation->getPrimaryNavigation($rawContents);
+
         foreach ($rawContents as $fileInfo) {
             echo "Getting ", $fileInfo->getPathname(), "\n";
             $content = $this->_fileSystem->getFile($fileInfo->getPathname());
@@ -121,48 +123,21 @@ class Builder
             $htmlContent = $this->_formatter->execute($content);
 
             // Run each HTML-ized content files through the template
-            $completePage = $this->_templateEngine->execute($template, array('content' => $htmlContent));
+            $completePage = $this->_templateEngine->execute(
+                $template,
+                array(
+                     'content' => $htmlContent,
+                     'primaryNavigation' => $primaryNavigation,
+                     'rootUrl' => APPLICATION_PATH . $GLOBALS['huskyConfig']->publicDirectory,
+                     'datePublished' => $fileInfo->getCTime()
+                )
+            );
 
             // Write page to the public directory
-            $publicFilePath = $this->_getPublicPath($fileInfo->getPathname());
-            
+            $publicFilePath = $this->_navigation->getPublicPath($fileInfo->getPathname());
+
             echo "Writing new file: ", realpath($publicFilePath), "\n";
             $this->_fileSystem->createFile($publicFilePath, $completePage);
         }
     }
-
-    /**
-     * Helper function that takes a path to the content directory and converts it into a path to the public directory
-     * It also converts the file extention from the formatter xtension to the template engine extension
-     *
-     * @param string $contentPath
-     * @return string
-     */
-    protected function _getPublicPath($contentPath)
-    {
-        $publicFilePath = $this->_getPublicFilename($contentPath);
-        return str_replace(
-            APPLICATION_PATH . $GLOBALS['huskyConfig']->contentDirectory,
-            APPLICATION_PATH . $GLOBALS['huskyConfig']->publicDirectory,
-            $publicFilePath
-        );
-
-    }
-
-    /**
-     * Helper function that converts the file extention from the formatter extension to the template engine extension
-     *
-     * @param $contentFilename
-     * @return string
-     */
-    protected function _getPublicFilename($contentFilename)
-    {
-        return str_replace(
-            $GLOBALS['huskyConfig']->formatterFileExtension,
-            $GLOBALS['huskyConfig']->publicFileExtension,
-            $contentFilename
-        );
-    }
-
-
 }

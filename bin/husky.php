@@ -8,7 +8,10 @@ $yadifconfig = array(
     'Husky\Formatter\Factory' => array('class' => 'Husky\Formatter\Factory'),
     'Husky\TemplateEngine\Factory' => array('class' => 'Husky\TemplateEngine\Factory'),
     'Husky\Helper\FileSystem' => array('class' => 'Husky\Helper\FileSystem'),
-    'Husky\Builder\Navigation' => array('class' => 'Husky\Builder\Navigation'),
+    'Husky\Builder\Navigation' => array(
+        'class' => 'Husky\Builder\Navigation',
+        'arguments' => array('Husky\Helper\FileSystem', 'Husky\Formatter\Factory')
+    ),
     'Husky\Builder' => array(
         'class' => 'Husky\Builder',
         'arguments' => array('Husky\Formatter\Factory', 'Husky\TemplateEngine\Factory', 'Husky\Helper\FileSystem' , 'Husky\Builder\Navigation')
