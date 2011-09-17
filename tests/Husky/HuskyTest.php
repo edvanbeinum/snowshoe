@@ -25,7 +25,7 @@ class HuskyTest extends PHPUnit_Framework_TestCase {
         $this->_husky = new \Husky\Husky;
     }
 
-
+    
 
 
 }

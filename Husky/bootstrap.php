@@ -19,14 +19,17 @@ function huskyAutoloader($className)
     }
     $className = str_replace('\\', '/', $className);
 
-    // since we're in an autoloader, it's more helpful to print a stacktrace since knowing that a class can't be found
-    // in this method isn't very helpful - we'd much rather know where to call was coming from.
     try {
         include_once APPLICATION_PATH . $className . '.php';
     } catch (Exception $e) {
-        echo $e->getMessage(), "\n";
-        echo $e->getTraceAsString(), "\n";
-        die();
+
+        // since we're in an autoloader, it's more helpful to print a stacktrace since knowing that a class can't be found
+        // in this method isn't very helpful - we'd much rather know where to call was coming from.
+        $errorMsg = $e->getMessage() . "\n\n" .
+                    str_pad('', 30, "*") . " STRACKTRACE " . str_pad('', 30, "*") . "\n\n" .
+                    $e->getTraceAsString();
+        
+        throw new ErrorException($errorMsg);
     }
 }
 

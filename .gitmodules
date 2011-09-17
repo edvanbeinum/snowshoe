@@ -1,0 +1,3 @@
+[submodule "Husky/Vendor/TemplateEngines/php-markdown"]
+	path = Husky/Vendor/TemplateEngines/php-markdown
+	url = https://github.com/wolfie/php-markdown.git
