@@ -10,6 +10,7 @@ defined('APPLICATION_PATH')
  *
  * @param  string $className
  * @return void
+ * @throws ErrorException
  */
 function huskyAutoloader($className)
 {
@@ -28,12 +29,20 @@ function huskyAutoloader($className)
         $errorMsg = $e->getMessage() . "\n\n" .
                     str_pad('', 30, "*") . " STRACKTRACE " . str_pad('', 30, "*") . "\n\n" .
                     $e->getTraceAsString();
-        
+
         throw new ErrorException($errorMsg);
     }
 }
 
 spl_autoload_register('huskyAutoloader');
 
-// Ensure library/ is on include_path
-//set_include_path(implode(PATH_SEPARATOR, array(realpath(APPLICATION_PATH . '/lib'), get_include_path())));
+
+// Add Zend library to include path. We are using the Zend_Config component from ZF 1.11 here.
+set_include_path(
+    APPLICATION_PATH . 'Husky/Vendot/Zend' . PATH_SEPARATOR .
+    get_include_path()
+);
+require_once APPLICATION_PATH . 'Husky/Vendor/Zend/Config/Yaml.php';
+
+// Create global config object. Yes GLOBAL! Becuase it is needed from the global context.
+$GLOBALS['huskyConfig'] = new Zend_Config_Yaml(APPLICATION_PATH . '/Husky/config.yaml', 'production');

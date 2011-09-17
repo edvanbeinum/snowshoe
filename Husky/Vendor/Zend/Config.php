@@ -16,21 +16,17 @@
  * @package    Zend_Config
  * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Config.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
-/**
- * @namespace
- */
-namespace Zend\Config;
 
 /**
- * @uses       \Zend\Config\Exception
  * @category   Zend
  * @package    Zend_Config
  * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Config implements \Countable, \Iterator, \ArrayAccess
+class Zend_Config implements Countable, Iterator
 {
     /**
      * Whether in-memory modifications to configuration data are allowed
@@ -86,11 +82,13 @@ class Config implements \Countable, \Iterator, \ArrayAccess
     protected $_extends = array();
 
     /**
-     * Internal error messages
+     * Load file error string.
      *
-     * @var null|array
+     * Is null if there was no error while file loading
+     *
+     * @var string
      */
-    protected $_errorMessages = array();
+    protected $_loadFileErrorStr = null;
 
     /**
      * Zend_Config provides a property based interface to
@@ -153,7 +151,7 @@ class Config implements \Countable, \Iterator, \ArrayAccess
      *
      * @param  string $name
      * @param  mixed  $value
-     * @throws \Zend\Config\Exception
+     * @throws Zend_Config_Exception
      * @return void
      */
     public function __set($name, $value)
@@ -166,7 +164,9 @@ class Config implements \Countable, \Iterator, \ArrayAccess
             }
             $this->_count = count($this->_data);
         } else {
-            throw new Exception\InvalidArgumentException('Zend_Config is read only');
+            /** @see Zend_Config_Exception */
+            require_once 'Zend/Config/Exception.php';
+            throw new Zend_Config_Exception('Zend_Config is read only');
         }
     }
 
@@ -180,7 +180,7 @@ class Config implements \Countable, \Iterator, \ArrayAccess
     {
       $array = array();
       foreach ($this->_data as $key => $value) {
-          if ($value instanceof Config) {
+          if ($value instanceof Zend_Config) {
               $array[$key] = clone $value;
           } else {
               $array[$key] = $value;
@@ -199,7 +199,7 @@ class Config implements \Countable, \Iterator, \ArrayAccess
         $array = array();
         $data = $this->_data;
         foreach ($data as $key => $value) {
-            if ($value instanceof Config) {
+            if ($value instanceof Zend_Config) {
                 $array[$key] = $value->toArray();
             } else {
                 $array[$key] = $value;
@@ -223,7 +223,7 @@ class Config implements \Countable, \Iterator, \ArrayAccess
      * Support unset() overloading on PHP 5.1
      *
      * @param  string $name
-     * @throws \Zend\Config\Exception
+     * @throws Zend_Config_Exception
      * @return void
      */
     public function __unset($name)
@@ -233,7 +233,9 @@ class Config implements \Countable, \Iterator, \ArrayAccess
             $this->_count = count($this->_data);
             $this->_skipNextIteration = true;
         } else {
-            throw new Exception\InvalidArgumentException('Zend_Config is read only');
+            /** @see Zend_Config_Exception */
+            require_once 'Zend/Config/Exception.php';
+            throw new Zend_Config_Exception('Zend_Config is read only');
         }
 
     }
@@ -305,55 +307,6 @@ class Config implements \Countable, \Iterator, \ArrayAccess
     }
 
     /**
-     * offsetExists(): defined by ArrayAccess interface.
-     * 
-     * @see    ArrayAccess::offsetExists()
-     * @param  mixed $offset
-     * @return boolean
-     */
-    public function offsetExists($offset)
-    {
-        return $this->__isset($offset);
-    }
-    
-    /**
-     * offsetGet(): defined by ArrayAccess interface.
-     * 
-     * @see    ArrayAccess::offsetGet()
-     * @param  mixed $offset
-     * @return mixed
-     */
-    public function offsetGet($offset)
-    {
-        return $this->__get($offset);
-    }
-    
-    /**
-     * offsetSet(): defined by ArrayAccess interface.
-     * 
-     * @see    ArrayAccess::offsetSet()
-     * @param  mixed $offset
-     * @param  mixed $value
-     * @return void
-     */
-    public function offsetSet($offset, $value)
-    {
-        $this->__set($offset, $value);
-    }
-    
-    /**
-     * offsetUnset(): defined by ArrayAccess interface.
-     * 
-     * @see    ArrayAccess::offsetUnset()
-     * @param  mixed $offset
-     * @return void
-     */
-    public function offsetUnset($offset)
-    {
-        $this->__unset($offset);
-    }
-    
-    /**
      * Returns the section name(s) loaded.
      *
      * @return mixed
@@ -376,26 +329,27 @@ class Config implements \Countable, \Iterator, \ArrayAccess
         return $this->_loadedSection === null;
     }
 
+
     /**
      * Merge another Zend_Config with this one. The items
      * in $merge will override the same named items in
      * the current config.
      *
-     * @param \Zend\Config\Config $merge
-     * @return \Zend\Config\Config
+     * @param Zend_Config $merge
+     * @return Zend_Config
      */
-    public function merge(Config $merge)
+    public function merge(Zend_Config $merge)
     {
         foreach($merge as $key => $item) {
             if(array_key_exists($key, $this->_data)) {
-                if($item instanceof Config && $this->$key instanceof Config) {
-                    $this->$key = $this->$key->merge(new Config($item->toArray(), !$this->readOnly()));
+                if($item instanceof Zend_Config && $this->$key instanceof Zend_Config) {
+                    $this->$key = $this->$key->merge(new Zend_Config($item->toArray(), !$this->readOnly()));
                 } else {
                     $this->$key = $item;
                 }
             } else {
-                if($item instanceof Config) {
-                    $this->$key = new Config($item->toArray(), !$this->readOnly());
+                if($item instanceof Zend_Config) {
+                    $this->$key = new Zend_Config($item->toArray(), !$this->readOnly());
                 } else {
                     $this->$key = $item;
                 }
@@ -415,7 +369,7 @@ class Config implements \Countable, \Iterator, \ArrayAccess
     {
         $this->_allowModifications = false;
         foreach ($this->_data as $key => $value) {
-            if ($value instanceof Config) {
+            if ($value instanceof Zend_Config) {
                 $value->setReadOnly();
             }
         }
@@ -463,7 +417,7 @@ class Config implements \Countable, \Iterator, \ArrayAccess
      *
      * @param  string $extendingSection
      * @param  string $extendedSection
-     * @throws \Zend\Config\Exception
+     * @throws Zend_Config_Exception
      * @return void
      */
     protected function _assertValidExtend($extendingSection, $extendedSection)
@@ -472,12 +426,31 @@ class Config implements \Countable, \Iterator, \ArrayAccess
         $extendedSectionCurrent = $extendedSection;
         while (array_key_exists($extendedSectionCurrent, $this->_extends)) {
             if ($this->_extends[$extendedSectionCurrent] == $extendingSection) {
-                throw new Exception\RuntimeException('Illegal circular inheritance detected');
+                /** @see Zend_Config_Exception */
+                require_once 'Zend/Config/Exception.php';
+                throw new Zend_Config_Exception('Illegal circular inheritance detected');
             }
             $extendedSectionCurrent = $this->_extends[$extendedSectionCurrent];
         }
         // remember that this section extends another section
         $this->_extends[$extendingSection] = $extendedSection;
+    }
+
+    /**
+     * Handle any errors from simplexml_load_file or parse_ini_file
+     *
+     * @param integer $errno
+     * @param string $errstr
+     * @param string $errfile
+     * @param integer $errline
+     */
+    protected function _loadFileErrorHandler($errno, $errstr, $errfile, $errline)
+    {
+        if ($this->_loadFileErrorStr === null) {
+            $this->_loadFileErrorStr = $errstr;
+        } else {
+            $this->_loadFileErrorStr .= (PHP_EOL . $errstr);
+        }
     }
 
     /**
@@ -508,42 +481,4 @@ class Config implements \Countable, \Iterator, \ArrayAccess
 
         return $firstArray;
     }
-
-    /**
-     * Set internal error handler
-     *
-     * @return void
-     */
-    protected function _setErrorHandler()
-    {
-        set_error_handler(array($this, '_handleError'));
-    }
-
-    /**
-     * Restore internal error handler
-     *
-     * @return array Handled error messages
-     */
-    protected function _restoreErrorHandler()
-    {
-        restore_error_handler();
-        $errorMessages = $this->_errorMessages;
-        $this->_errorMessages = array();
-        return $errorMessages;
-    }
-
-    /**
-     * Handle internal errors
-     *
-     * @param integer $errno
-     * @param string $errstr
-     * @param string $errfile
-     * @param integer $errline
-     * @return void
-     */
-    protected function _handleError($errno, $errstr, $errfile, $errline)
-    {
-        $this->_errorMessages[] = trim($errstr);
-    }
-
 }

@@ -16,21 +16,21 @@
  * @package    Zend_Config
  * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id: Array.php 23775 2011-03-01 17:25:24Z ralph $
  */
 
 /**
- * @namespace
+ * @see Zend_Config_Writer
  */
-namespace Zend\Config\Writer;
+require_once 'Zend/Config/Writer/FileAbstract.php';
 
 /**
- * @uses       \Zend\Config\Writer\FileAbstract
  * @category   Zend
  * @package    Zend_Config
  * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class ArrayWriter extends AbstractFileWriter
+class Zend_Config_Writer_Array extends Zend_Config_Writer_FileAbstract
 {
     /**
      * Render a Zend_Config into a PHP Array config string.
