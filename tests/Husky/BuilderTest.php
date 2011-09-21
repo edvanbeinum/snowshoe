@@ -1,7 +1,7 @@
 <?php
 /**
  * 
- * @author Ed van Beinum <edwin@sessiondigital.com>
+ * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
  * @copyright Ibuildings 07/08/2011
  * @package HuskyTest 
@@ -12,7 +12,7 @@ require_once dirname(__FILE__) . '/../../Husky/bootstrap.php';
  /**
  * 
  * @package HuskyTest
- * @author Ed van Beinum <edwin@sessiondigital.com>
+ * @author Ed van Beinum <e@edvanbeinum.com>
  */
 class BuilderTest extends PHPUnit_Framework_TestCase {
 

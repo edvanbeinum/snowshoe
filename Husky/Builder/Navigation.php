@@ -1,22 +1,32 @@
 <?php
 /**
  *
- * @author Ed van Beinum <edwin@sessiondigital.com>
+ * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
  * @copyright Ibuildings 17/09/2011
  * @package Navigation
  */
 
 namespace Husky\Builder;
+use \Husky\Config\Factory as Config;
 /**
+ * Helper class that handles how the Navigation menu is built
  *
  * @package Navigation
- * @author Ed van Beinum <edwin@sessiondigital.com>
+ * @author Ed van Beinum <e@edvanbeinum.com>
  */
 class Navigation
 {
+    /**
+     * Holds reference to the FilSystem helper object
+     *
+     * @var \Husky\Helper\FileSystem
+     */
     protected $_fileSystem;
 
+    /**
+     * @var \Husky\Formatter\Factory
+     */
     protected $_formatterFactory;
 
     public function __construct($fileSystem, $formatterFactory)
@@ -27,11 +37,11 @@ class Navigation
 
     public function getPrimaryNavigation(array $contentFiles)
     {
-        $sortCritera = $GLOBALS['huskyConfig']->navigationOrder;
-        usort($contentFiles, array('\Husky\Builder\Navigation', 'sortBy' . ucwords(strtolower($sortCritera))));
+        $sortCriteria = Config::getConfig('app')->getNavigationOrder();
+        usort($contentFiles, array('\Husky\Builder\Navigation', 'sortBy' . ucwords(strtolower($sortCriteria))));
 
         $primaryNavigation = array();
-        $formatter = $this->_formatterFactory->getFormatter($GLOBALS['huskyConfig']->formatter);
+        $formatter = $this->_formatterFactory->getFormatter(Config::getConfig('app')->getFormatter());
 
         foreach ($contentFiles as $fileInfo) {
             $primaryNavigation[] = array(
@@ -65,7 +75,7 @@ class Navigation
 
     /**
      * Helper function that takes a path to the content directory and converts it into a path to the public directory
-     * It also converts the file extention from the formatter xtension to the template engine extension
+     * It also converts the file extension from the formatter extension to the template engine extension
      *
      * @param string $contentPath
      * @return string
@@ -73,16 +83,16 @@ class Navigation
     public function getPublicPath($contentPath)
     {
         $publicFilePath = $this->_getPublicFilename($contentPath);
-        $publicFilePath =  str_replace(
-            APPLICATION_PATH . $GLOBALS['huskyConfig']->contentDirectory,
-            APPLICATION_PATH . $GLOBALS['huskyConfig']->publicDirectory,
+        $publicFilePath = str_replace(
+            APPLICATION_PATH . Config::getConfig('app')->getContentDirectory(),
+            APPLICATION_PATH . Config::getConfig('app')->getPublicDirectory(),
             $publicFilePath
         );
-        return realpath($publicFilePath);
+        return $publicFilePath;
     }
 
     /**
-     * Helper function that converts the file extention from the formatter extension to the template engine extension
+     * Helper function that converts the file extension from the formatter extension to the template engine extension
      *
      * @param $contentFilename
      * @return string
@@ -90,8 +100,8 @@ class Navigation
     protected function _getPublicFilename($contentFilename)
     {
         return str_replace(
-            $GLOBALS['huskyConfig']->formatterFileExtension,
-            $GLOBALS['huskyConfig']->publicFileExtension,
+            Config::getConfig('app')->getFormatterFileExtension(),
+            Config::getConfig('app')->getPublicFileExtension(),
             $contentFilename
         );
     }

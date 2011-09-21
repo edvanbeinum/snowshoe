@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * @author Ed van Beinum <edwin@sessiondigital.com>
+ * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
  * @copyright Ibuildings 07/08/2011
  * @package FileSystem
@@ -12,7 +12,7 @@ namespace Husky\Helper;
  * Collection of wrapper functions around PHP's filesystem operations
  *
  * @package Husky
- * @author Ed van Beinum <edwin@sessiondigital.com>
+ * @author Ed van Beinum <e@edvanbeinum.com>
  */
 class FileSystem
 {

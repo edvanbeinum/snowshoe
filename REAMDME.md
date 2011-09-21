@@ -22,5 +22,13 @@ Folders
 TODO
 [ ] Check that Textile is working and nit just returning strings formatted with <pre>
 [ ] Use a proper config thing for Yadif
-[ ] What are we goingto do about config?
+[ ] What are we goingto do about config? Make own static Config class with array of params
 [ ] Add event observer pattern so we can hook into parts of the system: things like run LESS compiler, or publish to S3
+[ ] Need a prepare script that creates the CSS and js for the public directory?
+[ ] Page Titles
+[ ] Favicon
+
+
+Issues:
+
+[ ] How sane is the config system - accessing configs through a factory?

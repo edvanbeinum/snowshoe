@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * @author Ed van Beinum <edwin@sessiondigital.com>
+ * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
  * @copyright Ibuildings 17/09/2011
  * @package FormatterFactory
@@ -11,7 +11,7 @@ namespace Husky\TemplateEngine;
 /**
  *
  * @package FormatterFactory
- * @author Ed van Beinum <edwin@sessiondigital.com>
+ * @author Ed van Beinum <e@edvanbeinum.com>
  */
 class Factory
 {

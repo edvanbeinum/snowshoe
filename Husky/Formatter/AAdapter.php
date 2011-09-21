@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * @author Ed van Beinum <edwin@sessiondigital.com>
+ * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
  * @copyright Ibuildings 15/09/2011
  * @package AFormatter
@@ -11,7 +11,7 @@ namespace Husky\Formatter;
 /**
  *
  * @package AFormatter
- * @author Ed van Beinum <edwin@sessiondigital.com>
+ * @author Ed van Beinum <e@edvanbeinum.com>
  */
 abstract class AAdapter
 {

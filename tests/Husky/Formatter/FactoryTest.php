@@ -1,19 +1,19 @@
 <?php
 /**
  *
- * @author Ed van Beinum <edwin@sessiondigital.com>
+ * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
  * @copyright Ibuildings 07/08/2011
  * @package Husky
  */
+namespace Husky\tests\Formatter;
 require_once dirname(__FILE__) . '/../../../Husky/bootstrap.php';
-
 /**
  *
  * @package HuskyTest
- * @author Ed van Beinum <edwin@sessiondigital.com>
+ * @author Ed van Beinum <e@edvanbeinum.com>
  */
-class FactoryTest extends PHPUnit_Framework_TestCase
+class FactoryTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -34,7 +34,7 @@ class FactoryTest extends PHPUnit_Framework_TestCase
         $mockMarkdownAdapter = $this->getMock('\Husky\Formatter\Adapter\Markdown');
         \Husky\Formatter\Factory::setFormatter($mockMarkdownAdapter);
 
-        $this->assertInstanceOf('\Husky\Formatter\Adapter\Markdown', Husky\Formatter\Factory::getFormatter());
+        $this->assertInstanceOf('\Husky\Formatter\Adapter\Markdown', \Husky\Formatter\Factory::getFormatter());
     }
 
     /**
@@ -44,7 +44,7 @@ class FactoryTest extends PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf(
             '\Husky\Formatter\Adapter\Markdown',
-            Husky\Formatter\Factory::getFormatter('Markdown'),
+            \Husky\Formatter\Factory::getFormatter('Markdown'),
             "getFormatter not return expected type with title case format type"
         );
     }
@@ -56,7 +56,7 @@ class FactoryTest extends PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf(
             '\Husky\Formatter\Adapter\Markdown',
-            Husky\Formatter\Factory::getFormatter('markdown'),
+            \Husky\Formatter\Factory::getFormatter('markdown'),
             "getformatter not return expected type with lowercase format type"
         );
     }
@@ -68,7 +68,7 @@ class FactoryTest extends PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf(
             '\Husky\Formatter\Adapter\Markdown',
-            Husky\Formatter\Factory::getFormatter('MARKDOWN'),
+            \Husky\Formatter\Factory::getFormatter('MARKDOWN'),
             "getformatter not return expected type with lowercase format type"
         );
     }
@@ -79,7 +79,7 @@ class FactoryTest extends PHPUnit_Framework_TestCase
      */
     public function getFormatter_throws_error_on_unkown_formatter_type()
     {
-        $class = Husky\Formatter\Factory::getFormatter('fake');
+        $class = \Husky\Formatter\Factory::getFormatter('fake');
     }
 
 }

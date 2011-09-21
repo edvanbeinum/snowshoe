@@ -1,12 +1,13 @@
 <?php
 /**
  *
- * @author Ed van Beinum <edwin@sessiondigital.com>
+ * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
  * @copyright Ibuildings 17/09/2011
  * @package Builder
  */
 namespace Husky;
+use \Husky\Config\Factory as Config;
 
 /**
  * this is where the action happens
@@ -14,7 +15,7 @@ namespace Husky;
  *
  *
  * @package Builder
- * @author Ed van Beinum <edwin@sessiondigital.com>
+ * @author Ed van Beinum <e@edvanbeinum.com>
  */
 class Builder
 {
@@ -84,14 +85,14 @@ class Builder
         \Husky\Builder\Navigation $navigation
     )
     {
-        $this->_formatter = $formatterFactory->getFormatter($GLOBALS['huskyConfig']->formatter);
-        $this->_templateEngine = $templateEngineFactory->getTemplateEngine($GLOBALS['huskyConfig']->templateEngine);
+        $this->_formatter = $formatterFactory->getFormatter(Config::getConfig('app')->getFormatter());
+        $this->_templateEngine = $templateEngineFactory->getTemplateEngine(Config::getConfig('app')->getTemplateEngine());
         $this->_fileSystem = $fileSystem;
         $this->_navigation = $navigation;
 
-        $this->_contentDirectory = APPLICATION_PATH . $GLOBALS['huskyConfig']->contentDirectory;
-        $this->_templatePath = APPLICATION_PATH . $GLOBALS['huskyConfig']->templatePath;
-        $this->_publicDirectory = APPLICATION_PATH . $GLOBALS['huskyConfig']->publicDirectory;
+        $this->_contentDirectory = APPLICATION_PATH . Config::getConfig('app')->getContentDirectory();
+        $this->_templatePath = APPLICATION_PATH . Config::getConfig('app')->getTemplatePath();
+        $this->_publicDirectory = APPLICATION_PATH . Config::getConfig('app')->getPublicDirectory();
     }
 
     /**
@@ -104,7 +105,7 @@ class Builder
 
         // Get contents of Content Directory
         $rawContents = $this->_fileSystem->getFilesInDirectory(
-            $this->_contentDirectory, $GLOBALS['huskyConfig']->formatterFileExtension
+            $this->_contentDirectory, Config::getConfig('app')->getFormatterFileExtension()
         );
         $template = $this->_fileSystem->getFile($this->_templatePath);
 
@@ -128,7 +129,7 @@ class Builder
                 array(
                      'content' => $htmlContent,
                      'primaryNavigation' => $primaryNavigation,
-                     'rootUrl' => APPLICATION_PATH . $GLOBALS['huskyConfig']->publicDirectory,
+                     'rootUrl' => APPLICATION_PATH . Config::getConfig('app')->getPublicDirectory(),
                      'datePublished' => $fileInfo->getCTime()
                 )
             );
@@ -136,6 +137,9 @@ class Builder
             // Write page to the public directory
             $publicFilePath = $this->_navigation->getPublicPath($fileInfo->getPathname());
 
+            // this is returning false - why? it seems to be set OK in Nav::getPublicPath. What is happening between
+            // these two points?
+            var_dump($publicFilePath);
             echo "Writing new file: ", realpath($publicFilePath), "\n";
             $this->_fileSystem->createFile($publicFilePath, $completePage);
         }
