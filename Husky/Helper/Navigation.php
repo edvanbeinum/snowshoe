@@ -7,7 +7,7 @@
  * @package Navigation
  */
 
-namespace Husky\Builder;
+namespace Husky\Helper;
 use \Husky\Config\Factory as Config;
 /**
  * Helper class that handles how the Navigation menu is built
@@ -20,7 +20,7 @@ class Navigation
     /**
      * Holds reference to the FilSystem helper object
      *
-     * @var \Husky\Helper\FileSystem
+     * @var FileSystem
      */
     protected $_fileSystem;
 
@@ -29,16 +29,29 @@ class Navigation
      */
     protected $_formatterFactory;
 
-    public function __construct($fileSystem, $formatterFactory)
+    /**
+     * Construct ahoy!
+     *
+     * @param FileSystem $fileSystem
+     * @param \Husky\Formatter\Factory $formatterFactory
+     */
+    public function __construct(FileSystem $fileSystem, \Husky\Formatter\Factory $formatterFactory)
     {
         $this->_fileSystem = $fileSystem;
         $this->_formatterFactory = $formatterFactory;
     }
 
+    /**
+     * Takes and array of splFileInfo objects and returns an associative array of url and title for each file given
+     *
+     * @param array $contentFiles array of splFileInfo objects
+     * @return array
+     */
     public function getPrimaryNavigation(array $contentFiles)
     {
+        // @TODO move 'Sorters' into a seperate class
         $sortCriteria = Config::getConfig('app')->getNavigationOrder();
-        usort($contentFiles, array('\Husky\Builder\Navigation', 'sortBy' . ucwords(strtolower($sortCriteria))));
+        usort($contentFiles, array('\Husky\Helper\Navigation', 'sortBy' . ucwords(strtolower($sortCriteria))));
 
         $primaryNavigation = array();
         $formatter = $this->_formatterFactory->getFormatter(Config::getConfig('app')->getFormatter());
@@ -53,7 +66,7 @@ class Navigation
     }
 
     /**
-     * Used by a usort to order blog entries by date for the Primary Navigation
+     * Used by usort to order blog entries by date for the Primary Navigation
      *
      * @param $a
      * @param $b

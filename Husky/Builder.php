@@ -76,13 +76,13 @@ class Builder
      * @param Formatter\Factory $formatterFactory
      * @param TemplateEngine\Factory $templateEngineFactory
      * @param Helper\FileSystem $fileSystem
-     * @param Builder\Navigation $navigation
+     * @param Helper\Navigation $navigation
      */
     public function __construct(
         \Husky\Formatter\Factory $formatterFactory,
         \Husky\TemplateEngine\Factory $templateEngineFactory,
         \Husky\Helper\FileSystem $fileSystem,
-        \Husky\Builder\Navigation $navigation
+        \Husky\Helper\Navigation $navigation
     )
     {
         $this->_formatter = $formatterFactory->getFormatter(Config::getConfig('app')->getFormatter());
@@ -129,6 +129,7 @@ class Builder
                 array(
                      'content' => $htmlContent,
                      'primaryNavigation' => $primaryNavigation,
+//                    'pageTitle' => $this->_formatt
                      'rootUrl' => APPLICATION_PATH . Config::getConfig('app')->getPublicDirectory(),
                      'datePublished' => $fileInfo->getCTime()
                 )
