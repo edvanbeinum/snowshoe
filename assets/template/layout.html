@@ -1,12 +1,13 @@
 <!doctype html>
 <head>
-    <link rel="stylesheet" href="{{ rootUrl }}css/bootstrap-1.2.0.min.css">
+    <link rel="stylesheet" href="{{ rootUrl }}/css/bootstrap.min.css">
+    <title>{{ title }}</title>
 </head>
 <body>
 <div class="container-fluid">
     <div class="sidebar">
         <ul>
-            {% for link in primaryNav %}
+            {% for link in primaryNavigation %}
             <li><a href="{{ link.url }}">{{ link.title }}</a></li>
             {% endfor %}
         </ul>
