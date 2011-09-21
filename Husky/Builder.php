@@ -104,19 +104,19 @@ class Builder
     {
 
         // Get contents of Content Directory
-        $rawContents = $this->_fileSystem->getFilesInDirectory(
+        $contentFiles = $this->_fileSystem->getFilesInDirectory(
             $this->_contentDirectory, Config::getConfig('app')->getFormatterFileExtension()
         );
         $template = $this->_fileSystem->getFile($this->_templatePath);
 
-        if (empty($rawContents)) {
+        if (empty($contentFiles)) {
             echo "No files found in the content directory: ", realpath($this->_contentDirectory);
             die("\n Husky has stopped");
         }
 
-        $primaryNavigation = $this->_navigation->getPrimaryNavigation($rawContents);
+        $primaryNavigation = $this->_navigation->getPrimaryNavigation($contentFiles);
 
-        foreach ($rawContents as $fileInfo) {
+        foreach ($contentFiles as $fileInfo) {
             echo "Getting ", $fileInfo->getPathname(), "\n";
             $content = $this->_fileSystem->getFile($fileInfo->getPathname());
 
@@ -129,7 +129,6 @@ class Builder
                 array(
                      'content' => $htmlContent,
                      'primaryNavigation' => $primaryNavigation,
-//                    'pageTitle' => $this->_formatt
                      'rootUrl' => APPLICATION_PATH . Config::getConfig('app')->getPublicDirectory(),
                      'datePublished' => $fileInfo->getCTime()
                 )

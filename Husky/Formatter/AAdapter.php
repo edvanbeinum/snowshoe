@@ -29,7 +29,8 @@ abstract class AAdapter
      * Returns the first <h1> tag of a given filename. If there are no matching tags then it will attempt to
      * use the first <h2> tag. Finally it will 'de-slugify' the filename and return that instead
      *
-     * @param \splFileInfo $fileInfo
+     * @param string $filename
+     * @param string $fileContent
      * @return string
      */
     public function getPageTitle($filename, $fileContent)

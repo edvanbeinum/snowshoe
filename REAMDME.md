@@ -27,6 +27,7 @@ TODO
 [ ] Need a prepare script that creates the CSS and js for the public directory?
 [ ] Page Titles
 [ ] Favicon
+[ ] Create Page class for page titles,
 
 
 Issues:
