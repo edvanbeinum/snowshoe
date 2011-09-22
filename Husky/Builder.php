@@ -30,7 +30,7 @@ class Builder
     /**
      * Class variabel to hold the TemplateEngine object
      *
-     * @var Husky\TemplateEngine\AAdapter
+     * @var TemplateEngine\AAdapter
      */
     protected $_templateEngine;
 
@@ -38,16 +38,22 @@ class Builder
     /**
      * Class variable to hold the FileSystem Object
      *
-     * @var \Husky\Husky\Helper\FileSystem
+     * @var Helper\FileSystem
      */
     protected $_fileSystem;
 
     /**
-     * Class variable to hold the Navigation object
+     * Class variable to hold the Navigation Helper object
      *
-     * @var Husky\Builder\Navigation
+     * @var Helper\Navigation
      */
     protected $_navigation;
+    /**
+     * Class variable to hold the Page helper object
+     *
+     * @var Helper\Page
+     */
+    protected $_page;
 
     /**
      * Absolute path to the content Directory (where the raw content files are)
@@ -77,18 +83,21 @@ class Builder
      * @param TemplateEngine\Factory $templateEngineFactory
      * @param Helper\FileSystem $fileSystem
      * @param Helper\Navigation $navigation
+     * @param Helper\Page $page
      */
     public function __construct(
         \Husky\Formatter\Factory $formatterFactory,
         \Husky\TemplateEngine\Factory $templateEngineFactory,
         \Husky\Helper\FileSystem $fileSystem,
-        \Husky\Helper\Navigation $navigation
+        \Husky\Helper\Navigation $navigation,
+        \Husky\Helper\Page $page
     )
     {
         $this->_formatter = $formatterFactory->getFormatter(Config::getConfig('app')->getFormatter());
         $this->_templateEngine = $templateEngineFactory->getTemplateEngine(Config::getConfig('app')->getTemplateEngine());
         $this->_fileSystem = $fileSystem;
         $this->_navigation = $navigation;
+        $this->_page = $page;
 
         $this->_contentDirectory = APPLICATION_PATH . Config::getConfig('app')->getContentDirectory();
         $this->_templatePath = APPLICATION_PATH . Config::getConfig('app')->getTemplatePath();
@@ -130,12 +139,13 @@ class Builder
                      'content' => $htmlContent,
                      'primaryNavigation' => $primaryNavigation,
                      'rootUrl' => APPLICATION_PATH . Config::getConfig('app')->getPublicDirectory(),
+                     'pageTitle' => $this->_page->getPageTitle($content, $fileInfo),
                      'datePublished' => $fileInfo->getCTime()
                 )
             );
 
             // Write page to the public directory
-            $publicFilePath = $this->_navigation->getPublicPath($fileInfo->getPathname());
+            $publicFilePath = $this->_page->getPublicFilePath($fileInfo->getPathname());
 
             // this is returning false - why? it seems to be set OK in Nav::getPublicPath. What is happening between
             // these two points?

@@ -25,20 +25,22 @@ class Navigation
     protected $_fileSystem;
 
     /**
-     * @var \Husky\Formatter\Factory
+     * Reference to Page helper object
+     *
+     * @var Page
      */
-    protected $_formatterFactory;
+    protected $_page;
 
     /**
      * Construct ahoy!
      *
      * @param FileSystem $fileSystem
-     * @param \Husky\Formatter\Factory $formatterFactory
+     * @param Page $page
      */
-    public function __construct(FileSystem $fileSystem, \Husky\Formatter\Factory $formatterFactory)
+    public function __construct(FileSystem $fileSystem, Page $page)
     {
         $this->_fileSystem = $fileSystem;
-        $this->_formatterFactory = $formatterFactory;
+        $this->_page = $page;
     }
 
     /**
@@ -55,53 +57,23 @@ class Navigation
         $sortFunctionName = 'sort' . $sortDirection;
         $sortClass = '\Husky\Helper\Sort\\' . $sortCriteria;
 
-        var_dump($sortFunctionName . $sortClass);
-        echo "\n\n\n";
-
+        // order the content files in the order specified in the config file
         usort($contentFiles, array($sortClass, $sortFunctionName));
 
         $primaryNavigation = array();
-        $formatter = $this->_formatterFactory->getFormatter(Config::getConfig('app')->getFormatter());
 
         foreach ($contentFiles as $fileInfo) {
+            $url = $this->_page->getPublicFilePath($fileInfo->getPathname());
+            $title = $this->_page->getPageTitle(
+                $this->_fileSystem->getFile($fileInfo->getPathname()),
+                $fileInfo->getFilename()
+            );
+            
             $primaryNavigation[] = array(
-                'url' => $this->getPublicPath($fileInfo->getPathname()),
-                'title' => $formatter->getPageTitle($fileInfo->getFilename(), $this->_fileSystem->getFile($fileInfo->getPathname()))
+                'url' => $url,
+                'title' => $title
             );
         }
         return $primaryNavigation;
-    }
-
-    /**
-     * Helper function that takes a path to the content directory and converts it into a path to the public directory
-     * It also converts the file extension from the formatter extension to the template engine extension
-     *
-     * @param string $contentPath
-     * @return string
-     */
-    public function getPublicPath($contentPath)
-    {
-        $publicFilePath = $this->_getPublicFilename($contentPath);
-        $publicFilePath = str_replace(
-            APPLICATION_PATH . Config::getConfig('app')->getContentDirectory(),
-            APPLICATION_PATH . Config::getConfig('app')->getPublicDirectory(),
-            $publicFilePath
-        );
-        return $publicFilePath;
-    }
-
-    /**
-     * Helper function that converts the file extension from the formatter extension to the template engine extension
-     *
-     * @param $contentFilename
-     * @return string
-     */
-    protected function _getPublicFilename($contentFilename)
-    {
-        return str_replace(
-            Config::getConfig('app')->getFormatterFileExtension(),
-            Config::getConfig('app')->getPublicFileExtension(),
-            $contentFilename
-        );
     }
 }

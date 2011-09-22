@@ -23,11 +23,15 @@ class Dic extends AConfig
             'Husky\Formatter\Factory' => array('class' => 'Husky\Formatter\Factory'),
             'Husky\TemplateEngine\Factory' => array('class' => 'Husky\TemplateEngine\Factory'),
             'Husky\Helper\FileSystem' => array('class' => 'Husky\Helper\FileSystem'),
+            'Husky\Helper\Page' => array(
+                'class' => 'Husky\Helper\Page',
+                'arguments' => array('Husky\Formatter\Factory')
+            ),
             'Husky\Helper\Navigation' => array(
                 'class' => 'Husky\Helper\Navigation',
                 'arguments' => array(
                     'Husky\Helper\FileSystem',
-                    'Husky\Formatter\Factory'
+                    'Husky\Helper\Page'
                 )
             ),
             'Husky\Builder' => array(
@@ -36,7 +40,8 @@ class Dic extends AConfig
                     'Husky\Formatter\Factory',
                     'Husky\TemplateEngine\Factory',
                     'Husky\Helper\FileSystem',
-                    'Husky\Helper\Navigation'
+                    'Husky\Helper\Navigation',
+                    'Husky\Helper\Page'
                 )
             )
         )

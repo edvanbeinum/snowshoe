@@ -17,7 +17,7 @@ require_once dirname(__FILE__) . '/../../Husky/bootstrap.php';
 class BuilderTest extends PHPUnit_Framework_TestCase {
 
     /**
-     * @var \Husky\Bulder
+     * @var \Husky\Builder
      */
     protected $_builder;
 
@@ -25,12 +25,18 @@ class BuilderTest extends PHPUnit_Framework_TestCase {
         $mockFormatter = $this->getMockForAbstractClass('Husky\Formatter\AAdapter');
         $mockTemplateEngine = $this->getMockForAbstractClass('Husky\TemplateEngine\AAdapter');
         $mockFileSystem = $this->getMock('Husky\Helper\FileSystem');
-        $mockNavigaton = $this->getMock('Husky\Builder\Navigation');
+       // $mockNavigaton = $this->getMock('Husky\Helper\Navigation');
 
-        $this->_builder = new \Husky\Builder($mockFormatter, $mockTemplateEngine, $mockFileSystem, $mockNavigaton);
+       // $this->_builder = new \Husky\Builder($mockFormatter, $mockTemplateEngine, $mockFileSystem, $mockNavigaton);
     }
 
-    
+    /**
+     * @test
+     */
+    public function dummy()
+    {
+        
+    }
 
 
 }
