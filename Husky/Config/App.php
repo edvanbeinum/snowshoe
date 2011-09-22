@@ -23,7 +23,7 @@ class App extends AConfig
         // File extension of the content files
         'formatter_file_extension' => '.md',
 
-        // Name of the Template Engine. Ships ith Twig or Mustache
+        // Name of the Template Engine. Ships with Twig or Mustache
         'template_engine' => 'Twig',
 
         // This is the file extension that wil be used on the public site
@@ -38,8 +38,11 @@ class App extends AConfig
         // Path, relative to Husky's root folder, where the finished public files will be written to
         'public_directory' => 'public',
 
-        // What criteria should the navigation be sorted on? date, filename
-        'navigation_order' => 'date',
+        // What criteria should the navigation be sorted on? date | alpha
+        'navigation_sort_criteria' => 'alpha',
+
+        // What criteria should the navigation be sorted on? asc | desc
+        'navigation_sort_direction' => 'asc',
     );
 
 }

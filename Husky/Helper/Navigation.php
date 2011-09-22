@@ -49,9 +49,16 @@ class Navigation
      */
     public function getPrimaryNavigation(array $contentFiles)
     {
-        // @TODO move 'Sorters' into a seperate class
-        $sortCriteria = Config::getConfig('app')->getNavigationOrder();
-        usort($contentFiles, array('\Husky\Helper\Navigation', 'sortBy' . ucwords(strtolower($sortCriteria))));
+        $sortCriteria = ucwords(strtolower(Config::getConfig('app')->getNavigationSortCriteria()));
+        $sortDirection = ucwords(strtolower(Config::getConfig('app')->getNavigationSortDirection()));
+
+        $sortFunctionName = 'sort' . $sortDirection;
+        $sortClass = '\Husky\Helper\Sort\\' . $sortCriteria;
+
+        var_dump($sortFunctionName . $sortClass);
+        echo "\n\n\n";
+
+        usort($contentFiles, array($sortClass, $sortFunctionName));
 
         $primaryNavigation = array();
         $formatter = $this->_formatterFactory->getFormatter(Config::getConfig('app')->getFormatter());
@@ -63,27 +70,6 @@ class Navigation
             );
         }
         return $primaryNavigation;
-    }
-
-    /**
-     * Used by usort to order blog entries by date for the Primary Navigation
-     *
-     * @param $a
-     * @param $b
-     * @return int
-     */
-    public function sortByDate($a, $b)
-    {
-        $aDate = $a->getCTime();
-        $bDate = $b->getCTime();
-
-        if ($aDate === $bDate) {
-            return 0;
-        } else if ($aDate > $bDate) {
-            return 1;
-        } else {
-            return -1;
-        }
     }
 
     /**
