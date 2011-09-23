@@ -16,38 +16,68 @@ require_once 'vfsStream/vfsStream.php';
  */
 class PageTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @var Husky\Helper\Page
-     */
-    protected $_page;
 
     /**
-     * Sets up the fixture, for example, opens a network connection.
-     * This method is called before a test is executed.
+     * Helper function that creates a mock FormatterFactory and will set the value returned by caliing execute() on the
+     * created formatter class
+     *
+     * @param $returnValue
+     * @return PHPUnit_Framework_MockObject_MockObject
      */
-    protected function setUp()
+    protected function _getMockFormatterFactory($returnValue)
     {
-        //$this->_page = new \Husky\Helper\Page;
+        $mockFormatter = $this->getMock('\Husky\Formatter\Adapter\Markdown');
+        $mockFormatter->expects($this->any())
+                ->method('execute')
+                ->will($this->returnValue($returnValue));
 
-//        vfsStreamWrapper::register();
-//        vfsStreamWrapper::setRoot(new vfsStreamDirectory('testDir'));
+        $mockFactory = $this->getMock('\Husky\Formatter\Factory', array('getFormatter'));
+        $mockFactory->expects($this->any())
+                ->method('getFormatter')
+                ->will($this->returnValue($mockFormatter));
+
+        return $mockFactory;
     }
 
     /**
-     * Tears down the fixture, for example, closes a network connection.
-     * This method is called after a test is executed.
+     * Helper function that returns a new instance of the Page Helper object
+     *
+     * @param $mockFactory
+     * @return Husky\Helper\Page
      */
-    protected function tearDown()
+    protected function _getPage($mockFactory)
     {
-        unset($this->_page);
+        return $this->_page = new \Husky\Helper\Page($mockFactory);
     }
 
     /**
      * @test
      */
-    public function getPageTitle_returns_expected_string()
+    public function getPageTitle_returns_expected_string_with_h1()
     {
+        $expected = "This is nice";
+        $page = $this->_getPage($this->_getMockFormatterFactory('<h1>This is nice</h1>'));
+        $this->assertSame($expected, $page->getPageTitle('dummy', 'test-file'));
+    }
 
+    /**
+     * @test
+     */
+    public function getPageTitle_returns_expected_string_with_h2()
+    {
+        $expected = "This is nice";
+        $page = $this->_getPage($this->_getMockFormatterFactory('<h2>This is nice</h2>'));
+        $this->assertSame($expected, $page->getPageTitle('dummy', 'test-file'));
+    }
+
+    /**
+     * @test
+     */
+    public function getPageTitle_returns_expected_string_from_filename()
+    {
+        $expected = "This Is Nice";
+        $page = $this->_getPage($this->_getMockFormatterFactory('<p>This is nice</p>'));
+        $this->assertSame($expected, $page->getPageTitle('dummy', 'this-is-nice'));
     }
 
 }

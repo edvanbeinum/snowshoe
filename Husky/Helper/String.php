@@ -26,9 +26,9 @@ class String
      * @param $sluggedString
      * @return string
      */
-    public static function getDeslugifiedString($sluggedString)
+    public static function getDeslugified($sluggedString)
     {
         $desluggedString = str_replace(array('-', '_'), ' ', $sluggedString);
-        return ucwords($desluggedString);
+        return ucwords(trim($desluggedString));
     }
 }

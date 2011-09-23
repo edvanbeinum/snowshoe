@@ -50,13 +50,15 @@ class Page
             // no h1 tags found, try h2
             $title = @$domDoc->getElementsByTagName('h2')->item(0)->textContent;
         }
+
+        // Looks like no h1 or h2 tags so grab the filename and deslugify it
         if (is_null($title)) {
             if ($filename instanceof splFileInfo) {
                 $filename = $filename->getFilename();
             }
             // remove the file extension and just have the filename
             list($cleanFilename) = explode('.', $filename);
-            $title = String::getDeslugifiedString($cleanFilename);
+            $title = String::getDeslugified($cleanFilename);
         }
         return $title;
     }
