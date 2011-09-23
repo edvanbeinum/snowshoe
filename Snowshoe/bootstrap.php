@@ -5,7 +5,7 @@ defined('APPLICATION_PATH')
 || define('APPLICATION_PATH', realpath(dirname(__FILE__)) . '/../');
 
 
-require_once APPLICATION_PATH . 'Husky/Vendor/Yadif/src/Yadif/Container.php';
+require_once APPLICATION_PATH . 'Snowshoe/Vendor/Yadif/src/Yadif/Container.php';
 
 
 /**
@@ -15,10 +15,10 @@ require_once APPLICATION_PATH . 'Husky/Vendor/Yadif/src/Yadif/Container.php';
  * @return void
  * @throws ErrorException
  */
-function huskyAutoloader($className)
+function snowshoeAutoloader($className)
 {
-    // Only autoload Classes in the Husky namespace. Other classes will need to be loaded using require_once manually
-    if (strpos($className, 'Husky') === FALSE) {
+    // Only autoload Classes in the Snowshoe namespace. Other classes will need to be loaded using require_once manually
+    if (strpos($className, 'Snowshoe') === FALSE) {
         return;
     }
     $className = str_replace('\\', '/', $className);
@@ -37,4 +37,4 @@ function huskyAutoloader($className)
     }
 }
 
-spl_autoload_register('huskyAutoloader');
+spl_autoload_register('snowshoeAutoloader');

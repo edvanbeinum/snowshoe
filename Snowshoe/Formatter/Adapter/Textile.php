@@ -6,7 +6,7 @@
  * @copyright Ibuildings 15/09/2011
  * @package MarkdownAdapter
  */
-namespace Husky\Formatter\Adapter;
+namespace Snowshoe\Formatter\Adapter;
 
 /**
  * Textile Formatter Adapter. This class knows how to interact with the MArkdown library
@@ -14,7 +14,7 @@ namespace Husky\Formatter\Adapter;
  * @package MarkdownAdapter
  * @author Ed van Beinum <e@edvanbeinum.com>
  */
-class Textile extends \Husky\Formatter\AAdapter
+class Textile extends \Snowshoe\Formatter\AAdapter
 {
 
     /**
@@ -25,7 +25,7 @@ class Textile extends \Husky\Formatter\AAdapter
      */
     public function execute($formattedString)
     {
-        require_once APPLICATION_PATH . 'Husky/Vendor/Formatters/textile/classTextile.php';
+        require_once APPLICATION_PATH . 'Snowshoe/Vendor/Formatters/textile/classTextile.php';
         $t = new \Textile();
         return Markdown($t->TextileThis($formattedString));
     }

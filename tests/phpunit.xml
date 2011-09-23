@@ -5,13 +5,13 @@
         
          colors="true">
     <testsuites>
-        <testsuite name="Husky TestSuite">
-            <directory suffix="Test.php">Husky/</directory>
+        <testsuite name="Snowshoe TestSuite">
+            <directory suffix="Test.php">Snowshoe/</directory>
         </testsuite>
     </testsuites>
     <filter>
         <blacklist>
-            <directory suffix=".php">../Husky/Vendor/</directory>
+            <directory suffix=".php">../Snowshoe/Vendor/</directory>
         </blacklist>
     </filter>
 

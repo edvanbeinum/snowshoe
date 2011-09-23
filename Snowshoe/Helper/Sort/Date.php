@@ -6,7 +6,7 @@
  * @copyright Ibuildings 21/09/2011
  * @package Date
  */
-namespace Husky\Helper\Sort;
+namespace Snowshoe\Helper\Sort;
 
 /**
  *

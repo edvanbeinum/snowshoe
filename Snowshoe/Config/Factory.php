@@ -7,7 +7,7 @@
  * @package Factory
  */
 
-namespace Husky\Config;
+namespace Snowshoe\Config;
 
 /**
  *
@@ -22,11 +22,11 @@ class Factory
      *
      * @static
      * @param string $name
-     * @return \Husky\Config\AConfig
+     * @return \Snowshoe\Config\AConfig
      */
     public static function getConfig($name)
     {
-        $newClassName = '\Husky\Config\\' . ucfirst($name);
+        $newClassName = '\Snowshoe\Config\\' . ucfirst($name);
         return new $newClassName;
     }
 }

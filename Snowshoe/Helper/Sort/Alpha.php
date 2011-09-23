@@ -7,7 +7,7 @@
  * @package Alpha 
  */
  
- namespace Husky\Helper\Sort;
+ namespace Snowshoe\Helper\Sort;
 
  /**
  * 

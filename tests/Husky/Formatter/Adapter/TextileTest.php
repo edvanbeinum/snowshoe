@@ -4,13 +4,13 @@
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
  * @copyright Ibuildings 07/08/2011
- * @package Husky
+ * @package Snowshoe
  */
-require_once dirname(__FILE__) . '/../../../../Husky/bootstrap.php';
+require_once dirname(__FILE__) . '/../../../../Snowshoe/bootstrap.php';
 
 /**
  *
- * @package HuskyTest
+ * @package SnowshoeTest
  * @author Ed van Beinum <e@edvanbeinum.com>
  */
 class TextileTest extends PHPUnit_Framework_TestCase
@@ -18,13 +18,13 @@ class TextileTest extends PHPUnit_Framework_TestCase
 
 
     /**
-     * @var Husky\Formatter\Adapter\Textile
+     * @var Snowshoe\Formatter\Adapter\Textile
      */
     protected $_textile;
 
     public function setUp()
     {
-        $this->_textile = new \Husky\Formatter\Adapter\Textile;
+        $this->_textile = new \Snowshoe\Formatter\Adapter\Textile;
     }
 
     /**

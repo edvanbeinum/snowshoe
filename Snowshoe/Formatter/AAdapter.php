@@ -7,7 +7,7 @@
  * @package AFormatter
  */
 
-namespace Husky\Formatter;
+namespace Snowshoe\Formatter;
 /**
  *
  * @package AFormatter

@@ -4,10 +4,10 @@
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
  * @copyright Ibuildings 07/08/2011
- * @package HuskyTest
+ * @package SnowshoeTest
  */
 
-require_once dirname(__FILE__) . '/../../../Husky/bootstrap.php';
+require_once dirname(__FILE__) . '/../../../Snowshoe/bootstrap.php';
 require_once 'vfsStream/vfsStream.php';
 
 /**
@@ -17,7 +17,7 @@ require_once 'vfsStream/vfsStream.php';
 class FileSystemTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var Husky\Helper\FileSystem
+     * @var Snowshoe\Helper\FileSystem
      */
     protected $_fileSystem;
 
@@ -27,7 +27,7 @@ class FileSystemTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->_fileSystem = new \Husky\Helper\FileSystem;
+        $this->_fileSystem = new \Snowshoe\Helper\FileSystem;
 
         vfsStreamWrapper::register();
         vfsStreamWrapper::setRoot(new vfsStreamDirectory('testDir'));

@@ -7,7 +7,7 @@
  * @package String
  */
 
-namespace Husky\Helper;
+namespace Snowshoe\Helper;
 /**
  * A bunch of hlper methods for Strings
  *

@@ -7,8 +7,8 @@
  * @package Page
  */
 
-namespace Husky\Helper;
-use \Husky\Config\Factory as Config;
+namespace Snowshoe\Helper;
+use \Snowshoe\Config\Factory as Config;
 /**
  * Class that deals with Page-level functionaity, such as getting the Page title
  *
@@ -18,11 +18,11 @@ use \Husky\Config\Factory as Config;
 class Page
 {
     /**
-     * @var \Husky\Formatter\Factory
+     * @var \Snowshoe\Formatter\Factory
      */
     protected $_formatterFactory;
 
-    public function __construct(\Husky\Formatter\Factory $formatterFactory)
+    public function __construct(\Snowshoe\Formatter\Factory $formatterFactory)
     {
         $this->_formatterFactory = $formatterFactory;
     }

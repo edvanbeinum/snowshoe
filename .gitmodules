@@ -1,15 +1,15 @@
-[submodule "Husky/Vendor/Formatters/php-markdown"]
-	path = Husky/Vendor/Formatters/php-markdown
+[submodule "Snowshoe/Vendor/Formatters/php-markdown"]
+	path = Snowshoe/Vendor/Formatters/php-markdown
 	url = https://github.com/wolfie/php-markdown.git
-[submodule "Husky/Vendor/TemplateEngines/twig"]
-	path = Husky/Vendor/TemplateEngines/twig
+[submodule "Snowshoe/Vendor/TemplateEngines/twig"]
+	path = Snowshoe/Vendor/TemplateEngines/twig
 	url = https://github.com/fabpot/Twig.git
-[submodule "Husky/Vendor/Formatters/textile"]
-	path = Husky/Vendor/Formatters/textile
+[submodule "Snowshoe/Vendor/Formatters/textile"]
+	path = Snowshoe/Vendor/Formatters/textile
 	url = https://github.com/netcarver/textile.git
-[submodule "Husky/Vendor/Yadif"]
-	path = Husky/Vendor/Yadif
+[submodule "Snowshoe/Vendor/Yadif"]
+	path = Snowshoe/Vendor/Yadif
 	url = https://github.com/beberlei/yadif.git
-[submodule "Husky/Vendor/Twitter/bootstrap"]
-	path = Husky/Vendor/Twitter/bootstrap
+[submodule "Snowshoe/Vendor/Twitter/bootstrap"]
+	path = Snowshoe/Vendor/Twitter/bootstrap
 	url = https://github.com/twitter/bootstrap.git

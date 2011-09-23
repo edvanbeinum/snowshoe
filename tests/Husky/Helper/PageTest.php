@@ -4,10 +4,10 @@
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
  * @copyright Ibuildings 07/08/2011
- * @package HuskyTest
+ * @package SnowshoeTest
  */
 
-require_once dirname(__FILE__) . '/../../../Husky/bootstrap.php';
+require_once dirname(__FILE__) . '/../../../Snowshoe/bootstrap.php';
 require_once 'vfsStream/vfsStream.php';
 
 /**
@@ -26,12 +26,12 @@ class PageTest extends PHPUnit_Framework_TestCase
      */
     protected function _getMockFormatterFactory($returnValue)
     {
-        $mockFormatter = $this->getMock('\Husky\Formatter\Adapter\Markdown');
+        $mockFormatter = $this->getMock('\Snowshoe\Formatter\Adapter\Markdown');
         $mockFormatter->expects($this->any())
                 ->method('execute')
                 ->will($this->returnValue($returnValue));
 
-        $mockFactory = $this->getMock('\Husky\Formatter\Factory', array('getFormatter'));
+        $mockFactory = $this->getMock('\Snowshoe\Formatter\Factory', array('getFormatter'));
         $mockFactory->expects($this->any())
                 ->method('getFormatter')
                 ->will($this->returnValue($mockFormatter));
@@ -43,11 +43,11 @@ class PageTest extends PHPUnit_Framework_TestCase
      * Helper function that returns a new instance of the Page Helper object
      *
      * @param $mockFactory
-     * @return Husky\Helper\Page
+     * @return Snowshoe\Helper\Page
      */
     protected function _getPage($mockFactory)
     {
-        return $this->_page = new \Husky\Helper\Page($mockFactory);
+        return $this->_page = new \Snowshoe\Helper\Page($mockFactory);
     }
 
     /**

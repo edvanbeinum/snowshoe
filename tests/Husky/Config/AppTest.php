@@ -4,13 +4,13 @@
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
  * @copyright Ibuildings 07/08/2011
- * @package Husky
+ * @package Snowshoe
  */
-require_once dirname(__FILE__) . '/../../../Husky/bootstrap.php';
+require_once dirname(__FILE__) . '/../../../Snowshoe/bootstrap.php';
 
 /**
  *
- * @package HuskyTest
+ * @package SnowshoeTest
  * @author Ed van Beinum <e@edvanbeinum.com>
  */
 class AppTest extends PHPUnit_Framework_TestCase
@@ -19,7 +19,7 @@ class AppTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->_app = new \Husky\Config\App();
+        $this->_app = new \Snowshoe\Config\App();
     }
 
     public function tearDown()

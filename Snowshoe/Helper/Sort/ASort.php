@@ -7,7 +7,7 @@
  * @package ISort
  */
 
-namespace Husky\Helper\Sort;
+namespace Snowshoe\Helper\Sort;
 
 /**
  * Interface for the Sort classes. The sort function is used as a usort() callback

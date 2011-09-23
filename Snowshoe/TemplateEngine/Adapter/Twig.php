@@ -6,7 +6,7 @@
  * @copyright Ibuildings 15/09/2011
  * @package MarkdownAdapter
  */
-namespace Husky\TemplateEngine\Adapter;
+namespace Snowshoe\TemplateEngine\Adapter;
 
 /**
  * Markdown Formatter Adapter. This class knows how to interact with the MArkdown library
@@ -14,12 +14,12 @@ namespace Husky\TemplateEngine\Adapter;
  * @package MarkdownAdapter
  * @author Ed van Beinum <e@edvanbeinum.com>
  */
-class Twig extends \Husky\TemplateEngine\AAdapter
+class Twig extends \Snowshoe\TemplateEngine\AAdapter
 {
 
     public function __construct()
     {
-        require_once APPLICATION_PATH . 'Husky/Vendor/TemplateEngines/twig/lib/Twig/Autoloader.php';
+        require_once APPLICATION_PATH . 'Snowshoe/Vendor/TemplateEngines/twig/lib/Twig/Autoloader.php';
         \Twig_Autoloader::register();
         $loader = new \Twig_Loader_String();
 

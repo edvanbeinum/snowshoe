@@ -7,7 +7,7 @@
  * @package App
  */
 
-namespace Husky\Config;
+namespace Snowshoe\Config;
 /**
  *
  * @package App
@@ -29,13 +29,13 @@ class App extends AConfig
         // This is the file extension that wil be used on the public site
         'public_file_extension' => '.html',
 
-        // Path, relative to Husky's root folder, where the content files live
+        // Path, relative to Snowshoe's root folder, where the content files live
         'content_directory' => 'assets/content',
 
-        // Path, relative to Husky's root folder, where the template layout file lives
+        // Path, relative to Snowshoe's root folder, where the template layout file lives
         'template_path' => 'assets/template/layout.html',
 
-        // Path, relative to Husky's root folder, where the finished public files will be written to
+        // Path, relative to Snowshoe's root folder, where the finished public files will be written to
         'public_directory' => 'public',
 
         // What criteria should the navigation be sorted on? date | alpha

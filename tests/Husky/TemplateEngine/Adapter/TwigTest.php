@@ -4,13 +4,13 @@
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
  * @copyright Ibuildings 07/08/2011
- * @package Husky
+ * @package Snowshoe
  */
-require_once dirname(__FILE__) . '/../../../../Husky/bootstrap.php';
+require_once dirname(__FILE__) . '/../../../../Snowshoe/bootstrap.php';
 
 /**
  *
- * @package HuskyTest
+ * @package SnowshoeTest
  * @author Ed van Beinum <e@edvanbeinum.com>
  */
 class TwigTest extends PHPUnit_Framework_TestCase
@@ -18,13 +18,13 @@ class TwigTest extends PHPUnit_Framework_TestCase
 
 
     /**
-     * @var Husky\TemplateEngine\Adapter\Twig
+     * @var Snowshoe\TemplateEngine\Adapter\Twig
      */
     protected $_twig;
 
     public function setUp()
     {
-        $this->_twig = new \Husky\TemplateEngine\Adapter\Twig;
+        $this->_twig = new \Snowshoe\TemplateEngine\Adapter\Twig;
     }
 
     /**

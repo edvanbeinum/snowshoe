@@ -7,7 +7,7 @@
  * @package AFormatter 
  */
  
- namespace Husky\TemplateEngine;
+ namespace Snowshoe\TemplateEngine;
  /**
  * 
  * @package AFormatter

@@ -7,7 +7,7 @@
  * @package AConfig
  */
 
-namespace Husky\Config;
+namespace Snowshoe\Config;
 /**
  *
  * @package AConfig

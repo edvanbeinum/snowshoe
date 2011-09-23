@@ -6,8 +6,8 @@
  * @copyright Ibuildings 17/09/2011
  * @package Builder
  */
-namespace Husky;
-use \Husky\Config\Factory as Config;
+namespace Snowshoe;
+use \Snowshoe\Config\Factory as Config;
 
 /**
  * this is where the action happens
@@ -23,7 +23,7 @@ class Builder
     /**
      * Class variable to hold the Formatter object
      *
-     * @var Husky\Formatter\AAdapter
+     * @var Snowshoe\Formatter\AAdapter
      */
     protected $_formatter;
 
@@ -86,11 +86,11 @@ class Builder
      * @param Helper\Page $page
      */
     public function __construct(
-        \Husky\Formatter\Factory $formatterFactory,
-        \Husky\TemplateEngine\Factory $templateEngineFactory,
-        \Husky\Helper\FileSystem $fileSystem,
-        \Husky\Helper\Navigation $navigation,
-        \Husky\Helper\Page $page
+        \Snowshoe\Formatter\Factory $formatterFactory,
+        \Snowshoe\TemplateEngine\Factory $templateEngineFactory,
+        \Snowshoe\Helper\FileSystem $fileSystem,
+        \Snowshoe\Helper\Navigation $navigation,
+        \Snowshoe\Helper\Page $page
     )
     {
         $this->_formatter = $formatterFactory->getFormatter(Config::getConfig('app')->getFormatter());
@@ -120,13 +120,12 @@ class Builder
 
         if (empty($contentFiles)) {
             echo "No files found in the content directory: ", realpath($this->_contentDirectory);
-            die("\n Husky has stopped");
+            die("\n Snowshoe has stopped");
         }
 
         $primaryNavigation = $this->_navigation->getPrimaryNavigation($contentFiles);
 
         foreach ($contentFiles as $fileInfo) {
-            echo "Getting ", $fileInfo->getPathname(), "\n";
             $content = $this->_fileSystem->getFile($fileInfo->getPathname());
 
             // Parse each of those content files into HMTL
@@ -146,11 +145,6 @@ class Builder
 
             // Write page to the public directory
             $publicFilePath = $this->_page->getPublicFilePath($fileInfo->getPathname());
-
-            // this is returning false - why? it seems to be set OK in Nav::getPublicPath. What is happening between
-            // these two points?
-            var_dump($publicFilePath);
-            echo "Writing new file: ", realpath($publicFilePath), "\n";
             $this->_fileSystem->createFile($publicFilePath, $completePage);
         }
     }

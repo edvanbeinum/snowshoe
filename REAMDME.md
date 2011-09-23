@@ -1,4 +1,4 @@
-# Husky / Snowshoe
+# Snowshoe / Snowshoe
 
 ## A static site generator written in PHP
 

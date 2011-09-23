@@ -6,7 +6,7 @@
  * @copyright Ibuildings 15/09/2011
  * @package MarkdownAdapter
  */
-namespace Husky\Formatter\Adapter;
+namespace Snowshoe\Formatter\Adapter;
 
 /**
  * Markdown Formatter Adapter. This class knows how to interact with the MArkdown library
@@ -14,7 +14,7 @@ namespace Husky\Formatter\Adapter;
  * @package MarkdownAdapter
  * @author Ed van Beinum <e@edvanbeinum.com>
  */
-class Markdown extends \Husky\Formatter\AAdapter
+class Markdown extends \Snowshoe\Formatter\AAdapter
 {
 
     /**
@@ -25,7 +25,7 @@ class Markdown extends \Husky\Formatter\AAdapter
      */
     public function execute($formattedString)
     {
-        require_once APPLICATION_PATH . 'Husky/Vendor/Formatters/php-markdown/markdown.php';
+        require_once APPLICATION_PATH . 'Snowshoe/Vendor/Formatters/php-markdown/markdown.php';
         return Markdown($formattedString);
     }
 }

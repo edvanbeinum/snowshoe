@@ -4,25 +4,25 @@
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
  * @copyright Ibuildings 07/08/2011
- * @package Husky
+ * @package Snowshoe
  */
-require_once dirname(__FILE__) . '/../../../../Husky/bootstrap.php';
+require_once dirname(__FILE__) . '/../../../../Snowshoe/bootstrap.php';
 
 /**
  *
- * @package HuskyTest
+ * @package SnowshoeTest
  * @author Ed van Beinum <e@edvanbeinum.com>
  */
 class DateTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var Husky\Helper\Sort\Date
+     * @var Snowshoe\Helper\Sort\Date
      */
     protected $_date;
 
     public function setUp()
     {
-        $this->_date = new \Husky\Helper\Sort\Date;
+        $this->_date = new \Snowshoe\Helper\Sort\Date;
     }
 
     /**

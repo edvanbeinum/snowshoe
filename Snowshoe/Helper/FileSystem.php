@@ -7,11 +7,11 @@
  * @package FileSystem
  */
 
-namespace Husky\Helper;
+namespace Snowshoe\Helper;
 /**
  * Collection of wrapper functions around PHP's filesystem operations
  *
- * @package Husky
+ * @package Snowshoe
  * @author Ed van Beinum <e@edvanbeinum.com>
  */
 class FileSystem

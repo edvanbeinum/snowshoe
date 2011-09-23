@@ -7,8 +7,8 @@
  * @package Navigation
  */
 
-namespace Husky\Helper;
-use \Husky\Config\Factory as Config;
+namespace Snowshoe\Helper;
+use \Snowshoe\Config\Factory as Config;
 /**
  * Helper class that handles how the Navigation menu is built
  *
@@ -55,7 +55,7 @@ class Navigation
         $sortDirection = ucwords(strtolower(Config::getConfig('app')->getNavigationSortDirection()));
 
         $sortFunctionName = 'sort' . $sortDirection;
-        $sortClass = '\Husky\Helper\Sort\\' . $sortCriteria;
+        $sortClass = '\Snowshoe\Helper\Sort\\' . $sortCriteria;
 
         // order the content files in the order specified in the config file
         usort($contentFiles, array($sortClass, $sortFunctionName));

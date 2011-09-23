@@ -7,7 +7,7 @@
  * @package FormatterFactory
  */
 
-namespace Husky\TemplateEngine;
+namespace Snowshoe\TemplateEngine;
 /**
  *
  * @package FormatterFactory
@@ -32,7 +32,7 @@ class Factory
     public function getTemplateEngine($templateEngineName = NULL)
     {
         if (is_null(self::$_templateEngine)) {
-            $newClassName = '\Husky\TemplateEngine\Adapter\\' . ucwords(strtolower($templateEngineName));
+            $newClassName = '\Snowshoe\TemplateEngine\Adapter\\' . ucwords(strtolower($templateEngineName));
             return new $newClassName;
         }
         return self::$_templateEngine;

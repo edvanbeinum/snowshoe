@@ -4,30 +4,30 @@
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
  * @copyright Ibuildings 07/08/2011
- * @package HuskyTest 
+ * @package SnowshoeTest
  */
  
-require_once dirname(__FILE__) . '/../../Husky/bootstrap.php';
+require_once dirname(__FILE__) . '/../../Snowshoe/bootstrap.php';
 
  /**
  * 
- * @package HuskyTest
+ * @package SnowshoeTest
  * @author Ed van Beinum <e@edvanbeinum.com>
  */
 class BuilderTest extends PHPUnit_Framework_TestCase {
 
     /**
-     * @var \Husky\Builder
+     * @var \Snowshoe\Builder
      */
     protected $_builder;
 
     public function setUp(){
-        $mockFormatter = $this->getMockForAbstractClass('Husky\Formatter\AAdapter');
-        $mockTemplateEngine = $this->getMockForAbstractClass('Husky\TemplateEngine\AAdapter');
-        $mockFileSystem = $this->getMock('Husky\Helper\FileSystem');
-       // $mockNavigaton = $this->getMock('Husky\Helper\Navigation');
+        $mockFormatter = $this->getMockForAbstractClass('Snowshoe\Formatter\AAdapter');
+        $mockTemplateEngine = $this->getMockForAbstractClass('Snowshoe\TemplateEngine\AAdapter');
+        $mockFileSystem = $this->getMock('Snowshoe\Helper\FileSystem');
+       // $mockNavigaton = $this->getMock('Snowshoe\Helper\Navigation');
 
-       // $this->_builder = new \Husky\Builder($mockFormatter, $mockTemplateEngine, $mockFileSystem, $mockNavigaton);
+       // $this->_builder = new \Snowshoe\Builder($mockFormatter, $mockTemplateEngine, $mockFileSystem, $mockNavigaton);
     }
 
     /**

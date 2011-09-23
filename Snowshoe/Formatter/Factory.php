@@ -7,7 +7,7 @@
  * @package FormatterFactory
  */
 
-namespace Husky\Formatter;
+namespace Snowshoe\Formatter;
 /**
  *
  * @package FormatterFactory
@@ -25,7 +25,7 @@ class Factory
     {
         if (is_null(self::$_formatterEngine)) {
 
-            $newClassName = '\Husky\Formatter\Adapter\\' . ucwords(strtolower($formatterEngineName));
+            $newClassName = '\Snowshoe\Formatter\Adapter\\' . ucwords(strtolower($formatterEngineName));
             return new $newClassName;
         }
         return self::$_formatterEngine;

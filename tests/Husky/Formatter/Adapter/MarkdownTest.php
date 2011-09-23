@@ -4,13 +4,13 @@
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
  * @copyright Ibuildings 07/08/2011
- * @package Husky
+ * @package Snowshoe
  */
-require_once dirname(__FILE__) . '/../../../../Husky/bootstrap.php';
+require_once dirname(__FILE__) . '/../../../../Snowshoe/bootstrap.php';
 
 /**
  *
- * @package HuskyTest
+ * @package SnowshoeTest
  * @author Ed van Beinum <e@edvanbeinum.com>
  */
 class MarkdownTest extends PHPUnit_Framework_TestCase
@@ -18,13 +18,13 @@ class MarkdownTest extends PHPUnit_Framework_TestCase
 
 
     /**
-     * @var Husky\Formatter\Adapter\Markdown
+     * @var Snowshoe\Formatter\Adapter\Markdown
      */
     protected $_markdown;
 
     public function setUp()
     {
-        $this->_markdown = new \Husky\Formatter\Adapter\Markdown;
+        $this->_markdown = new \Snowshoe\Formatter\Adapter\Markdown;
     }
 
     /**

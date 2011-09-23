@@ -4,13 +4,13 @@
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
  * @copyright Ibuildings 07/08/2011
- * @package Husky
+ * @package Snowshoe
  */
-require_once dirname(__FILE__) . '/../../../Husky/bootstrap.php';
+require_once dirname(__FILE__) . '/../../../Snowshoe/bootstrap.php';
 
 /**
  *
- * @package HuskyTest
+ * @package SnowshoeTest
  * @author Ed van Beinum <e@edvanbeinum.com>
  */
 class FactoryTest extends PHPUnit_Framework_TestCase
@@ -23,7 +23,7 @@ class FactoryTest extends PHPUnit_Framework_TestCase
      */
     public function tearDown()
     {
-        \Husky\TemplateEngine\Factory::setTemplateEngine(NULL);
+        \Snowshoe\TemplateEngine\Factory::setTemplateEngine(NULL);
     }
 
     /**
@@ -31,10 +31,10 @@ class FactoryTest extends PHPUnit_Framework_TestCase
      */
     public function getterInjection_returns_exepcted_type()
     {
-        $mockTwigAdapter = $this->getMock('\Husky\TemplateEngine\Adapter\Twig');
-        \Husky\TemplateEngine\Factory::setTemplateEngine($mockTwigAdapter);
+        $mockTwigAdapter = $this->getMock('\Snowshoe\TemplateEngine\Adapter\Twig');
+        \Snowshoe\TemplateEngine\Factory::setTemplateEngine($mockTwigAdapter);
 
-        $this->assertInstanceOf('\Husky\TemplateEngine\Adapter\Twig', Husky\TemplateEngine\Factory::getTemplateEngine());
+        $this->assertInstanceOf('\Snowshoe\TemplateEngine\Adapter\Twig', Snowshoe\TemplateEngine\Factory::getTemplateEngine());
     }
 
     /**
@@ -43,8 +43,8 @@ class FactoryTest extends PHPUnit_Framework_TestCase
     public function getTemplateEngine_returns_expected_type_with_title_case()
     {
         $this->assertInstanceOf(
-            '\Husky\TemplateEngine\Adapter\Twig',
-            Husky\TemplateEngine\Factory::getTemplateEngine('Twig'),
+            '\Snowshoe\TemplateEngine\Adapter\Twig',
+            Snowshoe\TemplateEngine\Factory::getTemplateEngine('Twig'),
             "getTemplateEngine not return expected type with title case format type"
         );
     }
@@ -55,8 +55,8 @@ class FactoryTest extends PHPUnit_Framework_TestCase
     public function getTemplateEngine_returns_expected_type_with_lower_case()
     {
         $this->assertInstanceOf(
-            '\Husky\TemplateEngine\Adapter\Twig',
-            Husky\TemplateEngine\Factory::getTemplateEngine('twig'),
+            '\Snowshoe\TemplateEngine\Adapter\Twig',
+            Snowshoe\TemplateEngine\Factory::getTemplateEngine('twig'),
             "getTemplateEngine not return expected type with lowercase format type"
         );
     }
@@ -67,8 +67,8 @@ class FactoryTest extends PHPUnit_Framework_TestCase
     public function getTemplateEngine_returns_expected_type_with_upper_case()
     {
         $this->assertInstanceOf(
-            '\Husky\TemplateEngine\Adapter\Twig',
-            Husky\TemplateEngine\Factory::getTemplateEngine('TWIG'),
+            '\Snowshoe\TemplateEngine\Adapter\Twig',
+            Snowshoe\TemplateEngine\Factory::getTemplateEngine('TWIG'),
             "getTemplateEngine not return expected type with lowercase format type"
         );
     }
@@ -79,7 +79,7 @@ class FactoryTest extends PHPUnit_Framework_TestCase
      */
     public function getTemplateEngine_throws_error_on_unkown_formatter_type()
     {
-        $class = Husky\TemplateEngine\Factory::getTemplateEngine('fake');
+        $class = Snowshoe\TemplateEngine\Factory::getTemplateEngine('fake');
     }
 
 }
