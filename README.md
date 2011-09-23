@@ -14,8 +14,19 @@ http://weierophinney.net/matthew/archives/181-Migrating-OOP-Libraries-and-Framew
 
 ## Folders
 
-* /assets - raw MD/Textile files where folder structure will be recreated on te site
+* /assets/content - raw MD/Textile files where folder structure will be recreated on the site
+* /assest/layout - the layout file, basically the second step in the two-step view process
 * /public where to final site is saved to
+
+## Install Snowshoe
+
+Snowshoe used a few third party libraries such as a PHP Markdown parser, the textile parser, Twig template engine and Yadif dependency injection container. They are bundled with Snowshoe as git submodules. You will need to install them:
+
+    $ git clone git@github.com:edvanbeinum/snowshoe.git
+    $ cd snowshoe
+    $ git submodules init
+    $ git submodules update
+
 
 ## To run Snowshow:
 
