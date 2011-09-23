@@ -5,18 +5,7 @@ defined('APPLICATION_PATH')
 || define('APPLICATION_PATH', realpath(dirname(__FILE__)) . '/../');
 
 
-
-// Add Zend library to include path. We are using the Zend_Config component from ZF 1.11 here.
-set_include_path(
-    APPLICATION_PATH . 'Husky/Vendor' . PATH_SEPARATOR .
-    get_include_path()
-);
-require_once APPLICATION_PATH . 'Husky/Vendor/Zend/Config/Yaml.php';
 require_once APPLICATION_PATH . 'Husky/Vendor/Yadif/src/Yadif/Container.php';
-
-// Create global config object. Yes GLOBAL! Becuase it is needed from the global context.
-$GLOBALS['huskyConfig'] = new Zend_Config_Yaml(APPLICATION_PATH . '/config/husky.yaml', 'production');
-
 
 
 /**

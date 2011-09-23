@@ -6,7 +6,7 @@
          colors="true">
     <testsuites>
         <testsuite name="Husky TestSuite">
-            <directory sufix="Test.php">Husky/</directory>
+            <directory suffix="Test.php">Husky/</directory>
         </testsuite>
     </testsuites>
     <filter>
