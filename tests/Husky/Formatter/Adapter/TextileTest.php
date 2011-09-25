@@ -42,10 +42,10 @@ class TextileTest extends PHPUnit_Framework_TestCase
      */
     public function execute_returns_html_string()
     {
-        $formattedString = "h1. Hello \n";
+        $formattedString = "h1. Hello";
         $expected = "<h1>Hello</h1>";
-        $result = $this->_textile->execute($formattedString);
+        $result = trim($this->_textile->execute($formattedString));
 
-        //$this->assertEquals($expected, $result);
+        $this->assertEquals($expected, $result);
     }
 }

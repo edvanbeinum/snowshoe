@@ -27,6 +27,6 @@ class Textile extends \Snowshoe\Formatter\AAdapter
     {
         require_once APPLICATION_PATH . 'Snowshoe/Vendor/Formatters/textile/classTextile.php';
         $t = new \Textile();
-        return Markdown($t->TextileThis($formattedString));
+        return $t->TextileThis($formattedString);
     }
 }
