@@ -35,7 +35,7 @@ Snowshoe used a few third party libraries such as a PHP Markdown parser, the tex
 ## TODO
 
 
-    [ ] Check that Textile is working and not just returning strings formatted with pre
+    [*] Check that Textile is working and not just returning strings formatted with pre
     [*] Use a proper config thing for Yadif
     [*] What are we goingto do about config? Make own static Config class with array of params
     [ ] Add event observer pattern so we can hook into parts of the system: things like run LESS compiler, or publish to S3
@@ -43,6 +43,7 @@ Snowshoe used a few third party libraries such as a PHP Markdown parser, the tex
     [*] Page Titles
     [ ] Favicon
     [*] Create Page class for page titles,
+    [ ] Handle domain names in the public file path
 
 
 ## Issues:

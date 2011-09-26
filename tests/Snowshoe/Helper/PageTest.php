@@ -8,7 +8,6 @@
  */
 
 require_once dirname(__FILE__) . '/../../../Snowshoe/bootstrap.php';
-require_once 'vfsStream/vfsStream.php';
 
 /**
  * Test class for Page.
