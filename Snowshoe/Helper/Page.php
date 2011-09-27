@@ -8,7 +8,7 @@
  */
 
 namespace Snowshoe\Helper;
-use \Snowshoe\Config\Factory as Config;
+
 /**
  * Class that deals with Page-level functionaity, such as getting the Page title
  *
@@ -21,10 +21,22 @@ class Page
      * @var \Snowshoe\Formatter\Factory
      */
     protected $_formatterFactory;
+    
+    /**
+     * @var \Snowshoe\Config\App\Snowshoe\Config\App $config
+     */
+    protected $_config;
 
-    public function __construct(\Snowshoe\Formatter\Factory $formatterFactory)
+    /**
+     * Constructor ahoy
+     *
+     * @param \Snowshoe\Formatter\Factory $formatterFactory
+     * @param \Snowshoe\Config\App $config
+     */
+    public function __construct(\Snowshoe\Formatter\Factory $formatterFactory, \Snowshoe\Config\App $config)
     {
         $this->_formatterFactory = $formatterFactory;
+        $this->_config = $config;
     }
 
     /**
@@ -37,7 +49,7 @@ class Page
      */
     public function getPageTitle($fileContent, $filename)
     {
-        $formatter = $this->_formatterFactory->getFormatter(Config::getConfig('app')->getFormatter());
+        $formatter = $this->_formatterFactory->getFormatter($this->_config->getFormatter());
 
         $htmlContent = $formatter->execute($fileContent);
         $domDoc = new \DOMDocument();
@@ -74,8 +86,8 @@ class Page
     {
         $publicFilePath = $this->getPublicFilename($contentPath);
         $publicFilePath = str_replace(
-            APPLICATION_PATH . Config::getConfig('app')->getContentDirectory(),
-            APPLICATION_PATH . Config::getConfig('app')->getPublicDirectory(),
+            APPLICATION_PATH . $this->_config->getContentDirectory(),
+            APPLICATION_PATH . $this->_config->getPublicDirectory(),
             $publicFilePath
         );
         return $publicFilePath;
@@ -90,8 +102,8 @@ class Page
     public function getPublicFilename($contentFilename)
     {
         return str_replace(
-            Config::getConfig('app')->getFormatterFileExtension(),
-            Config::getConfig('app')->getPublicFileExtension(),
+            $this->_config->getFormatterFileExtension(),
+            $this->_config->getPublicFileExtension(),
             $contentFilename
         );
     }

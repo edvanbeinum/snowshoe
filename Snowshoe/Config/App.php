@@ -43,6 +43,40 @@ class App extends AConfig
 
         // What criteria should the navigation be sorted on? asc | desc
         'navigation_sort_direction' => 'asc',
+
+        // Dependencies required for each class. Snowshoe uses Yadif out of the box
+        'dependencies' => array(
+            'Snowshoe\Config\App' => array('Snowshoe\Config\App'),
+            'Snowshoe\Formatter\Factory' => array('class' => 'Snowshoe\Formatter\Factory'),
+            'Snowshoe\TemplateEngine\Factory' => array('class' => 'Snowshoe\TemplateEngine\Factory'),
+            'Snowshoe\Helper\FileSystem' => array('class' => 'Snowshoe\Helper\FileSystem'),
+            'Snowshoe\Helper\Page' => array(
+                'class' => 'Snowshoe\Helper\Page',
+                'arguments' => array(
+                    'Snowshoe\Formatter\Factory',
+                    'Snowshoe\Config\App'
+                )
+            ),
+            'Snowshoe\Helper\Navigation' => array(
+                'class' => 'Snowshoe\Helper\Navigation',
+                'arguments' => array(
+                    'Snowshoe\Helper\FileSystem',
+                    'Snowshoe\Helper\Page',
+                    'Snowshoe\Config\App'
+                )
+            ),
+            'Snowshoe\Builder' => array(
+                'class' => 'Snowshoe\Builder',
+                'arguments' => array(
+                    'Snowshoe\Formatter\Factory',
+                    'Snowshoe\TemplateEngine\Factory',
+                    'Snowshoe\Helper\FileSystem',
+                    'Snowshoe\Helper\Navigation',
+                    'Snowshoe\Helper\Page',
+                    'Snowshoe\Config\App'
+                )
+            )
+        )
     );
 
 }

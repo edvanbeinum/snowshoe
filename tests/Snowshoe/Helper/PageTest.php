@@ -46,7 +46,8 @@ class PageTest extends PHPUnit_Framework_TestCase
      */
     protected function _getPage($mockFactory)
     {
-        return $this->_page = new \Snowshoe\Helper\Page($mockFactory);
+        $config = $this->getMock('\Snowshoe\Config\App');
+        return $this->_page = new \Snowshoe\Helper\Page($mockFactory, $config);
     }
 
     /**

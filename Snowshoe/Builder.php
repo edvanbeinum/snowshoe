@@ -7,7 +7,6 @@
  * @package Builder
  */
 namespace Snowshoe;
-use \Snowshoe\Config\Factory as Config;
 
 /**
  * this is where the action happens
@@ -56,6 +55,13 @@ class Builder
     protected $_page;
 
     /**
+     * Class variable that holds the config object
+     *
+     * @var \Snowshoe\Config\App
+     */
+    protected $_config;
+
+    /**
      * Absolute path to the content Directory (where the raw content files are)
      *
      * @var string
@@ -84,24 +90,27 @@ class Builder
      * @param Helper\FileSystem $fileSystem
      * @param Helper\Navigation $navigation
      * @param Helper\Page $page
+     * @param Config\App $config
      */
     public function __construct(
         \Snowshoe\Formatter\Factory $formatterFactory,
         \Snowshoe\TemplateEngine\Factory $templateEngineFactory,
         \Snowshoe\Helper\FileSystem $fileSystem,
         \Snowshoe\Helper\Navigation $navigation,
-        \Snowshoe\Helper\Page $page
+        \Snowshoe\Helper\Page $page,
+        \Snowshoe\Config\App $config
     )
     {
-        $this->_formatter = $formatterFactory->getFormatter(Config::getConfig('app')->getFormatter());
-        $this->_templateEngine = $templateEngineFactory->getTemplateEngine(Config::getConfig('app')->getTemplateEngine());
+        $this->_formatter = $formatterFactory->getFormatter($this->_config->getFormatter());
+        $this->_templateEngine = $templateEngineFactory->getTemplateEngine($this->_config->getTemplateEngine());
         $this->_fileSystem = $fileSystem;
         $this->_navigation = $navigation;
         $this->_page = $page;
+        $this->_config = $config;
 
-        $this->_contentDirectory = APPLICATION_PATH . Config::getConfig('app')->getContentDirectory();
-        $this->_templatePath = APPLICATION_PATH . Config::getConfig('app')->getTemplatePath();
-        $this->_publicDirectory = APPLICATION_PATH . Config::getConfig('app')->getPublicDirectory();
+        $this->_contentDirectory = APPLICATION_PATH . $this->_config->getContentDirectory();
+        $this->_templatePath = APPLICATION_PATH . $this->_config->getTemplatePath();
+        $this->_publicDirectory = APPLICATION_PATH . $this->_config->getPublicDirectory();
     }
 
     /**
@@ -114,7 +123,7 @@ class Builder
 
         // Get contents of Content Directory
         $contentFiles = $this->_fileSystem->getFilesInDirectory(
-            $this->_contentDirectory, Config::getConfig('app')->getFormatterFileExtension()
+            $this->_contentDirectory, $this->_config->getFormatterFileExtension()
         );
         $template = $this->_fileSystem->getFile($this->_templatePath);
 
@@ -137,7 +146,7 @@ class Builder
                 array(
                      'content' => $htmlContent,
                      'primaryNavigation' => $primaryNavigation,
-                     'rootUrl' => APPLICATION_PATH . Config::getConfig('app')->getPublicDirectory(),
+                     'rootUrl' => APPLICATION_PATH . $this->_config->getPublicDirectory(),
                      'pageTitle' => $this->_page->getPageTitle($content, $fileInfo),
                      'datePublished' => $fileInfo->getCTime()
                 )

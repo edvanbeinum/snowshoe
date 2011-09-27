@@ -8,7 +8,7 @@
  */
 
 namespace Snowshoe\Helper;
-use \Snowshoe\Config\Factory as Config;
+
 /**
  * Helper class that handles how the Navigation menu is built
  *
@@ -43,25 +43,14 @@ class Navigation
      *
      * @param FileSystem $fileSystem
      * @param Page $page
+     * @param \Snowshoe\Config\App $config
      */
-    public function __construct(FileSystem $fileSystem, Page $page)
+    public function __construct(FileSystem $fileSystem, Page $page, \Snowshoe\Config\App $config)
     {
         $this->_fileSystem = $fileSystem;
         $this->_page = $page;
-        $this->_config = Config::getConfig('app');
-    }
-
-    /**
-     * Setter used for injecting a mock config object for testing
-     *
-     * @param \Snowshoe\Config\AConfig $config
-     * @return void
-     */
-    public function setConfig(\Snowshoe\Config\AConfig $config)
-    {
         $this->_config = $config;
     }
-
 
     /**
      * Takes and array of splFileInfo objects and returns an associative array of url and title for each file given
