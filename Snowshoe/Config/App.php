@@ -3,12 +3,12 @@
  *
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
- * @copyright Ibuildings 18/09/2011
  * @package Snowshoe
  */
 
 namespace Snowshoe\Config;
 /**
+ * Class for setting and getting application configuration
  *
  * @package Snowshoe
  * @author Ed van Beinum <e@edvanbeinum.com>

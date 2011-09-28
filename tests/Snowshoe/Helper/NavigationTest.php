@@ -104,6 +104,4 @@ class NavigationTest extends PHPUnit_Framework_TestCase
             $result
         );
     }
-
-
 }

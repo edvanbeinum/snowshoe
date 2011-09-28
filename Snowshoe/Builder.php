@@ -3,13 +3,12 @@
  *
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
- * @copyright Ibuildings 17/09/2011
  * @package Snowshoe
  */
 namespace Snowshoe;
 
 /**
- * this is where the action happens
+ * This is where the action happens
  * The Builder class pulls together all the elements of the system and gets them to play nicely together
  *
  *
@@ -121,16 +120,9 @@ class Builder
     public function execute()
     {
 
-        // Get contents of Content Directory
-        $contentFiles = $this->_fileSystem->getFilesInDirectory(
-            $this->_contentDirectory, $this->_config->getFormatterFileExtension()
-        );
+        // Get file in the Content Directory
+        $contentFiles = $this->_getContentFiles();
         $template = $this->_fileSystem->getFile($this->_templatePath);
-
-        if (empty($contentFiles)) {
-            echo "No files found in the content directory: ", realpath($this->_contentDirectory);
-            die("\n Snowshoe has stopped");
-        }
 
         $primaryNavigation = $this->_navigation->getPrimaryNavigation($contentFiles);
 
@@ -156,5 +148,23 @@ class Builder
             $publicFilePath = $this->_page->getPublicFilePath($fileInfo->getPathname());
             $this->_fileSystem->createFile($publicFilePath, $completePage);
         }
+    }
+
+    /**
+     * Return array of splFileInfo objects from the content directory
+     *
+     * @return array
+     */
+    protected function _getContentFiles()
+    {
+        $contentFiles = $this->_fileSystem->getFilesInDirectory(
+            $this->_contentDirectory, $this->_config->getFormatterFileExtension()
+        );
+
+        if (empty($contentFiles)) {
+            echo "No files found in the content directory: ", realpath($this->_contentDirectory);
+            die("\n Snowshoe has stopped");
+        }
+        return $contentFiles;
     }
 }

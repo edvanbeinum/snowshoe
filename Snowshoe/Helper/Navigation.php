@@ -3,7 +3,6 @@
  *
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
- * @copyright Ibuildings 17/09/2011
  * @package Snowshoe
  */
 

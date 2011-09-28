@@ -3,14 +3,13 @@
  *
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
- * @copyright Ibuildings 22/09/2011
  * @package Snowshoe
  */
 
 namespace Snowshoe\Helper;
 
 /**
- * Class that deals with Page-level functionaity, such as getting the Page title
+ * Class that deals with Page-level functionality, such as getting the Page title
  *
  * @package Snowshoe
  * @author Ed van Beinum <e@edvanbeinum.com>
@@ -65,7 +64,7 @@ class Page
 
         // Looks like no h1 or h2 tags so grab the filename and deslugify it
         if (is_null($title)) {
-            if ($filename instanceof splFileInfo) {
+            if ($filename instanceof \splFileInfo) {
                 $filename = $filename->getFilename();
             }
             // remove the file extension and just have the filename
@@ -78,6 +77,7 @@ class Page
     /**
      * Helper function that takes a path to the content directory and converts it into a path to the public directory
      * It also converts the file extension from the formatter extension to the template engine extension
+     * @todo add functionality to deal with the public Directory being a domain
      *
      * @param string $contentPath
      * @return string

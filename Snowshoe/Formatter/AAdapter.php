@@ -3,12 +3,12 @@
  *
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
- * @copyright Ibuildings 15/09/2011
  * @package Snowshoe
  */
 
 namespace Snowshoe\Formatter;
 /**
+ * Abstract class for creating Formatter (Markdown, Textile, etc) Adapters
  *
  * @package Snowshoe
  * @author Ed van Beinum <e@edvanbeinum.com>

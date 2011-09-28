@@ -3,13 +3,12 @@
  *
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
- * @copyright Ibuildings 15/09/2011
  * @package Snowshoe
  */
 namespace Snowshoe\TemplateEngine\Adapter;
 
 /**
- * Markdown Formatter Adapter. This class knows how to interact with the MArkdown library
+ * Twig TemplateEngine Adapter. This class knows how to interact with the Twig library
  *
  * @package Snowshoe
  * @author Ed van Beinum <e@edvanbeinum.com>
@@ -23,7 +22,7 @@ class Twig extends \Snowshoe\TemplateEngine\AAdapter
         \Twig_Autoloader::register();
         $loader = new \Twig_Loader_String();
 
-        // Turn auto escaping off because we will be passing HTML Entites as variables as the output of the parsed MD files
+        // Turn auto escaping off because we will be passing HTML Entities as variables as the output of the parsed MD files
         $this->_templateEngine = new \Twig_Environment($loader, array('autoescape' => FALSE));
     }
 

@@ -4,7 +4,7 @@
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
  * @copyright Ibuildings 07/08/2011
- * @package SnowshoeTest
+ * @package Snowshoe
  */
 require_once dirname(__FILE__) . '/../../../Snowshoe/bootstrap.php';
 
@@ -25,6 +25,16 @@ class AppTest extends PHPUnit_Framework_TestCase
     public function tearDown()
     {
         unset($this->_app);
+    }
+
+    /**
+     * @test
+     */
+    public function getter_returns_set_value()
+    {
+        $expected = array('one' => 'test', 'two' => 'lipsum');
+        $this->_app->setConfig($expected);
+        $this->assertSame($expected, $this->_app->getConfig());
     }
 
     /**

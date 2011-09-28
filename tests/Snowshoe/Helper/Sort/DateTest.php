@@ -3,8 +3,7 @@
  *
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
- * @copyright Ibuildings 07/08/2011
- * @package SnowshoeTest
+ * @package Snowshoe
  */
 require_once dirname(__FILE__) . '/../../../../Snowshoe/bootstrap.php';
 
@@ -28,7 +27,7 @@ class DateTest extends PHPUnit_Framework_TestCase
     /**
      * Helper function that creates mock SplFileInfo objects
      *
-     * @param $returnValue
+     * @param string $returnValue
      * @return PHPUnit_Framework_MockObject_MockObject
      */
     protected function _getMockSplFileInfo($returnValue)
@@ -37,7 +36,7 @@ class DateTest extends PHPUnit_Framework_TestCase
                 ->disableOriginalConstructor()
                 ->getMock();
         $splFileInfo->expects($this->any())
-                ->method('getFilename')
+                ->method('getCTime')
                 ->will($this->returnValue($returnValue));
         return $splFileInfo;
     }
@@ -76,7 +75,7 @@ class DateTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function sortAsc_returns_zero_when_a_is_sames_as_b()
+    public function sortAsc_returns_zero_when_a_is_same_as_b()
     {
         $result = $this->_date->sortAsc(
             $this->_getMockSplFileInfo('1316670743'),

@@ -3,12 +3,12 @@
  *
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
- * @copyright Ibuildings 17/09/2011
  * @package Snowshoe
  */
 
 namespace Snowshoe\TemplateEngine;
 /**
+ * Factory class for creating concrete instances of a TemplateEngine Adapter
  *
  * @package Snowshoe
  * @author Ed van Beinum <e@edvanbeinum.com>

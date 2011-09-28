@@ -3,13 +3,13 @@
  * 
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
- * @copyright Ibuildings 15/09/2011
  * @package Snowshoe
  */
  
  namespace Snowshoe\TemplateEngine;
  /**
- * 
+ *  Abstract class for concrete TemplateEngine Adapter objects
+  *
  * @package Snowshoe
  * @author Ed van Beinum <e@edvanbeinum.com>
  */

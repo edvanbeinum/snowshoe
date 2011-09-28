@@ -3,7 +3,6 @@
  *
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
- * @copyright Ibuildings 07/08/2011
  * @package Snowshoe
  */
 
@@ -19,7 +18,7 @@ class FileSystem
 
     /**
      * Writes a given string to a file.
-     * will try to create the file path ifit doesn't exist
+     * will try to create the file path if it doesn't exist
      *
      * @param string $filePath
      * @param string $content
@@ -35,7 +34,7 @@ class FileSystem
     /**
      * Wrapper for the file_get_contents function
      *
-     * @param $filePath
+     * @param string $filePath
      * @return string
      */
     public function getFile($filePath)
@@ -105,12 +104,12 @@ class FileSystem
      * Returns array of paths to all directories and files of given extension in a given directory
      *
      * @param string $directoryPath
-     * @param string $fileExtension (without preceeding period))
+     * @param string $fileExtension (without preceding period))
      * @return array of splFileInfo objects
      */
     public function getFilesInDirectory($directoryPath, $fileExtension = 'html')
     {
-        // This is a recoverable error so we should strip off a filename if given rather than throwing an exception
+        // @todo This is a recoverable error so we should strip off a filename if given rather than throwing an exception
         if (!is_dir($directoryPath)) {
             throw new Exception("$directoryPath is not a directory");
         }

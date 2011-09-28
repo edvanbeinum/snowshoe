@@ -3,12 +3,12 @@
  *
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
- * @copyright Ibuildings 20/09/2011
  * @package Snowshoe
  */
 
 namespace Snowshoe\Config;
 /**
+ * Abstract class for creating Config classes
  *
  * @package Snowshoe
  * @author Ed van Beinum <e@edvanbeinum.com>
