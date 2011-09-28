@@ -21,7 +21,14 @@ class NavigationTest extends PHPUnit_Framework_TestCase
     {
         $fileSystem = $this->getMock('\Snowshoe\Helper\FileSystem');
         $page = $this->getMock('\Snowshoe\Helper\Page', array(), array(), '', FALSE);
-        $this->_navigation = new \Snowshoe\Helper\Navigation($fileSystem, $page);
+        $config = $this->getMock('\Snowshoe\Config\App', array('getNavigationSortCriteria', 'getNavigationSortDirection'));
+        $config->expects($this->any())
+                ->method('getNavigationSortCriteria')
+                ->will($this->returnValue('alpha'));
+        $config->expects($this->any())
+                ->method('getNavigationSortDirection')
+                ->will($this->returnValue('desc'));
+        $this->_navigation = new \Snowshoe\Helper\Navigation($fileSystem, $page, $config);
     }
 
     public function tearDown()
@@ -34,17 +41,6 @@ class NavigationTest extends PHPUnit_Framework_TestCase
      */
     public function getSortedNavigation_returns_expected_array()
     {
-        $config = $this->getMock('\Snowshoe\Config\App', array('getNavigationSortCriteria', 'getNavigationSortDirection'));
-        $config->expects($this->any())
-                ->method('getNavigationSortCriteria')
-                ->will($this->returnValue('alpha'));
-        $config->expects($this->any())
-                ->method('getNavigationSortDirection')
-                ->will($this->returnValue('desc'));
-
-
-        $this->_navigation->setConfig($config);
-
 
         $contentFileOne = $this->getMock('splFileInfo', array('getFilename'), array(), '', FALSE);
         $contentFileOne->expects($this->any())
@@ -78,7 +74,9 @@ class NavigationTest extends PHPUnit_Framework_TestCase
 
         $fileSystem = $this->getMock('\Snowshoe\Helper\FileSystem');
         $page = $this->getMock('\Snowshoe\Helper\Page', array(), array(), '', FALSE);
-        $navigation = $this->getMock('\Snowshoe\Helper\Navigation', array('getSortedNavigation', '_getPublicFilePath', '_getPageTitle'), array($fileSystem, $page));
+        $config = $this->getMock('\Snowshoe\Config\App');
+
+        $navigation = $this->getMock('\Snowshoe\Helper\Navigation', array('getSortedNavigation', '_getPublicFilePath', '_getPageTitle'), array($fileSystem, $page, $config));
         $navigation->expects($this->once())
                 ->method('getSortedNavigation')
                 ->will($this->returnValue(array($contentFileOne, $contentFileTwo)));
@@ -106,6 +104,4 @@ class NavigationTest extends PHPUnit_Framework_TestCase
             $result
         );
     }
-
-
 }

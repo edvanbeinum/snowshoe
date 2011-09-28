@@ -1,18 +1,17 @@
 <?php
 /**
  * 
- * @author Ed van Beinum <edwin@sessiondigital.com>
+ * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
- * @copyright Ibuildings 21/09/2011
- * @package Alpha 
+ * @package Snowshoe
  */
  
  namespace Snowshoe\Helper\Sort;
 
  /**
  * 
- * @package Alpha
- * @author Ed van Beinum <edwin@sessiondigital.com>
+ * @package Snowshoe
+ * @author Ed van Beinum <e@edvanbeinum.com>
  */
 class Alpha extends ASort{
 

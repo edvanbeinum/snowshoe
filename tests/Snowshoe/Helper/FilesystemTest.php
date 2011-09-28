@@ -78,6 +78,15 @@ class FileSystemTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
+     */
+    public function getFile_returns_string()
+    {
+        vfsStream::newFile('new.html')->at(vfsStreamWrapper::getRoot());
+        $this->assertInternalType('string',  $this->_fileSystem->getFile(vfsStream::url('testDir/new.html')));
+    }
+
+    /**
      * CreateDirectory() creates a new directory
      *
      * @test
@@ -91,11 +100,22 @@ class FileSystemTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
+     * @expectedException \ErrorException
+     */
+    public function createDirectory_throws_ErrorException_with_non_directory()
+    {
+        vfsStream::newFile('new.html')->at(vfsStreamWrapper::getRoot());
+       $this->_fileSystem->createDirectory(vfsStream::url('testDir/new.html'));
+    }
+
+
+    /**
      * createDirectory returns true with existing directory
      *
      * @test
      */
-    public function createDirectoryreturns_true_with_existing_directory()
+    public function createDirectory_returns_true_with_existing_directory()
     {
         vfsStream::newDirectory('newDir', 0755)->at(vfsStreamWrapper::getRoot());
         $this->assertTrue($this->_fileSystem->createDirectory(vfsStream::url('testDir/newDir')));
@@ -178,6 +198,15 @@ class FileSystemTest extends PHPUnit_Framework_TestCase
 
 
         $this->assertSame($expected, $fileArray, 'array of filenames not retruned as expected');
+    }
+    /**
+     * @test
+     * @expectedException \ErrorException
+     */
+    public function getFilesInDirectory_throws_ErrorException_with_non_directory()
+    {
+        vfsStream::newFile('new.html')->at(vfsStreamWrapper::getRoot());
+       $this->_fileSystem->getFilesInDirectory(vfsStream::url('testDir/new.html'));
     }
 
     /**

@@ -3,16 +3,15 @@
  *
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
- * @copyright Ibuildings 22/09/2011
- * @package Page
+ * @package Snowshoe
  */
 
 namespace Snowshoe\Helper;
-use \Snowshoe\Config\Factory as Config;
+
 /**
- * Class that deals with Page-level functionaity, such as getting the Page title
+ * Class that deals with Page-level functionality, such as getting the Page title
  *
- * @package Page
+ * @package Snowshoe
  * @author Ed van Beinum <e@edvanbeinum.com>
  */
 class Page
@@ -21,10 +20,22 @@ class Page
      * @var \Snowshoe\Formatter\Factory
      */
     protected $_formatterFactory;
+    
+    /**
+     * @var \Snowshoe\Config\App\Snowshoe\Config\App $config
+     */
+    protected $_config;
 
-    public function __construct(\Snowshoe\Formatter\Factory $formatterFactory)
+    /**
+     * Constructor ahoy
+     *
+     * @param \Snowshoe\Formatter\Factory $formatterFactory
+     * @param \Snowshoe\Config\App $config
+     */
+    public function __construct(\Snowshoe\Formatter\Factory $formatterFactory, \Snowshoe\Config\App $config)
     {
         $this->_formatterFactory = $formatterFactory;
+        $this->_config = $config;
     }
 
     /**
@@ -37,7 +48,7 @@ class Page
      */
     public function getPageTitle($fileContent, $filename)
     {
-        $formatter = $this->_formatterFactory->getFormatter(Config::getConfig('app')->getFormatter());
+        $formatter = $this->_formatterFactory->getFormatter($this->_config->getFormatter());
 
         $htmlContent = $formatter->execute($fileContent);
         $domDoc = new \DOMDocument();
@@ -53,7 +64,7 @@ class Page
 
         // Looks like no h1 or h2 tags so grab the filename and deslugify it
         if (is_null($title)) {
-            if ($filename instanceof splFileInfo) {
+            if ($filename instanceof \splFileInfo) {
                 $filename = $filename->getFilename();
             }
             // remove the file extension and just have the filename
@@ -66,6 +77,7 @@ class Page
     /**
      * Helper function that takes a path to the content directory and converts it into a path to the public directory
      * It also converts the file extension from the formatter extension to the template engine extension
+     * @todo add functionality to deal with the public Directory being a domain
      *
      * @param string $contentPath
      * @return string
@@ -74,8 +86,8 @@ class Page
     {
         $publicFilePath = $this->getPublicFilename($contentPath);
         $publicFilePath = str_replace(
-            APPLICATION_PATH . Config::getConfig('app')->getContentDirectory(),
-            APPLICATION_PATH . Config::getConfig('app')->getPublicDirectory(),
+            APPLICATION_PATH . $this->_config->getContentDirectory(),
+            APPLICATION_PATH . $this->_config->getPublicDirectory(),
             $publicFilePath
         );
         return $publicFilePath;
@@ -90,8 +102,8 @@ class Page
     public function getPublicFilename($contentFilename)
     {
         return str_replace(
-            Config::getConfig('app')->getFormatterFileExtension(),
-            Config::getConfig('app')->getPublicFileExtension(),
+            $this->_config->getFormatterFileExtension(),
+            $this->_config->getPublicFileExtension(),
             $contentFilename
         );
     }

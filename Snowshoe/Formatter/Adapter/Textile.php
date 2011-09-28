@@ -3,15 +3,14 @@
  *
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
- * @copyright Ibuildings 15/09/2011
- * @package MarkdownAdapter
+ * @package Snowshoe
  */
 namespace Snowshoe\Formatter\Adapter;
 
 /**
- * Textile Formatter Adapter. This class knows how to interact with the MArkdown library
+ * Textile Formatter Adapter. This class knows how to interact with the Textile library
  *
- * @package MarkdownAdapter
+ * @package Snowshoe
  * @author Ed van Beinum <e@edvanbeinum.com>
  */
 class Textile extends \Snowshoe\Formatter\AAdapter

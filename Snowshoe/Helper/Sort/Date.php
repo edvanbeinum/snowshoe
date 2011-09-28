@@ -1,17 +1,16 @@
 <?php
 /**
  *
- * @author Ed van Beinum <edwin@sessiondigital.com>
+ * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
- * @copyright Ibuildings 21/09/2011
- * @package Date
+ * @package Snowshoe
  */
 namespace Snowshoe\Helper\Sort;
 
 /**
  *
- * @package Date
- * @author Ed van Beinum <edwin@sessiondigital.com>
+ * @package Snowshoe
+ * @author Ed van Beinum <e@edvanbeinum.com>
  */
 class Date extends ASort
 {

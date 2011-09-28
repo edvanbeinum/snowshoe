@@ -1,23 +1,20 @@
 <?php
 /**
  *
- * @author Ed van Beinum <edwin@sessiondigital.com>
+ * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
- * @copyright Ibuildings 22/09/2011
- * @package String
+ * @package Snowshoe
  */
 
 namespace Snowshoe\Helper;
 /**
- * A bunch of hlper methods for Strings
+ * A bunch of helper methods for Strings
  *
- * @package String
- * @author Ed van Beinum <edwin@sessiondigital.com>
+ * @package Snowshoe
+ * @author Ed van Beinum <e@edvanbeinum.com>
  */
 class String
 {
-
-
     /**
      * converts a slugged string (we guess something like: dashes or underscores used instead of spaces and all lowercase)
      * to a title case string

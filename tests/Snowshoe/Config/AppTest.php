@@ -29,6 +29,16 @@ class AppTest extends PHPUnit_Framework_TestCase
 
     /**
      * @test
+     */
+    public function getter_returns_set_value()
+    {
+        $expected = array('one' => 'test', 'two' => 'lipsum');
+        $this->_app->setConfig($expected);
+        $this->assertSame($expected, $this->_app->getConfig());
+    }
+
+    /**
+     * @test
      * @return void
      */
     public function magic_getter_returns_array_values()

@@ -3,14 +3,14 @@
  *
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
- * @copyright Ibuildings 15/09/2011
- * @package AFormatter
+ * @package Snowshoe
  */
 
 namespace Snowshoe\Formatter;
 /**
+ * Abstract class for creating Formatter (Markdown, Textile, etc) Adapters
  *
- * @package AFormatter
+ * @package Snowshoe
  * @author Ed van Beinum <e@edvanbeinum.com>
  */
 abstract class AAdapter

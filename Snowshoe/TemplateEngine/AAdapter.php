@@ -3,14 +3,14 @@
  * 
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
- * @copyright Ibuildings 15/09/2011
- * @package AFormatter 
+ * @package Snowshoe
  */
  
  namespace Snowshoe\TemplateEngine;
  /**
- * 
- * @package AFormatter
+ *  Abstract class for concrete TemplateEngine Adapter objects
+  *
+ * @package Snowshoe
  * @author Ed van Beinum <e@edvanbeinum.com>
  */
 abstract class AAdapter {
