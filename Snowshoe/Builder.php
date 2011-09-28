@@ -100,12 +100,12 @@ class Builder
         \Snowshoe\Config\App $config
     )
     {
+        $this->_config = $config;
         $this->_formatter = $formatterFactory->getFormatter($this->_config->getFormatter());
         $this->_templateEngine = $templateEngineFactory->getTemplateEngine($this->_config->getTemplateEngine());
         $this->_fileSystem = $fileSystem;
         $this->_navigation = $navigation;
         $this->_page = $page;
-        $this->_config = $config;
 
         $this->_contentDirectory = APPLICATION_PATH . $this->_config->getContentDirectory();
         $this->_templatePath = APPLICATION_PATH . $this->_config->getTemplatePath();

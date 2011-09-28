@@ -1,13 +1,12 @@
 #!/usr/bin/env php
 <?php
 
-use Snowshoe\Config\Factory as Config;
-
 // Run the Snowshoe static site generator from cmd line
 require_once dirname(__FILE__) . '/../Snowshoe/bootstrap.php';
 
 
-$yadif = new Yadif_Container(Config::getConfig('dic')->getDependencies());
+$config = new \Snowshoe\Config\App;
+$yadif = new Yadif_Container($config->getDependencies());
 
 /* @var $builder Snowshoe\Builder */
 $builder = $yadif->getComponent('Snowshoe\Builder');
@@ -23,5 +22,5 @@ try {
     echo $e->getMessage() ."\n\n";
     exit(1);
 }
-echo "Snowshoe has run. See your new site at: \n\n", realpath(APPLICATION_PATH . Config::getConfig('app')->getPublicDirectory()), "\n";
+echo "Snowshoe has run. See your new site at: \n\n", realpath(APPLICATION_PATH . $config->getPublicDirectory()), "\n";
 exit(0);
