@@ -4,13 +4,13 @@
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
  * @copyright Ibuildings 18/09/2011
- * @package App
+ * @package Snowshoe
  */
 
 namespace Snowshoe\Config;
 /**
  *
- * @package App
+ * @package Snowshoe
  * @author Ed van Beinum <e@edvanbeinum.com>
  */
 class App extends AConfig

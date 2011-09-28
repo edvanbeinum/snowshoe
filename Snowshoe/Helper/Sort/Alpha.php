@@ -4,14 +4,14 @@
  * @author Ed van Beinum <edwin@sessiondigital.com>
  * @version $Id$
  * @copyright Ibuildings 21/09/2011
- * @package Alpha 
+ * @package Snowshoe
  */
  
  namespace Snowshoe\Helper\Sort;
 
  /**
  * 
- * @package Alpha
+ * @package Snowshoe
  * @author Ed van Beinum <edwin@sessiondigital.com>
  */
 class Alpha extends ASort{

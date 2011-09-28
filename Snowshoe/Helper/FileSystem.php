@@ -4,7 +4,7 @@
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
  * @copyright Ibuildings 07/08/2011
- * @package FileSystem
+ * @package Snowshoe
  */
 
 namespace Snowshoe\Helper;

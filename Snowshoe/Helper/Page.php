@@ -4,7 +4,7 @@
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
  * @copyright Ibuildings 22/09/2011
- * @package Page
+ * @package Snowshoe
  */
 
 namespace Snowshoe\Helper;
@@ -12,7 +12,7 @@ namespace Snowshoe\Helper;
 /**
  * Class that deals with Page-level functionaity, such as getting the Page title
  *
- * @package Page
+ * @package Snowshoe
  * @author Ed van Beinum <e@edvanbeinum.com>
  */
 class Page

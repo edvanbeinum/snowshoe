@@ -4,7 +4,7 @@
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
  * @copyright Ibuildings 07/08/2011
- * @package Snowshoe
+ * @package SnowshoeTest
  */
 namespace Snowshoe\tests\Formatter;
 require_once dirname(__FILE__) . '/../../../Snowshoe/bootstrap.php';

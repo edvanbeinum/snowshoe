@@ -4,7 +4,7 @@
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
  * @copyright Ibuildings 17/09/2011
- * @package Builder
+ * @package Snowshoe
  */
 namespace Snowshoe;
 
@@ -13,7 +13,7 @@ namespace Snowshoe;
  * The Builder class pulls together all the elements of the system and gets them to play nicely together
  *
  *
- * @package Builder
+ * @package Snowshoe
  * @author Ed van Beinum <e@edvanbeinum.com>
  */
 class Builder

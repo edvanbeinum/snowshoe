@@ -4,7 +4,7 @@
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
  * @copyright Ibuildings 17/09/2011
- * @package Navigation
+ * @package Snowshoe
  */
 
 namespace Snowshoe\Helper;
@@ -12,7 +12,7 @@ namespace Snowshoe\Helper;
 /**
  * Helper class that handles how the Navigation menu is built
  *
- * @package Navigation
+ * @package Snowshoe
  * @author Ed van Beinum <e@edvanbeinum.com>
  */
 class Navigation

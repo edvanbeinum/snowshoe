@@ -4,7 +4,7 @@
  * @author Ed van Beinum <edwin@sessiondigital.com>
  * @version $Id$
  * @copyright Ibuildings 21/09/2011
- * @package ISort
+ * @package Snowshoe
  */
 
 namespace Snowshoe\Helper\Sort;
@@ -12,7 +12,7 @@ namespace Snowshoe\Helper\Sort;
 /**
  * Interface for the Sort classes. The sort function is used as a usort() callback
  *
- * @package ISort
+ * @package Snowshoe
  * @author Ed van Beinum <edwin@sessiondigital.com>
  */
 abstract class ASort

@@ -4,14 +4,14 @@
  * @author Ed van Beinum <edwin@sessiondigital.com>
  * @version $Id$
  * @copyright Ibuildings 22/09/2011
- * @package String
+ * @package Snowshoe
  */
 
 namespace Snowshoe\Helper;
 /**
  * A bunch of hlper methods for Strings
  *
- * @package String
+ * @package Snowshoe
  * @author Ed van Beinum <edwin@sessiondigital.com>
  */
 class String

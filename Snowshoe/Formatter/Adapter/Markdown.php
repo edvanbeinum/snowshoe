@@ -4,14 +4,14 @@
  * @author Ed van Beinum <e@edvanbeinum.com>
  * @version $Id$
  * @copyright Ibuildings 15/09/2011
- * @package MarkdownAdapter
+ * @package Snowshoe
  */
 namespace Snowshoe\Formatter\Adapter;
 
 /**
  * Markdown Formatter Adapter. This class knows how to interact with the MArkdown library
  *
- * @package MarkdownAdapter
+ * @package Snowshoe
  * @author Ed van Beinum <e@edvanbeinum.com>
  */
 class Markdown extends \Snowshoe\Formatter\AAdapter

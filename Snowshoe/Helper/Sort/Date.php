@@ -4,13 +4,13 @@
  * @author Ed van Beinum <edwin@sessiondigital.com>
  * @version $Id$
  * @copyright Ibuildings 21/09/2011
- * @package Date
+ * @package Snowshoe
  */
 namespace Snowshoe\Helper\Sort;
 
 /**
  *
- * @package Date
+ * @package Snowshoe
  * @author Ed van Beinum <edwin@sessiondigital.com>
  */
 class Date extends ASort
