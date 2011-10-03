@@ -140,6 +140,7 @@ class Builder
                      'primaryNavigation' => $primaryNavigation,
                      'rootUrl' => $this->_getRootUrl(),
                      'pageTitle' => $this->_page->getPageTitle($content, $fileInfo),
+                     'siteName' => $this->_config->getSiteName(),
                      'datePublished' => $fileInfo->getCTime()
                 )
             );
@@ -158,7 +159,7 @@ class Builder
     protected function _getRootUrl()
     {
         $rootUrl = APPLICATION_PATH . $this->_config->getPublicDirectory();
-        if($this->_config->getIsProductionMode()) {
+        if ($this->_config->getIsProductionMode()) {
             $rootUrl = $this->_config->getPublishLocation();
         }
         return $rootUrl;

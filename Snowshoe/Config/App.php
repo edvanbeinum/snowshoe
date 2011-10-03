@@ -20,6 +20,9 @@ class App extends AConfig
         // In production mode, URLs will have the publidsh_location value prepended to them. Otherwise they
         // will have the public_directory. You can switch to production mode by using the -p flag on the command line
         'is_production_mode' => FALSE,
+
+        // The name of the site - used for page title. It will appear after the page title in the browser wondow  e.g: About | Site Name
+        'site_name' => 'Snowshoe',
         
         // Name of the Format type that the content is written in. Ships with Markdown or Textile
         'formatter' => 'Markdown',
@@ -51,7 +54,7 @@ class App extends AConfig
         'navigation_sort_criteria' => 'alpha',
 
         // What criteria should the navigation be sorted on? asc | desc
-        'navigation_sort_direction' => 'asc',
+        'navigation_sort_direction' => 'desc',
 
         // Dependencies required for each class. Snowshoe uses Yadif out of the box
         'dependencies' => array(

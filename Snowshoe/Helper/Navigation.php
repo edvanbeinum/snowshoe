@@ -108,14 +108,19 @@ class Navigation
      * Helper function that returns the page title for a given file.
      * It will return the content of the first <h1> or <h2> tag. If it can't find neither then
      * it returns a deslugified version of the filename
+     * It also checks for the homepage - it will return 'Home' for a file in the base content directory and called 'index'
      *
-     * This wrapper function exists so we can more easily mock the response during testing
      *
      * @param \splFileInfo $fileInfo
      * @return string
      */
     protected function _getPageTitle(\splFileInfo $fileInfo)
     {
+        $homepagePath = APPLICATION_PATH . $this->_config->getContentDirectory() . '/index' . $this->_config->getFormatterFileExtension();
+        if (strpos($homepagePath, $fileInfo->getPathname()) === 0) {
+            return 'Home';
+        }
+
         return $this->_page->getPageTitle(
             $this->_fileSystem->getFile($fileInfo->getPathname()),
             $fileInfo->getFilename()
