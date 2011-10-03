@@ -1,0 +1,12 @@
+[submodule "Snowshoe/Vendor/Formatters/php-markdown"]
+	path = Snowshoe/Vendor/Formatters/php-markdown
+	url = https://github.com/wolfie/php-markdown.git
+[submodule "Snowshoe/Vendor/TemplateEngines/twig"]
+	path = Snowshoe/Vendor/TemplateEngines/twig
+	url = https://github.com/fabpot/Twig.git
+[submodule "Snowshoe/Vendor/Formatters/textile"]
+	path = Snowshoe/Vendor/Formatters/textile
+	url = https://github.com/netcarver/textile.git
+[submodule "Snowshoe/Vendor/Yadif"]
+	path = Snowshoe/Vendor/Yadif
+	url = https://github.com/beberlei/yadif.git
