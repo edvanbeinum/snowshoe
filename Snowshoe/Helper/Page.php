@@ -20,7 +20,7 @@ class Page
      * @var \Snowshoe\Formatter\Factory
      */
     protected $_formatterFactory;
-    
+
     /**
      * @var \Snowshoe\Config\App\Snowshoe\Config\App $config
      */
@@ -77,34 +77,63 @@ class Page
     /**
      * Helper function that takes a path to the content directory and converts it into a path to the public directory
      * It also converts the file extension from the formatter extension to the template engine extension
-     * @todo add functionality to deal with the public Directory being a domain
      *
      * @param string $contentPath
      * @return string
      */
     public function getPublicFilePath($contentPath)
     {
-        $publicFilePath = $this->getPublicFilename($contentPath);
-        $publicFilePath = str_replace(
-            APPLICATION_PATH . $this->_config->getContentDirectory(),
-            APPLICATION_PATH . $this->_config->getPublicDirectory(),
-            $publicFilePath
+        $contentPath = $this->getPublicFilename($contentPath);
+        $absoluteContentPath = APPLICATION_PATH . $this->_config->getContentDirectory();
+        $publicFilePath = APPLICATION_PATH . $this->_config->getPublicDirectory();
+
+        return str_replace(
+            $absoluteContentPath,
+            $publicFilePath,
+            $contentPath
         );
-        return $publicFilePath;
+
     }
 
     /**
-     * Helper function that converts the file extension from the formatter extension to the template engine extension
+     * Gets the URL of the given content file path.
+     * If we're in production mode then it will return the URL with the publish_location
+     * Otherwise it will return the URL with the public directory
      *
-     * @param $contentFilename
-     * @return string
+     * @param string $contentPath
+     * @return mixed|string
      */
-    public function getPublicFilename($contentFilename)
+    public function getPageUrl($contentPath)
     {
+        if (!$this->_config->getIsProductionMode()) {
+            return $this->getPublicFilePath($contentPath);
+        }
+        // If in production mode we replace the Content Path with the publish_location value
+
+        $contentPath = $this->getPublicFilename($contentPath);
+        $absoluteContentPath = APPLICATION_PATH . $this->_config->getContentDirectory();
+        $publishLocation = $this->_config->getPublishLocation();
         return str_replace(
-            $this->_config->getFormatterFileExtension(),
-            $this->_config->getPublicFileExtension(),
-            $contentFilename
+            $absoluteContentPath,
+            $publishLocation,
+            $contentPath
         );
+
     }
-}
+
+        /**
+         * Helper function that converts the file extension from the formatter extension to the template engine extension
+         *
+         * @param $contentFilename
+         * @return string
+         */
+        public
+        function getPublicFilename($contentFilename)
+        {
+            return str_replace(
+                $this->_config->getFormatterFileExtension(),
+                $this->_config->getPublicFileExtension(),
+                $contentFilename
+            );
+        }
+    }

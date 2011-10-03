@@ -15,7 +15,11 @@ namespace Snowshoe\Config;
  */
 class App extends AConfig
 {
-    protected $_config = array(
+    protected static $_config = array(
+
+        // In production mode, URLs will have the publidsh_location value prepended to them. Otherwise they
+        // will have the public_directory. You can switch to production mode by using the -p flag on the command line
+        'is_production_mode' => FALSE,
         
         // Name of the Format type that the content is written in. Ships with Markdown or Textile
         'formatter' => 'Markdown',
@@ -35,8 +39,13 @@ class App extends AConfig
         // Path, relative to Snowshoe's root folder, where the template layout file lives
         'template_path' => 'assets/template/layout.html',
 
-        // Path, relative to Snowshoe's root folder, where the finished public files will be written to
+        // Path, relative to Snowshoe's root folder, where the finished files will be written to
         'public_directory' => 'public',
+
+        // The URL of the live site where the files in the publish directory will be available at
+        // This can be an absolute filepath too
+        // This location will be prepended to links in the navigation and will only be used with -p flag
+        'publish_location' => 'http://getsnowshoe.com',
 
         // What criteria should the navigation be sorted on? date | alpha
         'navigation_sort_criteria' => 'alpha',

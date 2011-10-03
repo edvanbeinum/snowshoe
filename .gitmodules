@@ -10,6 +10,3 @@
 [submodule "Snowshoe/Vendor/Yadif"]
 	path = Snowshoe/Vendor/Yadif
 	url = https://github.com/beberlei/yadif.git
-[submodule "Snowshoe/Vendor/Twitter/bootstrap"]
-	path = Snowshoe/Vendor/Twitter/bootstrap
-	url = https://github.com/twitter/bootstrap.git

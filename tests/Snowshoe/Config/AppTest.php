@@ -60,6 +60,40 @@ class AppTest extends PHPUnit_Framework_TestCase
 
     /**
      * @test
+     */
+    public function setConfigValues_adds_key_and_value_to_config()
+    {
+        $config = array('one' => 'test', 'two' => 'lipsum');
+        $newConfig = array('three' => 'lorem');
+        $expected = array('one' => 'test', 'two' => 'lipsum', 'three' => 'lorem');
+
+        $this->_app->setConfig($config);
+        $this->_app->setConfigValue($newConfig);
+
+
+        $this->assertSame($expected, $this->_app->getConfig());
+    }
+
+     /**
+     * @test
+     */
+    public function setConfigValues_updates_key_and_value_to_config()
+    {
+        $config = array('one' => 'test', 'two' => 'lipsum');
+        $newConfig = array('two' => 'new value');
+        $expected = array('one' => 'test', 'two' => 'new value');
+
+        $this->_app->setConfig($config);
+        $this->_app->setConfigValue($newConfig);
+
+
+        $this->assertSame($expected, $this->_app->getConfig());
+    }
+
+
+
+    /**
+     * @test
      * @expectedException ErrorException
      */
     public function config_throws_exception_when_value_does_not_exist()

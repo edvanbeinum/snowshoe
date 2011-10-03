@@ -138,7 +138,7 @@ class Builder
                 array(
                      'content' => $htmlContent,
                      'primaryNavigation' => $primaryNavigation,
-                     'rootUrl' => APPLICATION_PATH . $this->_config->getPublicDirectory(),
+                     'rootUrl' => $this->_getRootUrl(),
                      'pageTitle' => $this->_page->getPageTitle($content, $fileInfo),
                      'datePublished' => $fileInfo->getCTime()
                 )
@@ -148,6 +148,20 @@ class Builder
             $publicFilePath = $this->_page->getPublicFilePath($fileInfo->getPathname());
             $this->_fileSystem->createFile($publicFilePath, $completePage);
         }
+    }
+
+    /**
+     * Get the root URL depending on whether we are in production mode or not
+     *
+     * @return string
+     */
+    protected function _getRootUrl()
+    {
+        $rootUrl = APPLICATION_PATH . $this->_config->getPublicDirectory();
+        if($this->_config->getIsProductionMode()) {
+            $rootUrl = $this->_config->getPublishLocation();
+        }
+        return $rootUrl;
     }
 
     /**

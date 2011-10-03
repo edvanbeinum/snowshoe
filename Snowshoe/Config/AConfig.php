@@ -22,7 +22,7 @@ abstract class AConfig
      *
      * @var array
      */
-    protected $_config = array();
+    protected static  $_config = array();
 
     /**
      * Magic method to handle getters for the $_config array
@@ -39,23 +39,34 @@ abstract class AConfig
         $camelKey = ltrim($name, 'get');
         $underscoreKey = strtolower(preg_replace('/(.)([A-Z])/', "$1_$2", $camelKey));
 
-        if (array_key_exists($underscoreKey, $this->_config)) {
-            return $this->_config[$underscoreKey];
+        if (array_key_exists($underscoreKey, static::$_config)) {
+            return static::$_config[$underscoreKey];
         }
         throw new \ErrorException('Config value for "' . $underscoreKey . '" not found in ' . get_class($this));
 
     }
 
     /**
-     * Sets the config values
-     * Used for unit testing
+     * Sets the config values. This completely overwrites the _config array
+     * Used for unit tests
      *
      * @param array $config
      * @return void
      */
     public function setConfig(array $config)
     {
-        $this->_config = $config;
+        static::$_config =  $config;
+    }
+
+    /**
+     * Adds or updates a value in the config array
+     *
+     * @param array $config
+     * @return void
+     */
+    public function setConfigValue(array $config)
+    {
+         static::$_config = array_merge(static::$_config, $config);
     }
 
     /**
@@ -66,7 +77,7 @@ abstract class AConfig
      */
     public function getConfig()
     {
-        return $this->_config;
+        return static::$_config;
     }
 
 }

@@ -76,12 +76,12 @@ class NavigationTest extends PHPUnit_Framework_TestCase
         $page = $this->getMock('\Snowshoe\Helper\Page', array(), array(), '', FALSE);
         $config = $this->getMock('\Snowshoe\Config\App');
 
-        $navigation = $this->getMock('\Snowshoe\Helper\Navigation', array('getSortedNavigation', '_getPublicFilePath', '_getPageTitle'), array($fileSystem, $page, $config));
+        $navigation = $this->getMock('\Snowshoe\Helper\Navigation', array('getSortedNavigation', '_getPageUrl', '_getPageTitle'), array($fileSystem, $page, $config));
         $navigation->expects($this->once())
                 ->method('getSortedNavigation')
                 ->will($this->returnValue(array($contentFileOne, $contentFileTwo)));
         $navigation->expects($this->any())
-                ->method('_getPublicFilePath')
+                ->method('_getPageUrl')
                 ->will($this->returnValue('path/to/file'));
         $navigation->expects($this->any())
                 ->method('_getPageTitle')

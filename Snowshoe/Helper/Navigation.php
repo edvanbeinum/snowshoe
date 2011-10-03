@@ -65,7 +65,7 @@ class Navigation
 
         foreach ($sortedFiles as $fileInfo) {
             $primaryNavigation[] = array(
-                'url' => $this->_getPublicFilePath($fileInfo),
+                'url' => $this->_getPageUrl($fileInfo),
                 'title' => $this->_getPageTitle($fileInfo)
             );
         }
@@ -92,21 +92,24 @@ class Navigation
     }
 
     /**
-     * Helper function that returns the public path to the file once it has been formatted and
-     * published on the live site
+     * Helper function that returns a Page's URL
+     * 
+     * This wrapper function exists so we can more easily mock the response during testing
      *
      * @param \splFileInfo $fileInfo
-     * @return string
+     * @return mixed|string
      */
-    protected function _getPublicFilePath(\splFileInfo $fileInfo)
+    protected function _getPageUrl(\splFileInfo $fileInfo)
     {
-        return $this->_page->getPublicFilePath($fileInfo->getPathname());
+        return $this->_page->getPageUrl($fileInfo->getPathname());
     }
 
     /**
      * Helper function that returns the page title for a given file.
      * It will return the content of the first <h1> or <h2> tag. If it can't find neither then
      * it returns a deslugified version of the filename
+     *
+     * This wrapper function exists so we can more easily mock the response during testing
      *
      * @param \splFileInfo $fileInfo
      * @return string

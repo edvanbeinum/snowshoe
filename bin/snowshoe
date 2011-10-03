@@ -6,6 +6,16 @@ require_once dirname(__FILE__) . '/../Snowshoe/bootstrap.php';
 
 
 $config = new \Snowshoe\Config\App;
+
+$shortOptions = "p";
+$args = getopt($shortOptions);
+// Are we in production mode?
+// getopt will return an array with p => FALSE if this script is run with the -p flag
+// or no key if -p is not present
+if (array_key_exists('p', $args)) {
+    $config->setConfigValue(array('is_production_mode' => TRUE));
+}
+
 $yadif = new Yadif_Container($config->getDependencies());
 
 /* @var $builder Snowshoe\Builder */
@@ -18,9 +28,25 @@ try {
 } catch (Exception $e) {
 
     //@todo implement a semi-decent logging system
-    echo str_pad('', 30, "*") ."\n\n";
-    echo $e->getMessage() ."\n\n";
+    echo str_pad('', 30, "*") . "\n\n";
+    echo "Snowshoe failed! \n\n";
+    echo $e->getMessage() . "\n\n";
+    echo $e->getTraceAsString() . "\n\n";
     exit(1);
 }
-echo "Snowshoe has run. See your new site at: \n\n", realpath(APPLICATION_PATH . $config->getPublicDirectory()), "\n";
+
+if ($config->getIsProductionMode()) {
+    $siteLocation = $config->getPublishLocation();
+} else {
+    $siteLocation = realpath(APPLICATION_PATH . $config->getPublicDirectory());
+}
+$snowshoeLogo = <<<EOT
+ ____                          _
+/ ___| _ __   _____      _____| |__   ___   ___
+\___ \| '_ \ / _ \ \ /\ / / __| '_ \ / _ \ / _ \
+ ___) | | | | (_) \ V  V /\__ \ | | | (_) |  __/
+|____/|_| |_|\___/ \_/\_/ |___/_| |_|\___/ \___|
+EOT;
+
+echo "$snowshoeLogo \nhas run...\nSee your new site at: \n\n", $siteLocation, "\n\n";
 exit(0);
