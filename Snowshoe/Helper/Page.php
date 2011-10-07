@@ -96,29 +96,17 @@ class Page
     }
 
     /**
-     * Gets the URL of the given content file path.
-     * If we're in production mode then it will return the URL with the publish_location
-     * Otherwise it will return the URL with the public directory
+     * Gets the relative URL of the given content file path.
      *
      * @param string $contentPath
      * @return mixed|string
      */
     public function getPageUrl($contentPath)
     {
-        if (!$this->_config->getIsProductionMode()) {
-            return $this->getPublicFilePath($contentPath);
-        }
-        // If in production mode we replace the Content Path with the publish_location value
-
         $contentPath = $this->getPublicFilename($contentPath);
         $absoluteContentPath = APPLICATION_PATH . $this->_config->getContentDirectory();
-        $publishLocation = $this->_config->getPublishLocation();
-        return str_replace(
-            $absoluteContentPath,
-            $publishLocation,
-            $contentPath
-        );
 
+        return str_replace($absoluteContentPath, '', $contentPath);
     }
 
         /**
