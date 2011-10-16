@@ -23,7 +23,7 @@ class App extends AConfig
 
         // The name of the site - used for page title. It will appear after the page title in the browser wondow  e.g: About | Site Name
         'site_name' => 'Snowshoe',
-        
+
         // Name of the Format type that the content is written in. Ships with Markdown or Textile
         'formatter' => 'Markdown',
 
@@ -56,10 +56,14 @@ class App extends AConfig
         // What criteria should the navigation be sorted on? asc | desc
         'navigation_sort_direction' => 'desc',
 
-        // For auto-publishing the site, these contains the API credentials for Amazon S3
-        's3_key' => '',
-        's3_secret_key' => '',
-        's3_bucket_name' => '',
+        // For auto-publishing the site, these contains the API credentials for Amazon
+        // if true, then wehen snowshoe is run with the -p flag (i.e. is in production mode) then the generated site
+        // will be uploaded to the following publisher
+        'is_auto_publish' => TRUE,
+        'publisher' => 'S3', // more services to be added in due course
+        's3_key' => 'YOUR_KEY',
+        's3_secret_key' => 'YOUR_SECRET_KEY',
+        's3_bucket_name' => 'BUCKET_NAME',
 
         // Dependencies required for each class. Snowshoe uses Yadif out of the box
         'dependencies' => array(
@@ -82,11 +86,18 @@ class App extends AConfig
                     'Snowshoe\Config\App'
                 )
             ),
+            'Snowshoe\Publisher\Factory' => array(
+                'class' => 'Snowshoe\Publisher\Factory',
+                'arguments' => array(
+                    'Snowshoe\Config\App'
+                )
+            ),
             'Snowshoe\Builder' => array(
                 'class' => 'Snowshoe\Builder',
                 'arguments' => array(
                     'Snowshoe\Formatter\Factory',
                     'Snowshoe\TemplateEngine\Factory',
+                    'Snowshoe\Publisher\Factory',
                     'Snowshoe\Helper\FileSystem',
                     'Snowshoe\Helper\Navigation',
                     'Snowshoe\Helper\Page',

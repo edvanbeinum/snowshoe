@@ -118,7 +118,7 @@ class S3Test extends \PHPUnit_Framework_TestCase
 
         $mockSplFileInfo = $this->_getMockSplFileInfo();
 
-        $this->_s3->putFile($mockSplFileInfo);
+        $this->_s3->putFile($mockSplFileInfo, $this->_filename);
 
         $this->assertArrayHasKey(
             'type',

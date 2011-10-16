@@ -7,6 +7,8 @@ defined('APPLICATION_PATH')
 
 require_once APPLICATION_PATH . 'Snowshoe/Vendor/Yadif/src/Yadif/Container.php';
 
+// we're eusing Zend components so make sure the Zend directory is in the include path
+set_include_path(implode(PATH_SEPARATOR, array(realpath(APPLICATION_PATH . '/Snowshoe/Vendor'), get_include_path())));
 
 /**
  * Dead simple autoloader that transforms a namespaced class name into a path and then loads it

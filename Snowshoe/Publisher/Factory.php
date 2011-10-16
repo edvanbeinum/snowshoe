@@ -6,7 +6,7 @@
  * @package Factory
  */
 
-namespace Snowshoe\Publish;
+namespace Snowshoe\Publisher;
 /**
  * Creates an instance of the request Publish class.
  * So far Amazon's S3 is supported
@@ -17,36 +17,44 @@ namespace Snowshoe\Publish;
 class Factory
 {
     /**
-     * @var Snowshoe\Publish\Adapter
+     * @var Snowshoe\Publisher\Adapter
      */
-    protected static $_publish;
+    protected static $_publisher;
+
+    protected $_config;
+
+    public function __construct(\Snowshoe\Config\AConfig $config)
+    {
+        $this->_config = $config;
+    }
 
     /**
-     * Simple parameterized factory method that returns an instance of the given TemplateEngine name.
+     * Simple parameterized factory method that returns an instance of the given Publisher name.
+     * Class not found Exceptions are handled by the autoloader
      *
-     * Exceptions are handled by the autoloader
-     *
-     * @param string $templateEngineName
-     * @return AAdapter
+     * @param   string  $publisherName
+     * @return  Snowshoe\Publisher\Adapter
      */
-    public function getPublisher($templateEngineName = NULL)
+    public function getPublisher($publisherName)
     {
-        if (is_null(self::$_templateEngine)) {
-            $newClassName = '\Snowshoe\TemplateEngine\Adapter\\' . ucwords(strtolower($templateEngineName));
-            return new $newClassName;
+        if (is_null(self::$_publisher)) {
+            $newClassName = '\Snowshoe\Publisher\Adapter\\' . ucwords(strtolower($publisherName));
+
+            // @todo revisit this. Use Yadif here instead so all deps are managed in one place
+            return new $newClassName($this->_config);
         }
         return self::$_templateEngine;
     }
 
     /**
-     * Sets the TemplateEngine. This is only used by the unit tests
+     * Sets the Publisher object. This is only used by the unit tests
      *
      * @static
-     * @param $templateEngine
+     * @param $publisher
      * @return void
      */
-    public static function setTemplateEngine($templateEngine)
+    public static function setPublisher($publisher)
     {
-        self::$_templateEngine = $templateEngine;
+        self::$_publisher = $publisher;
     }
 }

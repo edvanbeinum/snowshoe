@@ -96,6 +96,30 @@ class Page
     }
 
     /**
+     * Helper function that takesa a string to an abolsute path to a file in the public directory and returns the
+     * path relative to the public directory.
+     *
+     * e.g
+     * Public Path:         /home/ed/snowshow.public/test/index.html
+     * Page URL:            http://getsnowshoe.com/test/index.html (if in production mode)
+     * RelativePublicPath:  /test/index.hmtl
+     *
+     * @param $publicPath
+     * @return void
+     */
+    public function getRelativePublicPath($publicPath)
+    {
+        $absolutePublicFolderPath = APPLICATION_PATH . $this->_config->getPublicDirectory();
+        
+        return str_replace(
+            $absolutePublicFolderPath,
+            '',
+            $publicPath
+
+        );
+    }
+
+    /**
      * Gets the URL of the given content file path.
      * If we're in production mode then it will return the URL with the publish_location
      * Otherwise it will return the URL with the public directory
@@ -121,19 +145,18 @@ class Page
 
     }
 
-        /**
-         * Helper function that converts the file extension from the formatter extension to the template engine extension
-         *
-         * @param $contentFilename
-         * @return string
-         */
-        public
-        function getPublicFilename($contentFilename)
-        {
-            return str_replace(
-                $this->_config->getFormatterFileExtension(),
-                $this->_config->getPublicFileExtension(),
-                $contentFilename
-            );
-        }
+    /**
+     * Helper function that converts the file extension from the formatter extension to the template engine extension
+     *
+     * @param $contentFilename
+     * @return string
+     */
+    public function getPublicFilename($contentFilename)
+    {
+        return str_replace(
+            $this->_config->getFormatterFileExtension(),
+            $this->_config->getPublicFileExtension(),
+            $contentFilename
+        );
     }
+}

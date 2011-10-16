@@ -14,7 +14,7 @@ namespace Snowshoe\Publisher\Adapter;
  * @package Snowshoe
  * @author Ed van Beinum <edwin@sessiondigital.com>
  */
-class S3 implements \Snowshoe\Publisher\Adapter
+class S3 implements \Snowshoe\Publisher\IAdapter
 {
 
     /**
@@ -58,16 +58,6 @@ class S3 implements \Snowshoe\Publisher\Adapter
         return $this->_s3Service;
     }
 
-    /**
-     * Publishes the files in the public/ folder to a external location
-     *
-     * @return boolean
-     */
-    public function publish()
-    {
-        $this->createBucket($this->_config->getS3BucketName());
-
-    }
 
     /**
      * Creates a bucket on S3 with the given name if it doesn't already exist
@@ -83,17 +73,21 @@ class S3 implements \Snowshoe\Publisher\Adapter
         return TRUE;
     }
 
-    public function putFile(\SplFileInfo $fileInfo)
+    /**
+     * Uploads a file to S3
+     *
+     * @param \SplFileInfo $fileInfo
+     * @param string $relativePath
+     * @return void
+     */
+    public function putFile(\SplFileInfo $fileInfo, $relativePath)
     {
-        $s3Path = $this->_config->getS3BucketName() . DIRECTORY_SEPARATOR . $fileInfo->getFilename();
+        $s3Path = $this->_config->getS3BucketName() . DIRECTORY_SEPARATOR . ltrim($relativePath, DIRECTORY_SEPARATOR);
 
         $this->_s3Service->putFile(
             $fileInfo->getPathname(),
             $s3Path,
-            array(
-                 \Zend_Service_Amazon_S3::S3_ACL_HEADER =>
-                \Zend_Service_Amazon_S3::S3_ACL_PUBLIC_READ
-            )
+            array(\Zend_Service_Amazon_S3::S3_ACL_HEADER => \Zend_Service_Amazon_S3::S3_ACL_PUBLIC_READ)
         );
     }
 
@@ -108,15 +102,5 @@ class S3 implements \Snowshoe\Publisher\Adapter
         $s3Path = $this->_config->getS3BucketName() . DIRECTORY_SEPARATOR . $fileInfo->getFilename();
         $this->getS3Service()->removeObject($s3Path);
         return TRUE;
-    }
-
-    /**
-     * Deletes the files from an external location
-     *
-     * @return boolean
-     */
-    public function delete()
-    {
-        // TODO: Implement delete() method.
     }
 }
