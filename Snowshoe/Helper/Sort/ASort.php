@@ -10,7 +10,7 @@
 namespace Snowshoe\Helper\Sort;
 
 /**
- * Interface for the Sort classes. The sort function is used as a usort() callback
+ * Interface for the Sort classes. The sort function is used as a usort() callback so they must be static
  *
  * @package Snowshoe
  * @author Ed van Beinum <edwin@sessiondigital.com>

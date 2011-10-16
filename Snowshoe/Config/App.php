@@ -56,6 +56,11 @@ class App extends AConfig
         // What criteria should the navigation be sorted on? asc | desc
         'navigation_sort_direction' => 'desc',
 
+        // For auto-publishing the site, these contains the API credentials for Amazon S3
+        's3_key' => '',
+        's3_secret_key' => '',
+        's3_bucket_name' => '',
+
         // Dependencies required for each class. Snowshoe uses Yadif out of the box
         'dependencies' => array(
             'Snowshoe\Config\App' => array('Snowshoe\Config\App'),
