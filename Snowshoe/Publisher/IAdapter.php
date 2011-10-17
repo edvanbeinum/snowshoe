@@ -29,9 +29,9 @@ interface IAdapter {
      * Deletes a file from an external location
      *
      * @abstract
-     * @param \SplFileInfo $fileInfo
+     * @param string $realativePath
      * @return bool
      */
-    public function deleteFile(\SplFileInfo$fileInfo);
+    public function deleteFile($realativePath);
 
 }

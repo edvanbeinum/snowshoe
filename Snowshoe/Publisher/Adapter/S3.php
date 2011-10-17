@@ -62,7 +62,7 @@ class S3 implements \Snowshoe\Publisher\IAdapter
     /**
      * Creates a bucket on S3 with the given name if it doesn't already exist
      *
-     * @param   String  $bucketName
+     * @param   string  $bucketName
      * @return  bool
      */
     public function createBucket($bucketName)
@@ -82,8 +82,7 @@ class S3 implements \Snowshoe\Publisher\IAdapter
      */
     public function putFile(\SplFileInfo $fileInfo, $relativePath)
     {
-        $s3Path = $this->_config->getS3BucketName() . DIRECTORY_SEPARATOR . ltrim($relativePath, DIRECTORY_SEPARATOR);
-
+        $s3Path = $this->_getS3Path($relativePath);
         $this->_s3Service->putFile(
             $fileInfo->getPathname(),
             $s3Path,
@@ -94,13 +93,26 @@ class S3 implements \Snowshoe\Publisher\IAdapter
     /**
      * Deletes a file from the S3 bucket with the filename of the SplFileInfo
      *
-     * @param \SplFileInfo $fileInfo
+     * @param string $relativePath
      * @return bool
      */
-    public function deleteFile(\SplFileInfo $fileInfo)
+    public function deleteFile($relativePath)
     {
-        $s3Path = $this->_config->getS3BucketName() . DIRECTORY_SEPARATOR . $fileInfo->getFilename();
+        $s3Path = $this->_getS3Path($relativePath);
         $this->getS3Service()->removeObject($s3Path);
         return TRUE;
+    }
+
+    /**
+     * Returns a string formatted to locate an object on S3
+     * Prepends the Bucket name to begining of the relative file path
+     *
+     * @param string $relativePath
+     * @return string
+     */
+    protected function _getS3Path($relativePath)
+    {
+        return $this->_config->getS3BucketName() . DIRECTORY_SEPARATOR . ltrim($relativePath, DIRECTORY_SEPARATOR);
+
     }
 }

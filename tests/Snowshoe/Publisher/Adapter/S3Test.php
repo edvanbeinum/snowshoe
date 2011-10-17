@@ -98,13 +98,32 @@ class S3Test extends \PHPUnit_Framework_TestCase
     {
         $mockBuilder = $this->getMockBuilder('\splFileInfo')->disableOriginalConstructor();
         $mockSplFileInfo = $mockBuilder->getMock();
-        $mockSplFileInfo->expects($this->once())
-                ->method('getFilename')
-                ->will($this->returnValue($this->_filename));
+
         $mockSplFileInfo->expects($this->any())
                 ->method('getPathname')
                 ->will($this->returnValue(APPLICATION_PATH . '/public/index.html'));
         return $mockSplFileInfo;
+    }
+
+    /**
+     * @test
+     */
+    public function setS3Service_sets_the_class_var()
+    {
+        $builder = $this->getMockBuilder('\Zend_Service_Amazon_S3')->disableOriginalConstructor();
+        $mockS3Service = $builder->getMock();
+        $this->_s3->setS3Service($mockS3Service);
+        $this->assertEquals($mockS3Service, $this->_s3->getS3Service());
+    }
+
+    /**
+     * @test
+     */
+    public function createBucket_creates_bucket_on_s3()
+    {
+        $bucketName = 'unique.getsnowshoe.com';
+        $this->_s3->createBucket($bucketName);
+        $this->_s3->getS3Service()->isBucketAvailable($bucketName);
     }
 
     /**
@@ -138,7 +157,7 @@ class S3Test extends \PHPUnit_Framework_TestCase
         }
         $mockSplFileInfo = $this->_getMockSplFileInfo();
 
-        $this->_s3->deleteFile($mockSplFileInfo);
+        $this->_s3->deleteFile($this->_filename);
 
         $this->assertFalse(
             $this->_s3->getS3Service()->getInfo(

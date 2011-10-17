@@ -35,7 +35,7 @@ class Factory
      * @param   string  $publisherName
      * @return  Snowshoe\Publisher\Adapter
      */
-    public function getPublisher($publisherName)
+    public function getPublisher($publisherName = NULL)
     {
         if (is_null(self::$_publisher)) {
             $newClassName = '\Snowshoe\Publisher\Adapter\\' . ucwords(strtolower($publisherName));
@@ -43,7 +43,7 @@ class Factory
             // @todo revisit this. Use Yadif here instead so all deps are managed in one place
             return new $newClassName($this->_config);
         }
-        return self::$_templateEngine;
+        return self::$_publisher;
     }
 
     /**
