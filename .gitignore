@@ -1,2 +1,3 @@
 public/*
 tests/report/*
+tests/Snowshoe/Publisher/S3Credentials.php

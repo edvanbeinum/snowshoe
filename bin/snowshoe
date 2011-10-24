@@ -2,6 +2,7 @@
 <?php
 
 // Run the Snowshoe static site generator from cmd line
+
 require_once dirname(__FILE__) . '/../Snowshoe/bootstrap.php';
 
 
@@ -9,6 +10,7 @@ $config = new \Snowshoe\Config\App;
 
 $shortOptions = "p";
 $args = getopt($shortOptions);
+
 // Are we in production mode?
 // getopt will return an array with p => FALSE if this script is run with the -p flag
 // or no key if -p is not present
@@ -25,6 +27,7 @@ try {
 
     // Away we go
     $builder->execute();
+    
 } catch (Exception $e) {
 
     //@todo implement a semi-decent logging system
@@ -41,11 +44,12 @@ if ($config->getIsProductionMode()) {
     $siteLocation = realpath(APPLICATION_PATH . $config->getPublicDirectory());
 }
 $snowshoeLogo = <<<EOT
- ____                          _
-/ ___| _ __   _____      _____| |__   ___   ___
-\___ \| '_ \ / _ \ \ /\ / / __| '_ \ / _ \ / _ \
- ___) | | | | (_) \ V  V /\__ \ | | | (_) |  __/
-|____/|_| |_|\___/ \_/\_/ |___/_| |_|\___/ \___|
+   .'____                          _   *.
+    / ___| _ __   _____      _____| |__  *___   ___ .
+    \___ \| '_ \ / _ \ \ /\ / / __| '_ \ / _ \ / _ \ *
+     ___) | | | | (_) \ V  V /\__ \ | | | (_) |  __/
+   .|____/|_| |_|\___/ \_/\_/ |___/_| |_|\___/ \___|
+   '*
 EOT;
 
 echo "$snowshoeLogo \nhas run...\nSee your new site at: \n\n", $siteLocation, "\n\n";

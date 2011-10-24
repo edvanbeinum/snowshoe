@@ -96,13 +96,44 @@ class Page
     }
 
     /**
-     * Gets the relative URL of the given content file path.
+     * Helper function that takesa a string to an abolsute path to a file in the public directory and returns the
+     * path relative to the public directory.
+     *
+     * e.g
+     * Public Path:         /home/ed/snowshow.public/test/index.html
+     * Page URL:            http://getsnowshoe.com/test/index.html (if in production mode)
+     * RelativePublicPath:  /test/index.hmtl
+     *
+     * @param $publicPath
+     * @return void
+     */
+    public function getRelativePublicPath($publicPath)
+    {
+        $absolutePublicFolderPath = APPLICATION_PATH . $this->_config->getPublicDirectory();
+        
+        return str_replace(
+            $absolutePublicFolderPath,
+            '',
+            $publicPath
+
+        );
+    }
+
+    /**
+     * Gets the URL of the given content file path.
+     * If we're in production mode then it will return the URL with the publish_location
+     * Otherwise it will return the URL with the public directory
      *
      * @param string $contentPath
      * @return mixed|string
      */
     public function getPageUrl($contentPath)
     {
+        if (!$this->_config->getIsProductionMode()) {
+            return $this->getPublicFilePath($contentPath);
+        }
+        // If in production mode we replace the Content Path with the publish_location value
+
         $contentPath = $this->getPublicFilename($contentPath);
         $absoluteContentPath = APPLICATION_PATH . $this->_config->getContentDirectory();
 

@@ -32,6 +32,12 @@ class Builder
      */
     protected $_templateEngine;
 
+    /**
+     * Class variabel to hold the TemplateEngine object
+     *
+     * @var Publisher\IAdapter
+     */
+    protected $_publisher;
 
     /**
      * Class variable to hold the FileSystem Object
@@ -94,6 +100,7 @@ class Builder
     public function __construct(
         \Snowshoe\Formatter\Factory $formatterFactory,
         \Snowshoe\TemplateEngine\Factory $templateEngineFactory,
+        \Snowshoe\Publisher\Factory $publisherFactory,
         \Snowshoe\Helper\FileSystem $fileSystem,
         \Snowshoe\Helper\Navigation $navigation,
         \Snowshoe\Helper\Page $page,
@@ -103,6 +110,7 @@ class Builder
         $this->_config = $config;
         $this->_formatter = $formatterFactory->getFormatter($this->_config->getFormatter());
         $this->_templateEngine = $templateEngineFactory->getTemplateEngine($this->_config->getTemplateEngine());
+        $this->_publisher = $publisherFactory->getPublisher($this->_config->getPublisher());
         $this->_fileSystem = $fileSystem;
         $this->_navigation = $navigation;
         $this->_page = $page;
@@ -148,6 +156,26 @@ class Builder
             // Write page to the public directory
             $publicFilePath = $this->_page->getPublicFilePath($fileInfo->getPathname());
             $this->_fileSystem->createFile($publicFilePath, $completePage);
+
+            if ($this->_config->getIsProductionMode() && $this->_config->getisAutoPublish()) {
+                $this->publish();
+            }
+        }
+    }
+
+    /**
+     * Uplodas all files in public directory to a remote server.
+     *
+     * @return void
+     */
+    public function publish()
+    {
+        $publicFiles = $this->_fileSystem->getFilesInDirectory(
+            $this->_publicDirectory, $this->_config->getPublicFileExtension()
+        );
+        foreach ($publicFiles as $fileInfo) {
+            $relativePath = $this->_page->getRelativePublicPath($fileInfo->getPathname());
+            $this->_publisher->putFile($fileInfo, $relativePath);
         }
     }
 
