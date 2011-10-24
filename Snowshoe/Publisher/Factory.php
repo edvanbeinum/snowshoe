@@ -21,8 +21,16 @@ class Factory
      */
     protected static $_publisher;
 
+    /**
+     * @var \Snowshoe\Config\AConfig
+     */
     protected $_config;
 
+    /**
+     * Construct-ola
+     *
+     * @param \Snowshoe\Config\AConfig $config
+     */
     public function __construct(\Snowshoe\Config\AConfig $config)
     {
         $this->_config = $config;
@@ -39,8 +47,6 @@ class Factory
     {
         if (is_null(self::$_publisher)) {
             $newClassName = '\Snowshoe\Publisher\Adapter\\' . ucwords(strtolower($publisherName));
-
-            // @todo revisit this. Use Yadif here instead so all deps are managed in one place
             return new $newClassName($this->_config);
         }
         return self::$_publisher;

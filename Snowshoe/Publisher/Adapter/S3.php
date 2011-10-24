@@ -27,6 +27,11 @@ class S3 implements \Snowshoe\Publisher\IAdapter
      */
     protected $_config;
 
+    /**
+     * Construct away!
+     *
+     * @param \Snowshoe\Config\AConfig $config
+     */
     public function __construct(\Snowshoe\Config\AConfig $config)
     {
         $this->_config = $config;
