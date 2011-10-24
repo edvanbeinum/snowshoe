@@ -148,18 +148,15 @@ class PageTest extends PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function getPageUrl_replaces_Content_dir_with_publish_location()
+    public function getPageUrl_returns_relative_url()
     {
-        $config = $this->getMock('\Snowshoe\Config\App', array('getIsProductionMode', 'getContentDirectory', 'getPublishLocation', 'getFormatterFileExtension', 'getPublicFileExtension'));
+        $config = $this->getMock('\Snowshoe\Config\App', array('getIsProductionMode', 'getContentDirectory', 'getFormatterFileExtension', 'getPublicFileExtension'));
         $config->expects($this->any())
                 ->method('getIsProductionMode')
                 ->will($this->returnValue(TRUE));
         $config->expects($this->once())
                 ->method('getContentDirectory')
                 ->will($this->returnValue('/absolute/content/dir'));
-        $config->expects($this->once())
-                ->method('getPublishLocation')
-                ->will($this->returnValue('http://getsnowshoe.com'));
         $config->expects($this->once())
                 ->method('getFormatterFileExtension')
                 ->will($this->returnValue('.md'));
@@ -169,33 +166,8 @@ class PageTest extends PHPUnit_Framework_TestCase
         $mockFactory = $this->getMock('\Snowshoe\Formatter\Factory');
         $page = $this->_getPage($mockFactory, $config);
 
-        $expected = 'http://getsnowshoe.com/subdir/filename.html';
+        $expected = '/subdir/filename.html';
         $this->assertSame($expected, $page->getPageUrl(APPLICATION_PATH . '/absolute/content/dir/subdir/filename.md'));
 
     }
-
-    /**
-     * @test
-     */
-    public function getPageUrl_calls_getPublicDir_when_not_in_production_mode()
-    {
-        $config = $this->getMock('\Snowshoe\Config\App', array('getIsProductionMode'));
-        $config->expects($this->any())
-                ->method('getIsProductionMode')
-                ->will($this->returnValue(FALSE));
-
-        $mockFactory = $this->getMock('\Snowshoe\Formatter\Factory');
-
-        $page = $this->getMockBuilder('\Snowshoe\Helper\Page')
-                ->setConstructorArgs(array($mockFactory, $config))
-                ->setMethods(array('getPublicFilePath'))
-                ->getMock();
-        $page->expects($this->once())
-                ->method('getPublicFilePath')
-                ->with('test/path');
-
-        $page->getPageUrl('test/path');
-
-    }
-
 }

@@ -109,19 +109,18 @@ class Page
         return str_replace($absoluteContentPath, '', $contentPath);
     }
 
-        /**
-         * Helper function that converts the file extension from the formatter extension to the template engine extension
-         *
-         * @param $contentFilename
-         * @return string
-         */
-        public
-        function getPublicFilename($contentFilename)
-        {
-            return str_replace(
-                $this->_config->getFormatterFileExtension(),
-                $this->_config->getPublicFileExtension(),
-                $contentFilename
-            );
-        }
+    /**
+     * Helper function that converts the file extension from the formatter extension to the template engine extension
+     *
+     * @param $contentFilename
+     * @return string
+     */
+    public function getPublicFilename($contentFilename)
+    {
+        return str_replace(
+            $this->_config->getFormatterFileExtension(),
+            $this->_config->getPublicFileExtension(),
+            $contentFilename
+        );
     }
+}
