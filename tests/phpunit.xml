@@ -2,7 +2,7 @@
 <phpunit convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
-        
+
          colors="true">
     <testsuites>
         <testsuite name="Snowshoe TestSuite">
@@ -14,5 +14,7 @@
             <directory suffix=".php">../Snowshoe/Vendor/</directory>
         </blacklist>
     </filter>
-
+    <logging>
+        <log type="coverage-clover" target="report/coverage.xml"/>
+    </logging>
 </phpunit>

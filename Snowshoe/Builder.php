@@ -89,9 +89,10 @@ class Builder
 
     /**
      * Construct this sucker
-     *
+     * 
      * @param Formatter\Factory $formatterFactory
      * @param TemplateEngine\Factory $templateEngineFactory
+     * @param Publisher\Factory $publisherFactory
      * @param Helper\FileSystem $fileSystem
      * @param Helper\Navigation $navigation
      * @param Helper\Page $page
