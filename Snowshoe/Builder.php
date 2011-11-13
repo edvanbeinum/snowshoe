@@ -128,7 +128,7 @@ class Builder
      */
     public function execute()
     {
-
+        $t = new \Snowshoe\fake;
         // Get file in the Content Directory
         $contentFiles = $this->_getContentFiles();
         $template = $this->_fileSystem->getFile($this->_templatePath);

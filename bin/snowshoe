@@ -24,15 +24,14 @@ $yadif = new Yadif_Container($config->getDependencies());
 $builder = $yadif->getComponent('Snowshoe\Builder');
 
 try {
-
     // Away we go
     $builder->execute();
-    
-} catch (Exception $e) {
+} catch (\Snowshoe\Exception $e) {
 
     //@todo implement a semi-decent logging system
     echo str_pad('', 30, "*") . "\n\n";
-    echo "Snowshoe failed! \n\n";
+    echo "Oh no, Snowshoe failed! \n\n";
+    echo get_class($e) . "\n\n";
     echo $e->getMessage() . "\n\n";
     echo $e->getTraceAsString() . "\n\n";
     exit(1);
