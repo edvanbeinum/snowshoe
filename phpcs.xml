@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<ruleset name="Custom Standard">
+    <description>A custom coding standard</description>
+    <exclude-pattern>*/tests/*</exclude-pattern>
+    <rule ref="Zend"/>
+    <!--
+    Here we are including a specific sniff but also changing
+    the error message of a specific message inside the sniff.
+    Note that the specific code for the message, which is
+    CommentFound in this case, is defined by the sniff developer.
+    You can display these codes by using the -s command line
+    argument when checking a file.
+
+    Also note that this message has a variable inside it,
+    which is why it is important that sniffs use a printf style
+    format for their error messages.
+
+    We also drop the severity of this message from the
+    default value (5) so that it is hidden by default. It can be
+    displayed by setting the minimum severity on the PHP_CodeSniffer
+    command line. This is great if you want to use some messages
+    only in code reviews and not have them block code commits.
+ -->
+    <rule ref="Generic.Commenting.Todo.CommentFound">
+        <message>Please review this TODO comment: %s</message>
+        <severity>5</severity>
+    </rule>
+    <!--
+    Here we change two messages from the same sniff. Note how the
+    codes are slightly different because the sniff developer has
+    defined both a MaxExceeded message and a TooLong message. In the
+    case of this sniff, one is used for warnings and one is used
+    for errors.
+ -->
+    <rule ref="Generic.Files.LineLength.MaxExceeded">
+        <message>Line length Max limit is %s  but line contains %s chars</message>
+    </rule>
+    <rule ref="Generic.Files.LineLength.TooLong">
+        <message>Line longer than %s characters; contains %s characters</message>
+    </rule>
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="120"/>
+            <property name="absoluteLineLimit" value="120"/>
+        </properties>
+    </rule>
+</ruleset>
